@@ -144,7 +144,7 @@
           <span style="display:inline-flex;align-items:center;font-family:var(--mono);font-size:11.5px;font-weight:600;letter-spacing:0.5px;text-transform:uppercase;color:var(--accent);background:rgba(224,88,154,0.1);border:1px solid rgba(224,88,154,0.22);padding:5px 10px;border-radius:999px">Messaging</span>
           <span style="display:inline-flex;align-items:center;gap:5px;font-size:13px;font-weight:600;color:var(--faint)">
             <svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor"><path d="M8 1.3l2.06 4.17 4.6.67-3.33 3.24.78 4.58L8 11.8l-4.11 2.16.78-4.58L1.34 6.14l4.6-.67L8 1.3z"></path></svg>
-            18
+            <span class="star-count" data-repo="btravstack/amqp-contract">18</span>
           </span>
         </div>
         <h3 style="margin:18px 0 0;font-weight:800;font-size:23px;letter-spacing:-0.6px;color:var(--text)">amqp-contract</h3>
@@ -175,7 +175,7 @@
           <span style="display:inline-flex;align-items:center;font-family:var(--mono);font-size:11.5px;font-weight:600;letter-spacing:0.5px;text-transform:uppercase;color:var(--accent);background:rgba(224,88,154,0.1);border:1px solid rgba(224,88,154,0.22);padding:5px 10px;border-radius:999px">Workflows</span>
           <span style="display:inline-flex;align-items:center;gap:5px;font-size:13px;font-weight:600;color:var(--faint)">
             <svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor"><path d="M8 1.3l2.06 4.17 4.6.67-3.33 3.24.78 4.58L8 11.8l-4.11 2.16.78-4.58L1.34 6.14l4.6-.67L8 1.3z"></path></svg>
-            7
+            <span class="star-count" data-repo="btravstack/temporal-contract">7</span>
           </span>
         </div>
         <h3 style="margin:18px 0 0;font-weight:800;font-size:23px;letter-spacing:-0.6px;color:var(--text)">temporal-contract</h3>
@@ -206,7 +206,7 @@
           <span style="display:inline-flex;align-items:center;font-family:var(--mono);font-size:11.5px;font-weight:600;letter-spacing:0.5px;text-transform:uppercase;color:var(--accent);background:rgba(224,88,154,0.1);border:1px solid rgba(224,88,154,0.22);padding:5px 10px;border-radius:999px">Errors</span>
           <span style="display:inline-flex;align-items:center;gap:5px;font-size:13px;font-weight:600;color:var(--faint)">
             <svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor"><path d="M8 1.3l2.06 4.17 4.6.67-3.33 3.24.78 4.58L8 11.8l-4.11 2.16.78-4.58L1.34 6.14l4.6-.67L8 1.3z"></path></svg>
-            1
+            <span class="star-count" data-repo="btravstack/unthrown">1</span>
           </span>
         </div>
         <h3 style="margin:18px 0 0;font-weight:800;font-size:23px;letter-spacing:-0.6px;color:var(--text)">unthrown</h3>
@@ -298,6 +298,23 @@
         clearTimeout(timer);
         timer = setTimeout(function () { toast.style.display = 'none'; }, 1600);
       });
+    });
+
+    // Live GitHub star counts (falls back to the static numbers on any error).
+    function formatStars(n) {
+      return n >= 1000 ? (n / 1000).toFixed(n >= 10000 ? 0 : 1).replace(/\.0$/, '') + 'k' : String(n);
+    }
+    document.querySelectorAll('.star-count[data-repo]').forEach(function (el) {
+      fetch('https://api.github.com/repos/' + el.getAttribute('data-repo'), {
+        headers: { Accept: 'application/vnd.github+json' }
+      })
+        .then(function (r) { return r.ok ? r.json() : Promise.reject(r.status); })
+        .then(function (d) {
+          if (typeof d.stargazers_count === 'number') {
+            el.textContent = formatStars(d.stargazers_count);
+          }
+        })
+        .catch(function () {});
     });
   })();
 </script>
