@@ -19,7 +19,10 @@
 @import "./tokens.css";
 
 /* ── Brand defaults + typography (both schemes) ────────────────── */
-:root {
+/* `:root:root` / `:root.dark` raise specificity to (0,2,0) so these win
+   over VitePress's own `:root` / `.dark` defaults regardless of the order
+   the remote @import lands in the cascade. */
+:root:root {
   --vp-c-brand-1: var(--accent);
   --vp-c-brand-2: var(--bt-magenta);
   --vp-c-brand-3: var(--accent-deep);
@@ -58,7 +61,7 @@
 }
 
 /* ── Dark scheme: btravstack surfaces (matches the landing page) ── */
-.dark {
+:root.dark {
   --vp-c-bg: var(--bg);
   --vp-c-bg-alt: var(--card);
   --vp-c-bg-soft: var(--card-soft);
