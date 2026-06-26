@@ -46,11 +46,12 @@ import './custom.css'
 export default DefaultTheme
 ```
 
-For a full match, default the docs to dark in `.vitepress/config.ts`:
-
-```ts
-export default defineConfig({ appearance: 'dark' })
-```
+The adapter themes **both** color schemes, so you can leave VitePress's
+default (`appearance: true`) to follow each visitor's OS preference — dark
+adopts the btravstack surfaces, light keeps clean white surfaces with the
+brand darkened for WCAG-AA contrast. If you'd rather pick a default, set
+`appearance: 'dark'` (dark default, toggle kept) or `'force-dark'` (dark
+only, no toggle) in `.vitepress/config.ts`.
 
 ## Distribution
 
