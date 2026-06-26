@@ -1,0 +1,81 @@
+/*
+ * btravstack design tokens — the single source of truth.
+ * Every surface (this landing page + the VitePress docs sites) derives
+ * its look from these CSS custom properties. Change a value here, bump
+ * the version, and every consumer updates.
+ *
+ * Naming: semantic tokens (--bg, --text, --accent) are what you should
+ * reference in app code. The raw --bt-* brand palette underneath them is
+ * the provenance, exposed so adapters (e.g. VitePress) can remap freely.
+ */
+:root {
+  /* ── Brand palette (raw beetroot) ─────────────────────────────── */
+  --bt-pink:        #E0589A;   /* beetroot flesh — primary accent      */
+  --bt-pink-soft:   #EE9CC4;   /* highlight veins                      */
+  --bt-magenta:     #CE3D80;   /* mid root                             */
+  --bt-deep:        #8E1A52;   /* dark root                            */
+  --bt-deep-2:      #7A1646;   /* root tail                            */
+  --bt-leaf:        #3DAE62;   /* center leaf                          */
+  --bt-leaf-dark:   #2C8B4E;   /* side leaves                          */
+  --bt-green:       #46B86C;   /* "success" green (checks)             */
+  --bt-cream:       #F5EFF3;   /* near-white text                      */
+  --bt-ink:         #1a0c14;   /* near-black, for text on accent       */
+
+  /* ── Surfaces ─────────────────────────────────────────────────── */
+  --bg:             #15101c;
+  --bg-grad:        #1b1326;   /* radial hero glow inner stop          */
+  --card:           #1d1726;
+  --card-soft:      #241c31;
+
+  /* ── Borders / dividers ──────────────────────────────────────── */
+  --border:         rgba(255, 255, 255, 0.08);
+  --border-2:       rgba(255, 255, 255, 0.12);
+
+  /* ── Text ────────────────────────────────────────────────────── */
+  --text:           #F5EFF3;
+  --muted:          #AEA1BC;
+  --faint:          #7E7290;
+
+  /* ── Accent (semantic alias of the brand pink) ───────────────── */
+  --accent:         #E0589A;
+  --accent-deep:    #8E1A52;
+  --accent-contrast:#1a0c14;   /* readable text on an accent fill      */
+  --accent-rgb:     224, 88, 154; /* for rgba(var(--accent-rgb), .3)   */
+  --green:          #46B86C;
+
+  /* ── Typography ──────────────────────────────────────────────── */
+  --sans: 'Montserrat', 'Segoe UI', system-ui, sans-serif;
+  --mono: 'JetBrains Mono', ui-monospace, 'SF Mono', Menlo, monospace;
+  --fw-medium:   500;
+  --fw-semibold: 600;
+  --fw-bold:     700;
+  --fw-extrabold:800;
+
+  /* ── Radii ───────────────────────────────────────────────────── */
+  --radius-sm:   9px;
+  --radius:      12px;
+  --radius-lg:   16px;
+  --radius-xl:   20px;
+  --radius-2xl:  24px;
+  --radius-pill: 999px;
+
+  /* ── Spacing scale ───────────────────────────────────────────── */
+  --space-1:  6px;
+  --space-2:  9px;
+  --space-3:  14px;
+  --space-4:  18px;
+  --space-5:  22px;
+  --space-6:  28px;
+
+  /* ── Shadows ─────────────────────────────────────────────────── */
+  --shadow-card:   0 24px 60px -28px rgba(0, 0, 0, 0.8);
+  --shadow-accent: 0 12px 30px -10px rgba(224, 88, 154, 0.6);
+  --shadow-toast:  0 18px 40px -16px rgba(0, 0, 0, 0.8);
+
+  /* ── Layout ──────────────────────────────────────────────────── */
+  --container: 1180px;
+
+  /* ── Motion ──────────────────────────────────────────────────── */
+  --speed-fast: 0.15s;
+  --speed:      0.2s;
+}

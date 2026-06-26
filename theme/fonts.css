@@ -1,0 +1,6 @@
+/*
+ * btravstack web fonts. Montserrat (display/UI) + JetBrains Mono (code).
+ * Loaded from Google Fonts so the system stays zero-asset and portable;
+ * the weights here match the --fw-* tokens in tokens.css.
+ */
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap');

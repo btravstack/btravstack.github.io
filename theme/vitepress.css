@@ -1,0 +1,68 @@
+/*
+ * btravstack → VitePress adapter.
+ *
+ * Maps the btravstack design tokens onto VitePress's own `--vp-*` theme
+ * variables, so the docs sites (amqp-contract, temporal-contract,
+ * unthrown) match this landing page from a single import.
+ *
+ * Usage in a docs repo (.vitepress/theme/index.ts or a custom.css):
+ *   @import "https://cdn.jsdelivr.net/gh/btravstack/btravstack.github.io@main/theme/vitepress.css";
+ * (pin @main to a tag like @v1.0.0 once you cut releases — see theme/README.md)
+ *
+ * The brand accent + fonts apply to both color schemes; the dark scheme
+ * additionally adopts the btravstack surface palette. Set the docs to dark
+ * by default in config for a full visual match:
+ *   // .vitepress/config.ts → export default defineConfig({ appearance: 'dark' })
+ */
+@import "./fonts.css";
+@import "./tokens.css";
+
+/* ── Brand + typography (both light and dark) ──────────────────── */
+:root {
+  --vp-c-brand-1: var(--accent);
+  --vp-c-brand-2: var(--bt-magenta);
+  --vp-c-brand-3: var(--accent-deep);
+  --vp-c-brand-soft: rgba(var(--accent-rgb), 0.14);
+  --vp-c-brand: var(--accent); /* legacy alias */
+
+  --vp-font-family-base: var(--sans);
+  --vp-font-family-mono: var(--mono);
+
+  /* Solid brand buttons (hero CTA, etc.) */
+  --vp-button-brand-bg: var(--accent);
+  --vp-button-brand-text: var(--accent-contrast);
+  --vp-button-brand-border: transparent;
+  --vp-button-brand-hover-bg: var(--bt-magenta);
+  --vp-button-brand-hover-text: var(--accent-contrast);
+  --vp-button-brand-hover-border: transparent;
+  --vp-button-brand-active-bg: var(--accent-deep);
+  --vp-button-brand-active-text: var(--accent-contrast);
+
+  /* Home hero: gradient name + beetroot glow behind the logo */
+  --vp-home-hero-name-color: transparent;
+  --vp-home-hero-name-background: linear-gradient(120deg, var(--accent), var(--bt-pink-soft));
+  --vp-home-hero-image-background-image: radial-gradient(closest-side, rgba(var(--accent-rgb), 0.30), transparent 72%);
+  --vp-home-hero-image-filter: blur(8px);
+}
+
+/* ── Dark scheme = btravstack surfaces (matches the landing page) ── */
+.dark {
+  --vp-c-bg: var(--bg);
+  --vp-c-bg-alt: var(--card);
+  --vp-c-bg-soft: var(--card-soft);
+  --vp-c-bg-elv: var(--card);
+
+  --vp-c-text-1: var(--text);
+  --vp-c-text-2: var(--muted);
+  --vp-c-text-3: var(--faint);
+
+  --vp-c-divider: var(--border);
+  --vp-c-border: var(--border-2);
+  --vp-c-gutter: var(--border);
+
+  --vp-c-brand-soft: rgba(var(--accent-rgb), 0.16);
+
+  /* Inline + block code */
+  --vp-code-color: var(--bt-pink-soft);
+  --vp-code-bg: rgba(0, 0, 0, 0.35);
+}
