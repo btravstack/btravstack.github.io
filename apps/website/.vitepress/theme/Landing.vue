@@ -1,5 +1,13 @@
 <script setup lang="ts">
 import { onMounted, reactive, ref } from "vue";
+import { useData } from "vitepress";
+
+// Appearance follows the OS by default (VitePress `appearance: true`); this
+// toggle lets visitors pick light or dark explicitly (persisted by VitePress).
+const { isDark } = useData();
+function toggleAppearance() {
+  isDark.value = !isDark.value;
+}
 
 const principles = [
   { num: "01", title: "Contracts, not guesswork", body: "Declare your interface once. Types, autocompletion and validation flow to every call site — publisher, consumer, worker and client." },
@@ -86,6 +94,12 @@ onMounted(() => {
         <nav class="btv-nav">
           <a class="navlink nav-hide" href="#philosophy">Philosophy</a>
           <a class="navlink nav-hide" href="#projects" style="margin-right:6px">Projects</a>
+          <ClientOnly>
+            <button type="button" class="btv-toggle" :title="isDark ? 'Switch to light' : 'Switch to dark'" :aria-label="isDark ? 'Switch to light theme' : 'Switch to dark theme'" @click="toggleAppearance">
+              <svg v-if="isDark" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4.2"/><path d="M12 2.5v2M12 19.5v2M4.8 4.8l1.4 1.4M17.8 17.8l1.4 1.4M2.5 12h2M19.5 12h2M4.8 19.2 6.2 17.8M17.8 6.2 19.2 4.8"/></svg>
+              <svg v-else width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 14.5A8 8 0 1 1 9.5 4 6.4 6.4 0 0 0 20 14.5Z"/></svg>
+            </button>
+          </ClientOnly>
           <a href="https://github.com/btravstack" target="_blank" rel="noopener" class="cta-ghost btv-ghost-btn">
             <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8z"/></svg>
           GitHub
@@ -218,18 +232,52 @@ onMounted(() => {
 
 <style scoped>
 .btv {
+  --btv-glass: rgba(21, 16, 28, 0.66);
+  --btv-hover: rgba(255, 255, 255, 0.05);
+  --btv-pill: rgba(255, 255, 255, 0.04);
+  --btv-footer: rgba(0, 0, 0, 0.2);
   min-height: 100vh;
   background: radial-gradient(1100px 560px at 50% -120px, var(--bg-grad), var(--bg) 62%);
   color: var(--text);
   font-family: var(--sans);
 }
+
+/* Light mode (system preference or the header toggle) — scoped to the landing */
+:global(html:not(.dark)) .btv {
+  --bg: #fbf7fb;
+  --bg-grad: #f4e7f0;
+  --card: #ffffff;
+  --card-soft: #f6eff4;
+  --border: rgba(26, 12, 20, 0.1);
+  --border-2: rgba(26, 12, 20, 0.16);
+  --text: #241a22;
+  --muted: #6b5e68;
+  --faint: #9c8f99;
+  --accent: #c13c79;
+  --shadow-card: 0 20px 45px -28px rgba(142, 26, 82, 0.28);
+  --shadow-toast: 0 18px 40px -18px rgba(142, 26, 82, 0.2);
+  --btv-glass: rgba(251, 247, 251, 0.72);
+  --btv-hover: rgba(26, 12, 20, 0.05);
+  --btv-pill: rgba(26, 12, 20, 0.035);
+  --btv-footer: rgba(26, 12, 20, 0.025);
+}
+:global(html:not(.dark)) .btv-glow { opacity: 0.55; }
+
 .btv-pink { color: var(--accent); }
+.btv-toggle {
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 38px; height: 38px;
+  border: 1px solid var(--border-2); border-radius: 10px;
+  background: transparent; color: var(--muted); cursor: pointer;
+  transition: color 0.15s, background 0.15s, border-color 0.15s;
+}
+.btv-toggle:hover { color: var(--text); background: var(--btv-hover); }
 
 /* Header */
 .btv-head {
   position: sticky; top: 0; z-index: 50;
   backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px);
-  background: rgba(21, 16, 28, 0.66);
+  background: var(--btv-glass);
   border-bottom: 1px solid var(--border);
 }
 .btv-head-inner { max-width: 1180px; margin: 0 auto; padding: 0 28px; height: 68px; display: flex; align-items: center; justify-content: space-between; gap: 24px; }
@@ -237,9 +285,9 @@ onMounted(() => {
 .btv-word { font-weight: 800; font-size: 22px; letter-spacing: -0.5px; color: var(--text); }
 .btv-nav { display: flex; align-items: center; gap: 4px; }
 .navlink { color: var(--muted); text-decoration: none; font-weight: 600; font-size: 14.5px; padding: 8px 12px; border-radius: 9px; transition: color .15s, background .15s; }
-.navlink:hover { color: var(--text); background: rgba(255,255,255,0.05); }
+.navlink:hover { color: var(--text); background: var(--btv-hover); }
 .btv-ghost-btn { display: inline-flex; align-items: center; gap: 8px; text-decoration: none; color: var(--text); font-weight: 700; font-size: 14px; padding: 9px 15px; border: 1px solid var(--border-2); border-radius: 10px; transition: background .15s, border-color .15s; }
-.cta-ghost:hover { background: rgba(255,255,255,0.06); border-color: var(--border-2); }
+.cta-ghost:hover { background: var(--btv-hover); border-color: var(--border-2); }
 
 /* Hero */
 .btv-hero { position: relative; text-align: center; padding: 104px 28px 86px; overflow: hidden; }
@@ -254,7 +302,7 @@ onMounted(() => {
 .cta-primary:hover { filter: brightness(1.07); }
 .btv-ghost-cta { display: inline-flex; align-items: center; gap: 8px; text-decoration: none; color: var(--text); font-weight: 700; font-size: 15.5px; padding: 13px 22px; border: 1px solid var(--border-2); border-radius: 12px; transition: background .15s, border-color .15s; }
 .btv-pills { display: flex; flex-wrap: wrap; gap: 9px; justify-content: center; margin-top: 30px; }
-.btv-pill { font-family: var(--mono); font-size: 13px; color: var(--muted); background: rgba(255,255,255,0.04); border: 1px solid var(--border); padding: 6px 12px; border-radius: 999px; }
+.btv-pill { font-family: var(--mono); font-size: 13px; color: var(--muted); background: var(--btv-pill); border: 1px solid var(--border); padding: 6px 12px; border-radius: 999px; }
 
 /* Sections */
 .btv-section { max-width: 1180px; margin: 0 auto; padding: 64px 28px 40px; }
@@ -288,11 +336,11 @@ onMounted(() => {
 .btv-points { list-style: none; margin: 18px 0 0; padding: 0; display: flex; flex-direction: column; gap: 9px; }
 .btv-points li { display: flex; align-items: flex-start; gap: 9px; font-size: 14px; line-height: 1.4; color: var(--text); }
 .btv-points svg { margin-top: 2px; flex: none; }
-.btv-codeblk { margin-top: auto; width: 100%; display: flex; align-items: center; justify-content: space-between; gap: 10px; font-family: var(--mono); font-size: 12.5px; background: rgba(0,0,0,0.35); border: 1px solid var(--border); border-radius: 11px; padding: 11px 13px; color: var(--text); cursor: pointer; text-align: left; }
+.btv-codeblk { margin-top: auto; width: 100%; display: flex; align-items: center; justify-content: space-between; gap: 10px; font-family: var(--mono); font-size: 12.5px; background: #18121f; border: 1px solid rgba(255,255,255,0.07); border-radius: 11px; padding: 11px 13px; color: #f5eff3; cursor: pointer; text-align: left; }
 .codeblk { transition: border-color .15s, background .15s; }
-.codeblk:hover { border-color: var(--border-2); background: rgba(0,0,0,0.45); }
+.codeblk:hover { border-color: rgba(255,255,255,0.18); background: #20182a; }
 .btv-cmd { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-.btv-dollar { color: var(--accent); user-select: none; }
+.btv-dollar { color: #ee9cc4; user-select: none; }
 .btv-pcard-foot { display: flex; align-items: center; gap: 18px; margin-top: 20px; padding-top: 18px; border-top: 1px solid var(--border); }
 .btv-foot-a { display: inline-flex; align-items: center; gap: 7px; text-decoration: none; color: var(--text); font-weight: 700; font-size: 14px; }
 .btv-foot-muted { color: var(--muted); }
@@ -306,7 +354,7 @@ onMounted(() => {
 .btv-cta-p { margin: 14px auto 26px; max-width: 520px; font-size: 16px; line-height: 1.6; color: var(--muted); }
 
 /* Footer */
-.btv-foot { border-top: 1px solid var(--border); background: rgba(0,0,0,0.2); }
+.btv-foot { border-top: 1px solid var(--border); background: var(--btv-footer); }
 .btv-foot-grid { max-width: 1180px; margin: 0 auto; padding: 48px 28px 30px; display: grid; grid-template-columns: 1.4fr 1fr 1fr 1fr; gap: 32px; }
 .btv-foot-brand { display: flex; align-items: center; gap: 10px; }
 .btv-foot-word { font-size: 19px; }
