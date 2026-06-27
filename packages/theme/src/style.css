@@ -1,17 +1,14 @@
 /*
- * btravstack → VitePress adapter.
+ * @btravstack/theme — VitePress style entry.
  *
  * Maps the btravstack design tokens onto VitePress's own `--vp-*` theme
- * variables, so the docs sites (amqp-contract, temporal-contract,
- * unthrown) match this landing page from a single import.
- *
- * Usage in a docs repo (.vitepress/theme/custom.css):
- *   @import "https://cdn.jsdelivr.net/gh/btravstack/btravstack.github.io@main/theme/vitepress.css";
- * (pin @main to a tag like @v1.0.0 once you cut releases — see theme/README.md)
+ * variables so every btravstack site (this website + the docs sites) shares
+ * one look. Pulled in automatically by the theme's index.ts; consumers can
+ * also import it directly as `@btravstack/theme/style.css`.
  *
  * Theming covers BOTH color schemes, so it's safe to let VitePress follow
  * the visitor's OS preference (its default, `appearance: true`):
- *   - dark  → adopts the btravstack surface palette (matches the landing page)
+ *   - dark  → adopts the btravstack surface palette
  *   - light → keeps VitePress's light surfaces, with the brand darkened to
  *             the deep beetroot so links/headings pass WCAG-AA on white.
  */

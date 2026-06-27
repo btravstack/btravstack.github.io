@@ -1,0 +1,45 @@
+name: Release
+
+# Publishes @btravstack/theme to npm via changesets.
+#
+# Auth uses npm Trusted Publishing (OIDC) — no NPM_TOKEN. Prerequisites:
+#   1. The @btravstack scope/org exists on npmjs.com.
+#   2. @btravstack/theme has a Trusted Publisher configured pointing at this
+#      repo + this workflow file (.github/workflows/release.yml).
+#   3. Repo secret RELEASE_PAT (classic PAT with `repo`, or fine-grained with
+#      Contents + Pull requests read/write) so the "Version Packages" PR fires CI.
+
+on:
+  push:
+    branches: [main]
+
+concurrency: ${{ github.workflow }}-${{ github.ref }}
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
+      id-token: write
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.RELEASE_PAT }}
+      - uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+      # npm Trusted Publishing (OIDC) requires npm >= 11.5.1
+      - run: npm install -g npm@latest
+      - run: pnpm install --frozen-lockfile
+      - name: Create Release Pull Request or Publish to npm
+        uses: changesets/action@v1
+        with:
+          version: pnpm run version
+          publish: pnpm run release
+          commit: "chore: release packages"
+          title: "chore: release packages"
+        env:
+          GITHUB_TOKEN: ${{ secrets.RELEASE_PAT }}
