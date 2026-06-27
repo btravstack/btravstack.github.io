@@ -206,7 +206,7 @@ onMounted(() => {
       </div>
       <div class="btv-foot-bottom">
         <span>MIT © 2026 <a class="foot-link btv-foot-muted2" href="https://github.com/btravers" target="_blank" rel="noopener">Benoit Travers</a></span>
-        <a class="foot-link btv-foot-mono" href="https://github.com/btravers" target="_blank" rel="noopener">@btravers · betterave 🇫🇷</a>
+        <a class="foot-link btv-foot-mono" href="https://github.com/btravers" target="_blank" rel="noopener">@btravers</a>
       </div>
     </footer>
 
