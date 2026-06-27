@@ -1,0 +1,41 @@
+{
+  "name": "@btravstack/theme",
+  "version": "1.0.0",
+  "description": "Shared VitePress theme and design tokens for btravstack sites",
+  "license": "MIT",
+  "author": "Benoit TRAVERS",
+  "type": "module",
+  "homepage": "https://btravstack.github.io",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/btravstack/btravstack.github.io.git",
+    "directory": "packages/theme"
+  },
+  "files": ["dist"],
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.mts",
+      "import": "./dist/index.mjs"
+    },
+    "./style.css": "./dist/style.css",
+    "./tokens.css": "./dist/tokens.css"
+  },
+  "sideEffects": ["**/*.css"],
+  "publishConfig": {
+    "access": "public"
+  },
+  "scripts": {
+    "build": "tsdown && cp src/*.css dist/",
+    "dev": "tsdown --watch",
+    "prepack": "pnpm run build"
+  },
+  "peerDependencies": {
+    "vitepress": "^1.6.0"
+  },
+  "devDependencies": {
+    "@types/node": "catalog:",
+    "tsdown": "catalog:",
+    "typescript": "catalog:",
+    "vitepress": "catalog:"
+  }
+}

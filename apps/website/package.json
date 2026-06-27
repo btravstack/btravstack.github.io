@@ -1,0 +1,20 @@
+{
+  "name": "@btravstack/website",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "description": "btravstack landing site",
+  "license": "MIT",
+  "author": "Benoit TRAVERS",
+  "scripts": {
+    "build": "vitepress build .",
+    "dev": "vitepress dev .",
+    "preview": "vitepress preview ."
+  },
+  "dependencies": {
+    "@btravstack/theme": "workspace:*"
+  },
+  "devDependencies": {
+    "vitepress": "catalog:"
+  }
+}
