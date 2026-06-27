@@ -1,84 +1,74 @@
 /*
  * @btravstack/theme — VitePress style entry.
  *
- * Maps the btravstack design tokens onto VitePress's own `--vp-*` theme
- * variables so every btravstack site (this website + the docs sites) shares
- * one look. Pulled in automatically by the theme's index.ts; consumers can
- * also import it directly as `@btravstack/theme/style.css`.
+ * Maps the btravstack design tokens onto VitePress's own `--vp-*` variables so
+ * every btravstack site (the website + the docs sites) shares one look.
+ * Because the semantic tokens (--bg, --text, --text-accent, …) flip per scheme
+ * in tokens.css, this mapping is written once and adapts automatically:
+ *   - dark  → the btravstack plum surfaces, pink links
+ *   - light → clean warm-white surfaces, brand darkened to deep beetroot
+ *             (--text-accent) so links/headings pass WCAG-AA on white
  *
- * Theming covers BOTH color schemes, so it's safe to let VitePress follow
- * the visitor's OS preference (its default, `appearance: true`):
- *   - dark  → adopts the btravstack surface palette
- *   - light → keeps VitePress's light surfaces, with the brand darkened to
- *             the deep beetroot so links/headings pass WCAG-AA on white.
+ * The `:root:root` selector raises specificity to (0,2,0) so the mapping wins
+ * over VitePress's own `:root` / `.dark` defaults regardless of load order.
  */
 @import "./fonts.css";
 @import "./tokens.css";
 
-/* ── Brand defaults + typography (both schemes) ────────────────── */
-/* `:root:root` / `:root.dark` raise specificity to (0,2,0) so these win
-   over VitePress's own `:root` / `.dark` defaults regardless of the order
-   the remote @import lands in the cascade. */
 :root:root {
-  --vp-c-brand-1: var(--accent);
-  --vp-c-brand-2: var(--bt-magenta);
-  --vp-c-brand-3: var(--accent-deep);
-  --vp-c-brand-soft: rgba(var(--accent-rgb), 0.14);
-  --vp-c-brand: var(--accent); /* legacy alias */
-
-  --vp-font-family-base: var(--sans);
-  --vp-font-family-mono: var(--mono);
-
-  /* Solid brand buttons — dark ink on the pink fill, readable in both schemes */
-  --vp-button-brand-bg: var(--accent);
-  --vp-button-brand-text: var(--accent-contrast);
-  --vp-button-brand-border: transparent;
-  --vp-button-brand-hover-bg: var(--bt-magenta);
-  --vp-button-brand-hover-text: var(--accent-contrast);
-  --vp-button-brand-hover-border: transparent;
-  --vp-button-brand-active-bg: var(--accent-deep);
-  --vp-button-brand-active-text: var(--bt-cream);
-  --vp-button-brand-active-border: transparent;
-
-  /* Home hero: gradient name + beetroot glow behind the logo */
-  --vp-home-hero-name-color: transparent;
-  --vp-home-hero-name-background: linear-gradient(120deg, var(--accent), var(--bt-pink-soft));
-  --vp-home-hero-image-background-image: radial-gradient(closest-side, rgba(var(--accent-rgb), 0.30), transparent 72%);
-  --vp-home-hero-image-filter: blur(8px);
-}
-
-/* ── Light scheme: darken the brand so it passes WCAG-AA on white ── */
-:root:not(.dark) {
-  --vp-c-brand-1: var(--accent-deep);  /* link / active text — ~7:1 on white */
-  --vp-c-brand-2: var(--bt-deep-2);    /* hover, a touch darker */
-  --vp-c-brand-3: var(--accent-deep);
-  --vp-c-brand-soft: rgba(var(--accent-rgb), 0.10);
-  /* deeper gradient so the hero name reads on a light background */
-  --vp-home-hero-name-background: linear-gradient(120deg, var(--accent-deep), var(--bt-magenta));
-}
-
-/* ── Dark scheme: btravstack surfaces (matches the landing page) ── */
-:root.dark {
-  --vp-c-bg: var(--bg);
-  --vp-c-bg-alt: var(--card);
+  /* Surfaces / text / dividers — scheme-aware via the semantic tokens */
+  --vp-c-bg:      var(--bg);
+  --vp-c-bg-alt:  var(--card);
   --vp-c-bg-soft: var(--card-soft);
-  --vp-c-bg-elv: var(--card);
+  --vp-c-bg-elv:  var(--card);
 
   --vp-c-text-1: var(--text);
   --vp-c-text-2: var(--muted);
   --vp-c-text-3: var(--faint);
 
   --vp-c-divider: var(--border);
-  --vp-c-border: var(--border-2);
-  --vp-c-gutter: var(--border);
+  --vp-c-border:  var(--border-2);
+  --vp-c-gutter:  var(--border);
 
-  --vp-c-brand-1: var(--accent);       /* pink reads great on dark */
-  --vp-c-brand-2: var(--bt-pink-soft);
+  /* Brand — links/active use accent-as-TEXT (darkens on light for AA) */
+  --vp-c-brand-1:    var(--text-accent);
+  --vp-c-brand-2:    var(--bt-pink-soft);
+  --vp-c-brand-3:    var(--accent-deep);
   --vp-c-brand-soft: rgba(var(--accent-rgb), 0.16);
+  --vp-c-brand:      var(--text-accent); /* legacy alias */
 
-  /* Inline + block code */
-  --vp-code-color: var(--bt-pink-soft);
-  --vp-code-bg: rgba(0, 0, 0, 0.35);
+  /* Inline code — accent-as-text so it stays readable on the (scheme-aware)
+     code inset: pink on dark, deep beetroot on the light code wash */
+  --vp-code-color: var(--text-accent);
+  --vp-code-bg:    var(--code-bg);
+
+  --vp-font-family-base: var(--sans);
+  --vp-font-family-mono: var(--mono);
+
+  /* Solid brand buttons — dark ink on the pink FILL, readable in both schemes */
+  --vp-button-brand-bg:           var(--accent);
+  --vp-button-brand-text:         var(--accent-contrast);
+  --vp-button-brand-border:       transparent;
+  --vp-button-brand-hover-bg:     var(--bt-magenta);
+  --vp-button-brand-hover-text:   var(--accent-contrast);
+  --vp-button-brand-hover-border: transparent;
+  --vp-button-brand-active-bg:    var(--accent-deep);
+  --vp-button-brand-active-text:  var(--bt-cream);
+  --vp-button-brand-active-border: transparent;
+
+  /* Custom-block (admonition) tints */
+  --vp-custom-block-tip-bg:     rgba(var(--green-rgb), 0.08);
+  --vp-custom-block-tip-border: rgba(var(--green-rgb), 0.30);
+  --vp-custom-block-tip-text:   var(--text-green);
+  --vp-custom-block-warning-bg:     rgba(var(--accent-rgb), 0.08);
+  --vp-custom-block-warning-border: var(--accent-line);
+  --vp-custom-block-warning-text:   var(--text-accent);
+
+  /* Home hero: gradient name + beetroot glow behind the logo */
+  --vp-home-hero-name-color: transparent;
+  --vp-home-hero-name-background: linear-gradient(120deg, var(--text-accent), var(--bt-pink-soft));
+  --vp-home-hero-image-background-image: radial-gradient(closest-side, rgba(var(--accent-rgb), 0.30), transparent 72%);
+  --vp-home-hero-image-filter: blur(8px);
 }
 
 /* ── Playful flourishes — shared across every btravstack site ───── */
