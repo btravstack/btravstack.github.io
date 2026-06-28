@@ -251,7 +251,11 @@ onMounted(() => {
 }
 :global(html:not(.dark)) .btv-glow { opacity: 0.55; }
 
-.btv-pink { color: var(--display-accent); }
+/* general accent highlights (incl. the small copy toast) keep the AA text accent */
+.btv-pink { color: var(--text-accent); }
+/* the large display wordmark (hero / header / footer) stays full brand pink */
+.btv-title .btv-pink,
+.btv-word .btv-pink { color: var(--display-accent); }
 .btv-toggle {
   display: inline-flex; align-items: center; justify-content: center;
   width: 38px; height: 38px;
