@@ -147,8 +147,8 @@
   --border-2: rgba(26, 12, 20, 0.17);
 
   --text:  #1F0E18;
-  --muted: #6A5965;
-  --faint: #978996;
+  --muted: #5E5159;   /* ~7.1:1 on white */
+  --faint: #766678;   /* ~5.0:1 on white (was #978996, 3.1 — failed AA) */
 
   --accent:      #E0589A;   /* fill unchanged (dark ink on top) */
   --text-accent: #D6246F;   /* small labels / links — vivid raspberry, ~4.6:1 AA on white */
