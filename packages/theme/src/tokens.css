@@ -141,10 +141,10 @@
   --bg:        #FBF7F9;
   --bg-grad:   #FCEDF4;
   --card:      #FFFFFF;
-  --card-soft: #F6EDF2;
+  --card-soft: #F0E6EC;
 
-  --border:   rgba(26, 12, 20, 0.10);
-  --border-2: rgba(26, 12, 20, 0.17);
+  --border:   rgba(26, 12, 20, 0.16);
+  --border-2: rgba(26, 12, 20, 0.24);
 
   --text:  #1F0E18;
   --muted: #5E5159;   /* ~7.1:1 on white */
