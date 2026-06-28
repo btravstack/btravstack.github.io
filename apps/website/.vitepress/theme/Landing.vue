@@ -232,32 +232,33 @@ onMounted(() => {
 
 <style scoped>
 .btv {
-  --btv-hover: rgba(255, 255, 255, 0.05);
-  --btv-pill: rgba(255, 255, 255, 0.04);
-  --btv-footer: rgba(0, 0, 0, 0.2);
   min-height: 100vh;
   background: radial-gradient(1100px 560px at 50% -120px, var(--bg-grad), var(--bg) 62%);
   color: var(--text);
   font-family: var(--sans);
 }
 
-/* Light mode (system / toggle): surfaces, text and accent-as-text come from the
-   shared tokens (tokens.css :root:not(.dark)); only these landing-local
-   overlays — header/nav washes, pills, footer tint — flip here. */
+/* Landing-local scheme overlays (header/nav washes, pills, footer tint, and the
+   light card rest shadow). NB: in Vue scoped CSS a `:global(html…) .btv` selector
+   compiles to the `html…` element, so we set BOTH schemes on the two html states
+   rather than a default on `.btv` — a `.btv` default would shadow the html-level
+   value for everything inside the landing. Surfaces/text/accent themselves come
+   from the shared tokens (tokens.css). */
+:global(html.dark) .btv {
+  --btv-hover: rgba(255, 255, 255, 0.05);
+  --btv-pill: rgba(255, 255, 255, 0.04);
+  --btv-footer: rgba(0, 0, 0, 0.2);
+  --card-rest-shadow: none;   /* dark cards: depth from the fill + hairline */
+  --glow-display: block;      /* pink hero glow — a dark-scheme signature */
+}
 :global(html:not(.dark)) .btv {
   --btv-hover: rgba(26, 12, 20, 0.05);
   --btv-pill: rgba(26, 12, 20, 0.035);
   --btv-footer: rgba(26, 12, 20, 0.025);
+  --card-rest-shadow: 0 1px 2px rgba(26, 12, 20, 0.05), 0 16px 32px -24px rgba(26, 12, 20, 0.22);
+  --glow-display: none;       /* on near-white the pink glow reads as a washed
+                                 "livid" cloud behind the wordmark — drop it */
 }
-:global(html:not(.dark)) .btv-glow { opacity: 0.55; }
-/* On near-white, the hairline alone leaves cards looking flat — give them a
-   soft rest shadow in light mode so they lift off the background. */
-:global(html:not(.dark)) .btv-pcard,
-:global(html:not(.dark)) .btv-prin-card {
-  box-shadow: 0 1px 2px rgba(26, 12, 20, 0.05), 0 16px 32px -24px rgba(26, 12, 20, 0.22);
-}
-/* keep the hover lift shadow — the rest rule above outspecifies .pcard:hover */
-:global(html:not(.dark)) .btv-pcard:hover { box-shadow: var(--shadow-card); }
 
 /* general accent highlights (incl. the small copy toast) keep the AA text accent */
 .btv-pink { color: var(--text-accent); }
@@ -291,7 +292,7 @@ onMounted(() => {
 
 /* Hero */
 .btv-hero { position: relative; text-align: center; padding: 104px 28px 86px; overflow: hidden; }
-.btv-glow { position: absolute; top: 30px; left: 50%; transform: translateX(-50%); width: 560px; max-width: 90vw; height: 380px; background: radial-gradient(closest-side, rgba(224,88,154,0.30), transparent 72%); filter: blur(8px); animation: glowpulse 6s ease-in-out infinite; pointer-events: none; z-index: 0; }
+.btv-glow { display: var(--glow-display, block); position: absolute; top: 30px; left: 50%; transform: translateX(-50%); width: 560px; max-width: 90vw; height: 380px; background: radial-gradient(closest-side, rgba(224,88,154,0.30), transparent 72%); filter: blur(8px); animation: glowpulse 6s ease-in-out infinite; pointer-events: none; z-index: 0; }
 .btv-hero-inner { position: relative; z-index: 1; max-width: 900px; margin: 0 auto; }
 .btv-float { display: inline-flex; animation: floaty 6s ease-in-out infinite; filter: drop-shadow(0 18px 40px rgba(142,26,82,0.45)); }
 .btv-title { margin: 26px 0 0; font-weight: 800; letter-spacing: -2.5px; line-height: 0.95; font-size: clamp(52px, 9vw, 92px); }
@@ -314,7 +315,7 @@ onMounted(() => {
 
 /* Principles */
 .btv-prin { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 18px; margin-top: 34px; }
-.btv-prin-card { background: var(--card); border: 1px solid var(--border); border-radius: 16px; padding: 22px; transition: transform .2s ease, border-color .2s ease; }
+.btv-prin-card { background: var(--card); border: 1px solid var(--border); border-radius: 16px; padding: 22px; box-shadow: var(--card-rest-shadow); transition: transform .2s ease, border-color .2s ease; }
 .btv-prin-card:hover { transform: translateY(-3px); border-color: var(--border-2); }
 .btv-prin-num { width: 38px; height: 38px; border-radius: 10px; display: flex; align-items: center; justify-content: center; background: var(--accent-wash); border: 1px solid var(--accent-line); color: var(--text-accent); font-family: var(--mono); font-weight: 600; font-size: 15px; }
 .btv-prin-title { margin: 16px 0 0; font-weight: 700; font-size: 18px; letter-spacing: -0.3px; color: var(--text); }
@@ -322,7 +323,7 @@ onMounted(() => {
 
 /* Project cards */
 .btv-projects { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 20px; }
-.btv-pcard { display: flex; flex-direction: column; background: var(--card); border: 1px solid var(--border); border-radius: 20px; padding: 26px; }
+.btv-pcard { display: flex; flex-direction: column; background: var(--card); border: 1px solid var(--border); border-radius: 20px; padding: 26px; box-shadow: var(--card-rest-shadow); }
 .pcard { transition: transform .2s ease, border-color .2s ease, box-shadow .2s ease; }
 .pcard:hover { transform: translateY(-4px); border-color: var(--border-2); box-shadow: var(--shadow-card); }
 .btv-pcard-top { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
