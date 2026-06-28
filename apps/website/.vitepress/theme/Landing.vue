@@ -163,7 +163,7 @@ onMounted(() => {
           <p class="btv-blurb">{{ p.blurb }}</p>
           <ul class="btv-points">
             <li v-for="pt in p.points" :key="pt">
-              <svg width="15" height="15" viewBox="0 0 16 16" fill="none"><path d="M2.5 8.5l3 3 8-8" stroke="#46B86C" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              <svg width="15" height="15" viewBox="0 0 16 16" fill="none"><path d="M2.5 8.5l3 3 8-8" stroke="var(--text-green)" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
               <span>{{ pt }}</span>
             </li>
           </ul>
@@ -251,7 +251,11 @@ onMounted(() => {
 }
 :global(html:not(.dark)) .btv-glow { opacity: 0.55; }
 
+/* general accent highlights (incl. the small copy toast) keep the AA text accent */
 .btv-pink { color: var(--text-accent); }
+/* the large display wordmark (hero / header / footer) stays full brand pink */
+.btv-title .btv-pink,
+.btv-word .btv-pink { color: var(--display-accent); }
 .btv-toggle {
   display: inline-flex; align-items: center; justify-content: center;
   width: 38px; height: 38px;
