@@ -73,26 +73,13 @@
 
 /* ── Playful flourishes — shared across every btravstack site ───── */
 
-/* Home hero: a soft beetroot glow + a gently floating logo */
-.VPHome { position: relative; overflow-x: clip; }
-.VPHome::before {
-  content: "";
-  position: absolute;
-  top: -90px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 760px;
-  max-width: 120vw;
-  height: 480px;
-  z-index: 0;
-  pointer-events: none;
-  background: radial-gradient(closest-side, rgba(var(--accent-rgb), 0.16), transparent 70%);
-  filter: blur(10px);
-}
-:root.dark .VPHome::before {
-  background: radial-gradient(closest-side, rgba(var(--accent-rgb), 0.28), transparent 70%);
-}
-.VPHero { position: relative; z-index: 1; }
+/* Home hero: a gently floating logo. The beetroot glow lives BEHIND the hero
+   image itself (--vp-home-hero-image-background-image, set above) so it tracks
+   the logo wherever the layout places it. We deliberately do NOT add a separate
+   centered ::before glow: the landing page uses its own bespoke layout (not
+   .VPHome), and on the docs sites the default home hero is left-aligned with the
+   image on the right — a hard-centered glow there just floats, disconnected. */
+.VPHome { overflow-x: clip; }
 .VPHero .image-container { animation: btv-floaty 6s ease-in-out infinite; }
 .VPHero .image-src { filter: drop-shadow(0 18px 40px rgba(142, 26, 82, 0.4)); }
 @keyframes btv-floaty { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
