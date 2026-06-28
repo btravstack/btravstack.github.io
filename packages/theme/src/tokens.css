@@ -147,7 +147,7 @@
   --faint: #978996;
 
   --accent:      #E0589A;   /* fill unchanged (dark ink on top) */
-  --text-accent: #A52260;   /* ~5.6:1 on white — links, eyebrows, wordmark */
+  --text-accent: #C42A6C;   /* punchier vivid beetroot, ~5.1:1 on white (was #A52260) */
   --text-green:  #15683A;   /* ~5.2:1 on white — affirmative text */
 
   --accent-wash:   rgba(224, 88, 154, 0.12);

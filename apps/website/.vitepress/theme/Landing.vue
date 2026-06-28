@@ -32,7 +32,7 @@ interface Project {
 const projects: Project[] = [
   {
     tag: "Messaging", name: "amqp-contract", pkg: "@amqp-contract/contract",
-    logo: "/logos/amqp-contract-dark.svg", repoFull: "btravstack/amqp-contract", stars0: 18,
+    logo: "/logos/amqp-contract", repoFull: "btravstack/amqp-contract", stars0: 18,
     blurb: "Type-safe contracts for AMQP & RabbitMQ. Define your exchanges, queues and messages once — get types and runtime validation on both ends.",
     points: ["End-to-end type safety", "Reliable retry with Dead Letter Queues", "AsyncAPI 3.0 generation"],
     install: "pnpm add @amqp-contract/contract",
@@ -40,7 +40,7 @@ const projects: Project[] = [
   },
   {
     tag: "Workflows", name: "temporal-contract", pkg: "@temporal-contract/contract",
-    logo: "/logos/temporal-contract-dark.svg", repoFull: "btravstack/temporal-contract", stars0: 7,
+    logo: "/logos/temporal-contract", repoFull: "btravstack/temporal-contract", stars0: 7,
     blurb: "Type-safe contracts for Temporal.io. End-to-end types and automatic validation across workflows, activities and clients.",
     points: ["Zod validation at every boundary", "Compile-time implementation checks", "Result / Future error handling"],
     install: "pnpm add @temporal-contract/contract",
@@ -48,7 +48,7 @@ const projects: Project[] = [
   },
   {
     tag: "Errors", name: "unthrown", pkg: "unthrown",
-    logo: "/logos/unthrown-dark.svg", repoFull: "btravstack/unthrown", stars0: 1,
+    logo: "/logos/unthrown", repoFull: "btravstack/unthrown", stars0: 1,
     blurb: "Explicit errors as values — with a separate defect channel for the unexpected. Only a true defect ever throws, and only at unwrap.",
     points: ["Errors as values, typed in E", "A separate defect channel", "Zero runtime dependencies"],
     install: "pnpm add unthrown",
@@ -150,7 +150,7 @@ onMounted(() => {
         <div v-for="p in projects" :key="p.name" class="pcard btv-pcard">
           <div class="btv-pcard-top">
             <div class="btv-pcard-id">
-              <img :src="p.logo" width="46" height="46" :alt="`${p.name} logo`" class="btv-logo" />
+              <img :src="`${p.logo}-${isDark ? 'dark' : 'light'}.svg`" width="46" height="46" :alt="`${p.name} logo`" class="btv-logo" />
               <span class="btv-tag">{{ p.tag }}</span>
             </div>
             <span class="btv-stars">
