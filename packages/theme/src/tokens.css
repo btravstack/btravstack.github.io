@@ -55,6 +55,10 @@
   --text-accent: #E0589A;
   --text-green:  #46B86C;
 
+  /* Display accent — the brand pink as the LARGE display wordmark colour in
+     both schemes (large text only needs 3:1, so it can stay fully vibrant). */
+  --display-accent: #E0589A;
+
   /* ── Glass (frosted sticky headers) ──────────────────────────── */
   --glass: rgba(21, 16, 28, 0.66);
 
@@ -147,7 +151,7 @@
   --faint: #978996;
 
   --accent:      #E0589A;   /* fill unchanged (dark ink on top) */
-  --text-accent: #C42A6C;   /* punchier vivid beetroot, ~5.1:1 on white (was #A52260) */
+  --text-accent: #D6246F;   /* small labels / links — vivid raspberry, ~4.6:1 AA on white */
   --text-green:  #15683A;   /* ~5.2:1 on white — affirmative text */
 
   --accent-wash:   rgba(224, 88, 154, 0.12);
