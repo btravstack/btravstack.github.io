@@ -256,6 +256,8 @@ onMounted(() => {
 :global(html:not(.dark)) .btv-prin-card {
   box-shadow: 0 1px 2px rgba(26, 12, 20, 0.05), 0 16px 32px -24px rgba(26, 12, 20, 0.22);
 }
+/* keep the hover lift shadow — the rest rule above outspecifies .pcard:hover */
+:global(html:not(.dark)) .btv-pcard:hover { box-shadow: var(--shadow-card); }
 
 /* general accent highlights (incl. the small copy toast) keep the AA text accent */
 .btv-pink { color: var(--text-accent); }
