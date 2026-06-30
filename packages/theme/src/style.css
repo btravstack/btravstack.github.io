@@ -84,17 +84,44 @@
 .VPHero .image-src { filter: drop-shadow(0 18px 40px rgba(142, 26, 82, 0.4)); }
 @keyframes btv-floaty { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
 
-/* Feature cards: rounder, with a brand-tinted lift on hover */
+/* Navbar logo: VitePress ships a 24px mark — next to the wordmark the beetroot
+   reads as a speck. Give it presence and a little more breathing room. */
+.VPNavBarTitle .logo  { height: 30px; width: auto; }
+.VPNavBarTitle .title { gap: 9px; }
+@media (max-width: 768px) { .VPNavBarTitle .logo { height: 26px; } }
+
+/* Robust light/dark logo switching. With `logo: { light, dark }` VitePress
+   toggles the two variants by class; we also key off the file name, so the
+   right artwork shows even when a repo's config has the two paths swapped — the
+   symptom being the light-coloured dark-scheme logo showing on the white navbar
+   in light mode, where it's all but invisible. Single-file logo.svg is fine. */
+:root:not(.dark) .VPNavBarTitle .logo[src*="-dark"]  { display: none !important; }
+:root.dark       .VPNavBarTitle .logo[src*="-light"] { display: none !important; }
+
+/* Home hero: tighten the display type. (The hero `image:` is one file per repo,
+   set in index.md frontmatter; for a crisp mark in both schemes make it
+   scheme-aware there — hero.image.light / hero.image.dark.) */
+.VPHero .name { letter-spacing: -1.5px; }
+.VPHero .text { letter-spacing: -0.5px; }
+
+/* Feature cards: hairline border + a soft lift on hover, echoing the landing
+   page's package cards; brand-tinted icon chip. */
 .VPFeature {
-  border-radius: var(--radius-xl);
+  border: 1px solid var(--vp-c-divider);
+  border-radius: var(--radius-lg);
   transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
 }
 .VPFeature:hover {
   transform: translateY(-4px);
-  border-color: var(--vp-c-brand-1);
-  box-shadow: 0 18px 40px -24px rgba(var(--accent-rgb), 0.5);
+  border-color: var(--vp-c-border);
+  box-shadow: var(--shadow-card);
 }
-.VPFeature .icon { border-radius: var(--radius) !important; }
+.VPFeature .icon {
+  border-radius: var(--radius) !important;
+  background: var(--vp-c-brand-soft) !important;
+  border: 1px solid rgba(var(--accent-rgb), 0.22);
+}
+.VPFeature .title { letter-spacing: -0.3px; }
 
 /* Brand buttons: springy hover */
 .VPButton.brand { transition: filter 0.15s, transform 0.15s; }
