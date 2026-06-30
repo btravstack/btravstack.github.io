@@ -84,17 +84,41 @@
 .VPHero .image-src { filter: drop-shadow(0 18px 40px rgba(142, 26, 82, 0.4)); }
 @keyframes btv-floaty { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
 
-/* Feature cards: rounder, with a brand-tinted lift on hover */
+/* Navbar logo: VitePress's 24px mark reads as a speck next to the wordmark.
+   Size it up through VitePress's own variable (--vp-nav-logo-height) rather than
+   overriding `.logo { height }` — VitePress sets the height from a scoped
+   `:deep(.logo)` selector that out-specifies a plain `.VPNavBarTitle .logo`, so
+   the variable is the only reliable lever. Spacing stays on the logo's default
+   margin (no extra `gap`, which would compound with it).
+   Light/dark switching is left to VitePress: with `logo: { light, dark }` per
+   repo, its native .VPImage class toggle already shows the right artwork. */
+:root:root { --vp-nav-logo-height: 30px; }
+@media (max-width: 768px) { :root:root { --vp-nav-logo-height: 26px; } }
+
+/* Home hero: tighten the display type. (The hero `image:` is one file per repo,
+   set in index.md frontmatter; for a crisp mark in both schemes make it
+   scheme-aware there — hero.image.light / hero.image.dark.) */
+.VPHero .name { letter-spacing: -1.5px; }
+.VPHero .text { letter-spacing: -0.5px; }
+
+/* Feature cards: hairline border + a soft lift on hover, echoing the landing
+   page's package cards; brand-tinted icon chip. */
 .VPFeature {
-  border-radius: var(--radius-xl);
+  border: 1px solid var(--vp-c-divider);
+  border-radius: var(--radius-lg);
   transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
 }
 .VPFeature:hover {
   transform: translateY(-4px);
-  border-color: var(--vp-c-brand-1);
-  box-shadow: 0 18px 40px -24px rgba(var(--accent-rgb), 0.5);
+  border-color: var(--vp-c-border);
+  box-shadow: var(--shadow-card);
 }
-.VPFeature .icon { border-radius: var(--radius) !important; }
+.VPFeature .icon {
+  border-radius: var(--radius) !important;
+  background: var(--vp-c-brand-soft) !important;
+  border: 1px solid rgba(var(--accent-rgb), 0.22);
+}
+.VPFeature .title { letter-spacing: -0.3px; }
 
 /* Brand buttons: springy hover */
 .VPButton.brand { transition: filter 0.15s, transform 0.15s; }
