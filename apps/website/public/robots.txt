@@ -1,0 +1,14 @@
+# https://btravstack.github.io/robots.txt
+# btravstack is one site on one domain: this landing page is the hub, and each
+# project's docs live under a sub-path (/amqp-contract/, /temporal-contract/,
+# /unthrown/). robots.txt is per-host and only read from the domain root, so
+# this single file governs crawling for all of them.
+
+User-agent: *
+Allow: /
+
+# Sitemaps — the hub plus every project's docs.
+Sitemap: https://btravstack.github.io/sitemap.xml
+Sitemap: https://btravstack.github.io/amqp-contract/sitemap.xml
+Sitemap: https://btravstack.github.io/temporal-contract/sitemap.xml
+Sitemap: https://btravstack.github.io/unthrown/sitemap.xml
