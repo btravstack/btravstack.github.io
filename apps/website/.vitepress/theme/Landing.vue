@@ -116,13 +116,13 @@ onMounted(() => {
         </div>
         <h1 class="btv-title"><span class="btv-pink">btrav</span><span>stack</span></h1>
         <p class="btv-lead">An expressive, robust TypeScript backend.</p>
-        <p class="btv-sub">A small stack of type-safe building blocks for Node — contracts for your messaging and workflows, and a principled way to handle errors. Define things once, let the types flow everywhere.</p>
+        <p class="btv-sub">A small set of type-safe building blocks for Node. Describe your messaging, workflows and errors once — and let the types flow to every call site.</p>
         <div class="btv-cta-row">
-          <a href="https://github.com/btravstack" target="_blank" rel="noopener" class="cta-primary btv-primary-btn">
+          <a href="#projects" class="cta-primary btv-primary-btn">Explore the packages</a>
+          <a href="https://github.com/btravstack" target="_blank" rel="noopener" class="cta-ghost btv-ghost-cta">
             <svg width="18" height="18" viewBox="0 0 16 16" fill="currentColor"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8z"/></svg>
-            Explore the org
+            View on GitHub
           </a>
-          <a href="#projects" class="cta-ghost btv-ghost-cta">See the packages</a>
         </div>
         <div class="btv-pills">
           <span v-for="p in projects" :key="p.name" class="btv-pill">{{ p.name }}</span>
@@ -132,11 +132,11 @@ onMounted(() => {
 
     <section id="philosophy" class="btv-section btv-narrow">
       <p class="btv-eyebrow">Why btravstack</p>
-      <h2 class="btv-h2 btv-h2-wide">Building blocks for the TypeScript backend.</h2>
-      <p class="btv-section-lead">Each package is small, focused and does one thing well — but they share a worldview: your interfaces are contracts, failure is part of the type, and the compiler should catch what tests can't.</p>
-      <div class="grid-3 btv-prin">
-        <div v-for="pr in principles" :key="pr.num" class="btv-prin-card">
-          <div class="btv-prin-num">{{ pr.num }}</div>
+      <h2 class="btv-h2 btv-h2-wide">The compiler should catch what tests can't.</h2>
+      <p class="btv-section-lead">Each package is small, focused and does one thing well — but they share a worldview: your interfaces are contracts, failure is part of the type, and bad data stops at the door.</p>
+      <div class="btv-prin">
+        <div v-for="pr in principles" :key="pr.num" class="btv-prin-item">
+          <span class="btv-prin-num">{{ pr.num }}</span>
           <h3 class="btv-prin-title">{{ pr.title }}</h3>
           <p class="btv-prin-body">{{ pr.body }}</p>
         </div>
@@ -313,13 +313,20 @@ onMounted(() => {
 .btv-h2-wide { max-width: 680px; }
 .btv-section-lead { margin: 16px 0 0; max-width: 640px; font-size: 16.5px; line-height: 1.65; color: var(--muted); }
 
-/* Principles */
-.btv-prin { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 18px; margin-top: 34px; }
-.btv-prin-card { background: var(--card); border: 1px solid var(--border); border-radius: 16px; padding: 22px; box-shadow: var(--card-rest-shadow); transition: transform .2s ease, border-color .2s ease; }
-.btv-prin-card:hover { transform: translateY(-3px); border-color: var(--border-2); }
-.btv-prin-num { width: 38px; height: 38px; border-radius: 10px; display: flex; align-items: center; justify-content: center; background: var(--accent-wash); border: 1px solid var(--accent-line); color: var(--text-accent); font-family: var(--mono); font-weight: 600; font-size: 15px; }
-.btv-prin-title { margin: 16px 0 0; font-weight: 700; font-size: 18px; letter-spacing: -0.3px; color: var(--text); }
-.btv-prin-body { margin: 9px 0 0; font-size: 14.5px; line-height: 1.6; color: var(--muted); }
+/* Principles — editorial, deliberately lighter than the filled package cards:
+   no fill, hairline rules, ghost numerals. Reads as "why"; the filled package
+   cards below read as "what". */
+.btv-prin { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0; margin-top: 44px; border-top: 1px solid var(--border-2); }
+.btv-prin-item { padding: 30px 30px 8px; border-left: 1px solid var(--border); }
+.btv-prin-item:first-child { border-left: none; padding-left: 0; }
+.btv-prin-num { font-family: var(--mono); font-weight: 500; font-size: 13px; letter-spacing: 1px; color: var(--text-accent); opacity: .85; }
+.btv-prin-title { margin: 18px 0 0; font-weight: 700; font-size: 19px; letter-spacing: -0.3px; color: var(--text); }
+.btv-prin-body { margin: 10px 0 0; font-size: 14.5px; line-height: 1.62; color: var(--muted); }
+@media (max-width: 880px) {
+  .btv-prin { grid-template-columns: minmax(0, 1fr); }
+  .btv-prin-item { border-left: none; padding: 26px 0 8px; border-top: 1px solid var(--border); }
+  .btv-prin-item:first-child { border-top: none; padding-top: 30px; }
+}
 
 /* Project cards */
 .btv-projects { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 20px; }
