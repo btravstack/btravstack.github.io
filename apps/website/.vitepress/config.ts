@@ -17,6 +17,7 @@ export default defineConfig({
   sitemap: { hostname: SITE_URL },
 
   head: [
+    ["meta", { name: "google-site-verification", content: "u6ZPW5bWbP9G1yF5Sv7B4fSOJm5rLbZWeH858tmisTc" }],
     ["link", { rel: "icon", type: "image/svg+xml", href: "/favicon.svg" }],
     ["link", { rel: "apple-touch-icon", sizes: "180x180", href: "/apple-touch-icon.png" }],
     ["meta", { property: "og:type", content: "website" }],
