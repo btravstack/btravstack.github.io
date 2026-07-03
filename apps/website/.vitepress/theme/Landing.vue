@@ -54,6 +54,14 @@ const projects: Project[] = [
     install: "pnpm add unthrown",
     repo: "https://github.com/btravstack/unthrown", docs: "https://btravstack.github.io/unthrown/",
   },
+  {
+    tag: "Wiring", name: "demesne", pkg: "demesne",
+    logo: "/logos/demesne", repoFull: "btravstack/demesne", stars0: 0,
+    blurb: "Type-safe dependency injection. A container holds your services' domain and provides it — with requirements and construction errors tracked in the type system.",
+    points: ["Missing wiring is a compile error", "Construction errors in the result type", "No decorators, no reflect-metadata"],
+    install: "pnpm add demesne",
+    repo: "https://github.com/btravstack/demesne", docs: "https://btravstack.github.io/demesne/",
+  },
 ];
 
 const stars = reactive<Record<string, number>>(
@@ -88,7 +96,7 @@ onMounted(() => {
     <header class="btv-head">
       <div class="btv-head-inner">
         <a href="#top" class="btv-brand">
-          <svg viewBox="0 0 100 124" width="26" height="32" fill="none"><g transform="translate(50,30)"><g transform="rotate(-33)"><path d="M0,3 C-6,-7 -6,-18 0,-27 C6,-18 6,-7 0,3 Z" fill="#2C8B4E"/></g><g transform="rotate(33)"><path d="M0,3 C-6,-7 -6,-18 0,-27 C6,-18 6,-7 0,3 Z" fill="#2C8B4E"/></g><path d="M0,5 C-6.5,-7 -6.5,-19 0,-30 C6.5,-19 6.5,-7 0,5 Z" fill="#3DAE62"/></g><path d="M50,30 C29,28 17,42 17,57 C17,77 38,100 50,107 Z" fill="#CE3D80"/><path d="M50,30 C71,28 83,42 83,57 C83,77 62,100 50,107 Z" fill="#8E1A52"/><path d="M30,46 C26,53 27,65 33,74" stroke="#EE9CC4" stroke-width="3.2" stroke-linecap="round" opacity="0.5"/><path d="M50,107 C49,114 47,118 44,122" stroke="#7A1646" stroke-width="2.6" stroke-linecap="round"/><path d="M50,107 C51,114 53,117 56,120" stroke="#7A1646" stroke-width="2.6" stroke-linecap="round"/></svg>
+          <svg viewBox="0 0 100 124" width="26" height="32" fill="none" aria-hidden="true" focusable="false"><g transform="translate(50,34)"><g transform="rotate(-35)"><path d="M0,3 C-6,-7 -6,-18 0,-28 C6,-18 6,-7 0,3 Z" fill="#2C8B4E"/></g><g transform="rotate(35)"><path d="M0,3 C-6,-7 -6,-18 0,-28 C6,-18 6,-7 0,3 Z" fill="#2C8B4E"/></g><path d="M0,4 C-7,-8 -7,-20 0,-32 C7,-20 7,-8 0,4 Z" fill="#3DAE62"/></g><path d="M50,32 C29,30 17,44 17,60 C17,79 37,99 50,107 Z" fill="#CE3D80"/><path d="M50,32 C71,30 83,44 83,60 C83,79 63,99 50,107 Z" fill="#8E1A52"/><path d="M31,48 C27,55 27.5,65 32,73" stroke="#EE9CC4" stroke-width="4" stroke-linecap="round" fill="none" opacity="0.55"/><path d="M46.5,104 C46.5,112 44,118 39,124 C47,120 52.5,112 53.5,104 Z" fill="#8E1A52"/></svg>
           <span class="btv-word"><span class="btv-pink">btrav</span><span>stack</span></span>
         </a>
         <nav class="btv-nav">
@@ -112,7 +120,7 @@ onMounted(() => {
       <div class="btv-glow"></div>
       <div class="btv-hero-inner">
         <div class="btv-float">
-          <svg viewBox="0 0 100 124" width="116" height="144" fill="none"><g transform="translate(50,30)"><g transform="rotate(-33)"><path d="M0,3 C-6,-7 -6,-18 0,-27 C6,-18 6,-7 0,3 Z" fill="#2C8B4E"/></g><g transform="rotate(33)"><path d="M0,3 C-6,-7 -6,-18 0,-27 C6,-18 6,-7 0,3 Z" fill="#2C8B4E"/></g><path d="M0,5 C-6.5,-7 -6.5,-19 0,-30 C6.5,-19 6.5,-7 0,5 Z" fill="#3DAE62"/></g><path d="M50,30 C29,28 17,42 17,57 C17,77 38,100 50,107 Z" fill="#CE3D80"/><path d="M50,30 C71,28 83,42 83,57 C83,77 62,100 50,107 Z" fill="#8E1A52"/><path d="M30,46 C26,53 27,65 33,74" stroke="#EE9CC4" stroke-width="3.2" stroke-linecap="round" opacity="0.5"/><path d="M50,107 C49,114 47,118 44,122" stroke="#7A1646" stroke-width="2.6" stroke-linecap="round"/><path d="M50,107 C51,114 53,117 56,120" stroke="#7A1646" stroke-width="2.6" stroke-linecap="round"/></svg>
+          <svg viewBox="0 0 100 124" width="116" height="144" fill="none" aria-hidden="true" focusable="false"><g transform="translate(50,34)"><g transform="rotate(-35)"><path d="M0,3 C-6,-7 -6,-18 0,-28 C6,-18 6,-7 0,3 Z" fill="#2C8B4E"/></g><g transform="rotate(35)"><path d="M0,3 C-6,-7 -6,-18 0,-28 C6,-18 6,-7 0,3 Z" fill="#2C8B4E"/></g><path d="M0,4 C-7,-8 -7,-20 0,-32 C7,-20 7,-8 0,4 Z" fill="#3DAE62"/></g><path d="M50,32 C29,30 17,44 17,60 C17,79 37,99 50,107 Z" fill="#CE3D80"/><path d="M50,32 C71,30 83,44 83,60 C83,79 63,99 50,107 Z" fill="#8E1A52"/><path d="M31,48 C27,55 27.5,65 32,73" stroke="#EE9CC4" stroke-width="4" stroke-linecap="round" fill="none" opacity="0.55"/><path d="M46.5,104 C46.5,112 44,118 39,124 C47,120 52.5,112 53.5,104 Z" fill="#8E1A52"/></svg>
         </div>
         <h1 class="btv-title"><span class="btv-pink">btrav</span><span>stack</span></h1>
         <p class="btv-lead">An expressive, robust TypeScript backend.</p>
@@ -145,7 +153,7 @@ onMounted(() => {
 
     <section id="projects" class="btv-section">
       <p class="btv-eyebrow">The packages</p>
-      <h2 class="btv-h2" style="margin-bottom:30px">Three libraries, one stack.</h2>
+      <h2 class="btv-h2" style="margin-bottom:30px">Four libraries, one stack.</h2>
       <div class="grid-3 btv-projects">
         <div v-for="p in projects" :key="p.name" class="pcard btv-pcard">
           <div class="btv-pcard-top">
@@ -196,7 +204,7 @@ onMounted(() => {
       <div class="foot-grid btv-foot-grid">
         <div>
           <div class="btv-foot-brand">
-            <svg viewBox="0 0 100 124" width="24" height="30" fill="none"><g transform="translate(50,30)"><g transform="rotate(-33)"><path d="M0,3 C-6,-7 -6,-18 0,-27 C6,-18 6,-7 0,3 Z" fill="#2C8B4E"/></g><g transform="rotate(33)"><path d="M0,3 C-6,-7 -6,-18 0,-27 C6,-18 6,-7 0,3 Z" fill="#2C8B4E"/></g><path d="M0,5 C-6.5,-7 -6.5,-19 0,-30 C6.5,-19 6.5,-7 0,5 Z" fill="#3DAE62"/></g><path d="M50,30 C29,28 17,42 17,57 C17,77 38,100 50,107 Z" fill="#CE3D80"/><path d="M50,30 C71,28 83,42 83,57 C83,77 62,100 50,107 Z" fill="#8E1A52"/><path d="M50,107 C49,114 47,118 44,122" stroke="#7A1646" stroke-width="2.6" stroke-linecap="round"/><path d="M50,107 C51,114 53,117 56,120" stroke="#7A1646" stroke-width="2.6" stroke-linecap="round"/></svg>
+            <svg viewBox="0 0 100 124" width="24" height="30" fill="none" aria-hidden="true" focusable="false"><g transform="translate(50,34)"><g transform="rotate(-35)"><path d="M0,3 C-6,-7 -6,-18 0,-28 C6,-18 6,-7 0,3 Z" fill="#2C8B4E"/></g><g transform="rotate(35)"><path d="M0,3 C-6,-7 -6,-18 0,-28 C6,-18 6,-7 0,3 Z" fill="#2C8B4E"/></g><path d="M0,4 C-7,-8 -7,-20 0,-32 C7,-20 7,-8 0,4 Z" fill="#3DAE62"/></g><path d="M50,32 C29,30 17,44 17,60 C17,79 37,99 50,107 Z" fill="#CE3D80"/><path d="M50,32 C71,30 83,44 83,60 C83,79 63,99 50,107 Z" fill="#8E1A52"/><path d="M31,48 C27,55 27.5,65 32,73" stroke="#EE9CC4" stroke-width="4" stroke-linecap="round" fill="none" opacity="0.55"/><path d="M46.5,104 C46.5,112 44,118 39,124 C47,120 52.5,112 53.5,104 Z" fill="#8E1A52"/></svg>
             <span class="btv-word btv-foot-word"><span class="btv-pink">btrav</span><span>stack</span></span>
           </div>
           <p class="btv-foot-tag">Type-safe building blocks for the TypeScript backend. Open source, MIT.</p>
@@ -206,12 +214,14 @@ onMounted(() => {
           <a class="foot-link" href="https://github.com/btravstack/amqp-contract" target="_blank" rel="noopener">amqp-contract</a>
           <a class="foot-link" href="https://github.com/btravstack/temporal-contract" target="_blank" rel="noopener">temporal-contract</a>
           <a class="foot-link" href="https://github.com/btravstack/unthrown" target="_blank" rel="noopener">unthrown</a>
+          <a class="foot-link" href="https://github.com/btravstack/demesne" target="_blank" rel="noopener">demesne</a>
         </div>
         <div class="btv-foot-col">
           <p class="btv-foot-h">Docs</p>
           <a class="foot-link" href="https://btravstack.github.io/amqp-contract/" target="_blank" rel="noopener">amqp-contract</a>
           <a class="foot-link" href="https://btravstack.github.io/temporal-contract/" target="_blank" rel="noopener">temporal-contract</a>
           <a class="foot-link" href="https://btravstack.github.io/unthrown/" target="_blank" rel="noopener">unthrown</a>
+          <a class="foot-link" href="https://btravstack.github.io/demesne/" target="_blank" rel="noopener">demesne</a>
         </div>
         <div class="btv-foot-col">
           <p class="btv-foot-h">Org</p>
@@ -328,8 +338,10 @@ onMounted(() => {
   .btv-prin-item:first-child { border-top: none; padding-top: 30px; }
 }
 
-/* Project cards */
-.btv-projects { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 20px; }
+/* Project cards — four across on wide screens ("four libraries, one stack"),
+   two up on tablet, one on mobile (the .grid-3 rule below handles ≤880). */
+.btv-projects { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 18px; }
+@media (max-width: 1080px) { .btv-projects { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
 .btv-pcard { display: flex; flex-direction: column; background: var(--card); border: 1px solid var(--border); border-radius: 20px; padding: 26px; box-shadow: var(--card-rest-shadow); }
 .pcard { transition: transform .2s ease, border-color .2s ease, box-shadow .2s ease; }
 .pcard:hover { transform: translateY(-4px); border-color: var(--border-2); box-shadow: var(--shadow-card); }
