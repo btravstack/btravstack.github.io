@@ -30,11 +30,12 @@
   --vp-c-border:  var(--border-2);
   --vp-c-gutter:  var(--border);
 
-  /* Brand — links/active use accent-as-TEXT (darkens on light for AA) */
+  /* Brand — links/active use accent-as-TEXT (darkens on light for AA).
+     All shades derive from --accent, so a site override rebrands everything. */
   --vp-c-brand-1:    var(--text-accent);
-  --vp-c-brand-2:    var(--bt-pink-soft);
+  --vp-c-brand-2:    var(--accent-soft);
   --vp-c-brand-3:    var(--accent-deep);
-  --vp-c-brand-soft: rgba(var(--accent-rgb), 0.16);
+  --vp-c-brand-soft: color-mix(in srgb, var(--accent) 16%, transparent);
   --vp-c-brand:      var(--text-accent); /* legacy alias */
 
   /* Inline code — accent-as-text so it stays readable on the (scheme-aware)
@@ -49,7 +50,7 @@
   --vp-button-brand-bg:           var(--accent);
   --vp-button-brand-text:         var(--accent-contrast);
   --vp-button-brand-border:       transparent;
-  --vp-button-brand-hover-bg:     var(--bt-magenta);
+  --vp-button-brand-hover-bg:     var(--accent-hover);
   --vp-button-brand-hover-text:   var(--accent-contrast);
   --vp-button-brand-hover-border: transparent;
   --vp-button-brand-active-bg:    var(--accent-deep);
@@ -60,14 +61,14 @@
   --vp-custom-block-tip-bg:     rgba(var(--green-rgb), 0.08);
   --vp-custom-block-tip-border: rgba(var(--green-rgb), 0.30);
   --vp-custom-block-tip-text:   var(--text-green);
-  --vp-custom-block-warning-bg:     rgba(var(--accent-rgb), 0.08);
+  --vp-custom-block-warning-bg:     color-mix(in srgb, var(--accent) 8%, transparent);
   --vp-custom-block-warning-border: var(--accent-line);
   --vp-custom-block-warning-text:   var(--text-accent);
 
-  /* Home hero: gradient name + beetroot glow behind the logo */
+  /* Home hero: gradient name + accent glow behind the logo */
   --vp-home-hero-name-color: transparent;
-  --vp-home-hero-name-background: linear-gradient(120deg, var(--text-accent), var(--bt-pink-soft));
-  --vp-home-hero-image-background-image: radial-gradient(closest-side, rgba(var(--accent-rgb), 0.30), transparent 72%);
+  --vp-home-hero-name-background: linear-gradient(120deg, var(--text-accent), var(--accent-soft));
+  --vp-home-hero-image-background-image: radial-gradient(closest-side, color-mix(in srgb, var(--accent) 30%, transparent), transparent 72%);
   --vp-home-hero-image-filter: blur(8px);
 }
 
@@ -81,7 +82,7 @@
    image on the right — a hard-centered glow there just floats, disconnected. */
 .VPHome { overflow-x: clip; }
 .VPHero .image-container { animation: btv-floaty 6s ease-in-out infinite; }
-.VPHero .image-src { filter: drop-shadow(0 18px 40px rgba(142, 26, 82, 0.4)); }
+.VPHero .image-src { filter: drop-shadow(0 18px 40px color-mix(in srgb, var(--accent-deep) 45%, transparent)); }
 @keyframes btv-floaty { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
 
 /* Navbar logo: VitePress's 24px mark reads as a speck next to the wordmark.
@@ -116,7 +117,7 @@
 .VPFeature .icon {
   border-radius: var(--radius) !important;
   background: var(--vp-c-brand-soft) !important;
-  border: 1px solid rgba(var(--accent-rgb), 0.22);
+  border: 1px solid color-mix(in srgb, var(--accent) 22%, transparent);
 }
 .VPFeature .title { letter-spacing: -0.3px; }
 

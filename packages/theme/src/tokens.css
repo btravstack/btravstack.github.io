@@ -43,29 +43,38 @@
   --muted: #AEA1BC;
   --faint: #7E7290;
 
-  /* ── Accent (brand FILL) ─────────────────────────────────────── */
-  --accent:          #E0589A;
-  --accent-deep:     #8E1A52;
+  /* ── Accent — the single brand knob (v1.4.0) ─────────────────────
+     Set ONE value, `--accent`, and the whole theme rebrands: the deep,
+     hover, soft and wash shades below all derive from it via color-mix,
+     so a consumer site needs only `:root { --accent: #FF6600 }`. The
+     beetroot pink here is the default (the btravstack org brand); the
+     docs sites override it with their own accent.
+     (Optional finer knobs: override --text-accent for a hand-tuned
+     light-mode AA link color, or --accent-contrast for ink on the fill.) */
+  --accent:          #E0589A;   /* ← the knob */
   --accent-contrast: #1a0c14;   /* readable text on an accent fill */
-  --accent-rgb:      224, 88, 154;
+  --accent-deep:     color-mix(in srgb, var(--accent), #000 42%);  /* deep root — active/press */
+  --accent-hover:    color-mix(in srgb, var(--accent), #000 18%);  /* button hover fill */
+  --accent-soft:     color-mix(in srgb, var(--accent) 62%, #fff);  /* highlight vein / brand-2 */
+  --accent-rgb:      224, 88, 154; /* legacy: prefer color-mix over rgba(var(--accent-rgb),…) */
   --green:           #46B86C;
   --green-rgb:       70, 184, 108;
 
-  /* ── Accent-as-TEXT (split from fill; light darkens these for AA) ─ */
-  --text-accent: #E0589A;
+  /* ── Accent-as-TEXT (split from fill; light darkens it for AA) ─── */
+  --text-accent: var(--accent);   /* on dark plum the accent reads fine as text */
   --text-green:  #46B86C;
 
-  /* Display accent — the brand pink as the LARGE display wordmark color in
+  /* Display accent — the accent as the LARGE display wordmark color in
      both schemes (large text only needs 3:1, so it can stay fully vibrant). */
-  --display-accent: #E0589A;
+  --display-accent: var(--accent);
 
   /* ── Glass (frosted sticky headers) ──────────────────────────── */
   --glass: rgba(21, 16, 28, 0.66);
 
   /* ── Accent washes / lines / code inset ──────────────────────── */
-  --accent-wash:   rgba(224, 88, 154, 0.10);
-  --accent-wash-2: rgba(224, 88, 154, 0.16);
-  --accent-line:   rgba(224, 88, 154, 0.25);
+  --accent-wash:   color-mix(in srgb, var(--accent) 10%, transparent);
+  --accent-wash-2: color-mix(in srgb, var(--accent) 16%, transparent);
+  --accent-line:   color-mix(in srgb, var(--accent) 25%, transparent);
   --code-bg:       rgba(0, 0, 0, 0.35);   /* inline code inset */
 
   /* ── Typography: families ────────────────────────────────────── */
@@ -120,7 +129,7 @@
 
   /* ── Shadows ─────────────────────────────────────────────────── */
   --shadow-card:   0 24px 60px -28px rgba(0, 0, 0, 0.8);
-  --shadow-accent: 0 12px 30px -10px rgba(224, 88, 154, 0.6);
+  --shadow-accent: 0 12px 30px -10px color-mix(in srgb, var(--accent) 60%, transparent);
   --shadow-toast:  0 18px 40px -16px rgba(0, 0, 0, 0.8);
 
   /* ── Layout & motion ─────────────────────────────────────────── */
@@ -150,17 +159,19 @@
   --muted: #5E5159;   /* ~7.1:1 on white */
   --faint: #766678;   /* ~5.0:1 on white (was #978996, 3.1:1 — failed AA) */
 
-  --accent:      #E0589A;   /* fill unchanged (dark ink on top) */
-  --text-accent: #D6246F;   /* small labels / links — vivid raspberry, ~4.6:1 AA on white */
+  /* --accent (the FILL) is NOT overridden here — it stays the site's vibrant
+     accent in both schemes (dark ink sits on top). Only accent-as-TEXT darkens
+     for WCAG-AA on white. */
+  --text-accent: color-mix(in srgb, var(--accent), #000 22%); /* darkened accent, ~AA on white */
   --text-green:  #15683A;   /* ~5.2:1 on white — affirmative text */
 
-  --accent-wash:   rgba(224, 88, 154, 0.12);
-  --accent-wash-2: rgba(224, 88, 154, 0.16);
-  --accent-line:   rgba(142, 26, 82, 0.22);
+  --accent-wash:   color-mix(in srgb, var(--accent) 12%, transparent);
+  --accent-wash-2: color-mix(in srgb, var(--accent) 16%, transparent);
+  --accent-line:   color-mix(in srgb, var(--accent-deep) 40%, transparent);
   --glass:         rgba(255, 255, 255, 0.72);
-  --code-bg:       #F4EAF0;
+  --code-bg:       color-mix(in srgb, var(--accent) 8%, #fff);
 
-  --shadow-card:   0 18px 44px -26px rgba(142, 26, 82, 0.30);
-  --shadow-accent: 0 12px 26px -10px rgba(224, 88, 154, 0.45);
+  --shadow-card:   0 18px 44px -26px color-mix(in srgb, var(--accent-deep) 55%, transparent);
+  --shadow-accent: 0 12px 26px -10px color-mix(in srgb, var(--accent) 45%, transparent);
   --shadow-toast:  0 18px 40px -16px rgba(40, 16, 30, 0.18);
 }
