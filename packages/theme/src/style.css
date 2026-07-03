@@ -93,8 +93,8 @@
    margin (no extra `gap`, which would compound with it).
    Light/dark switching is left to VitePress: with `logo: { light, dark }` per
    repo, its native .VPImage class toggle already shows the right artwork. */
-:root:root { --vp-nav-logo-height: 30px; }
-@media (max-width: 768px) { :root:root { --vp-nav-logo-height: 26px; } }
+:root:root { --vp-nav-logo-height: 34px; }
+@media (max-width: 768px) { :root:root { --vp-nav-logo-height: 28px; } }
 
 /* Home hero: tighten the display type. (The hero `image:` is one file per repo,
    set in index.md frontmatter; for a crisp mark in both schemes make it
@@ -129,6 +129,65 @@
 .vp-doc :not(pre) > code { border-radius: 7px; }
 .vp-doc div[class*="language-"] { border-radius: var(--radius); }
 .vp-doc .custom-block { border-radius: var(--radius); }
+
+/* ── Home hero: a bigger mark + a large accent glow shape ─────────
+   The default hero only has a small glow hugging the logo; the docs
+   mockups show a broad accent wash bleeding off the top-right. */
+/* position: relative only — the existing `.VPHome { overflow-x: clip }` above
+   handles the glow's horizontal bleed; a full `overflow: clip` here would also
+   clip vertical content like the feature-card hover-lift shadows. */
+.VPHome { position: relative; }
+.VPHome::before {
+  content: "";
+  position: absolute; top: -40px; right: -120px; z-index: 0;
+  width: 620px; height: 620px; max-width: 85vw;
+  background: radial-gradient(closest-side, color-mix(in srgb, var(--accent) 16%, transparent), transparent 70%);
+  pointer-events: none;
+}
+.VPHome .VPHero,
+.VPHome .VPFeatures { position: relative; z-index: 1; }
+@media (min-width: 960px) {
+  .VPHero .image-container { width: 340px; height: 340px; }
+  .VPHero .image-bg { width: 100%; height: 100%; }
+  /* the mark ships at a small intrinsic size, so stretch it explicitly
+     (all project logos are square) rather than relying on max-width */
+  .VPHero .image-src {
+    width: 300px;
+    height: 300px;
+    max-width: 300px;
+    max-height: 300px;
+    object-fit: contain;
+  }
+}
+
+/* ── "Part of btravstack" org-attribution strip (layout-bottom slot) ── */
+.btv-partof {
+  border-top: 1px solid var(--vp-c-divider);
+  background: var(--vp-c-bg-alt);
+  padding: 16px 24px;
+  display: flex;
+  justify-content: center;
+}
+.btv-partof-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--vp-c-text-3);
+  text-decoration: none;
+  transition: color 0.15s;
+}
+.btv-partof-link:hover { color: var(--vp-c-text-2); }
+.btv-partof-link:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+  border-radius: 4px;
+  color: var(--vp-c-text-1);
+}
+.btv-partof-mark { display: inline-flex; line-height: 0; }
+.btv-partof-word { font-weight: 700; letter-spacing: -0.3px; color: var(--vp-c-text-2); }
+.btv-partof-pink { color: var(--bt-pink); }
 
 @media (prefers-reduced-motion: reduce) {
   .VPHero .image-container { animation: none; }
