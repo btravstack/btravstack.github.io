@@ -133,7 +133,10 @@
 /* ── Home hero: a bigger mark + a large accent glow shape ─────────
    The default hero only has a small glow hugging the logo; the docs
    mockups show a broad accent wash bleeding off the top-right. */
-.VPHome { position: relative; overflow: clip; }
+/* position: relative only — the existing `.VPHome { overflow-x: clip }` above
+   handles the glow's horizontal bleed; a full `overflow: clip` here would also
+   clip vertical content like the feature-card hover-lift shadows. */
+.VPHome { position: relative; }
 .VPHome::before {
   content: "";
   position: absolute; top: -40px; right: -120px; z-index: 0;
@@ -176,6 +179,12 @@
   transition: color 0.15s;
 }
 .btv-partof-link:hover { color: var(--vp-c-text-2); }
+.btv-partof-link:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+  border-radius: 4px;
+  color: var(--vp-c-text-1);
+}
 .btv-partof-mark { display: inline-flex; line-height: 0; }
 .btv-partof-word { font-weight: 700; letter-spacing: -0.3px; color: var(--vp-c-text-2); }
 .btv-partof-pink { color: var(--bt-pink); }

@@ -16,7 +16,7 @@ const PartOfBtravstack = () =>
   h("div", { class: "btv-partof" }, [
     h(
       "a",
-      { class: "btv-partof-link", href: "https://btravstack.github.io/", target: "_blank", rel: "noopener" },
+      { class: "btv-partof-link", href: "https://btravstack.github.io/", target: "_blank", rel: "noopener noreferrer" },
       [
         h("span", { class: "btv-partof-label" }, "Part of"),
         h("span", { class: "btv-partof-mark", innerHTML: BEET_MARK }),
