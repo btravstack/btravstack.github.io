@@ -114,8 +114,8 @@ onMounted(() => {
         </a>
         <nav class="btv-nav">
           <a class="navlink nav-hide" href="#philosophy">Philosophy</a>
-          <a class="navlink nav-hide" href="#ai">Why now</a>
-          <a class="navlink nav-hide" href="#projects" style="margin-right:6px">Projects</a>
+          <a class="navlink nav-hide" href="#projects">Projects</a>
+          <a class="navlink nav-hide" href="#ai" style="margin-right:6px">Why now</a>
           <ClientOnly>
             <button type="button" class="btv-toggle" :title="isDark ? 'Switch to light' : 'Switch to dark'" :aria-label="isDark ? 'Switch to light theme' : 'Switch to dark theme'" :aria-pressed="isDark" @click="toggleAppearance">
               <svg v-if="isDark" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4.2"/><path d="M12 2.5v2M12 19.5v2M4.8 4.8l1.4 1.4M17.8 17.8l1.4 1.4M2.5 12h2M19.5 12h2M4.8 19.2 6.2 17.8M17.8 6.2 19.2 4.8"/></svg>
@@ -165,32 +165,6 @@ onMounted(() => {
       </div>
     </section>
 
-    <section id="ai" class="btv-section btv-ai">
-      <div class="btv-ai-panel">
-        <p class="btv-eyebrow">In the age of AI</p>
-        <h2 class="btv-h2 btv-ai-h2">Written with AI. Judged by the compiler.</h2>
-        <p class="btv-section-lead">None of this was invented for AI — AI just raised the stakes. When an agent writes the code, expressiveness and fail-fast stop being a matter of taste and become infrastructure.</p>
-        <div class="btv-ai-grid">
-          <div v-for="c in aiCards" :key="c.title" class="btv-ai-card">
-            <h3>{{ c.title }}</h3>
-            <p>{{ c.body }}</p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section class="btv-section btv-insp">
-      <p class="btv-eyebrow">Inspirations</p>
-      <h2 class="btv-h2 btv-insp-h2">Standing on good shoulders.</h2>
-      <p class="btv-section-lead">btravstack borrows its instincts from the libraries that made TypeScript feel this way in the first place.</p>
-      <div class="btv-insp-grid">
-        <a v-for="i in inspirations" :key="i.name" :href="i.href" target="_blank" rel="noopener" class="pcard btv-insp-card">
-          <span class="btv-insp-name">{{ i.name }}</span>
-          <p class="btv-insp-body">{{ i.body }}</p>
-        </a>
-      </div>
-    </section>
-
     <section id="projects" class="btv-section">
       <p class="btv-eyebrow">The packages</p>
       <h2 class="btv-h2" style="margin-bottom:30px">Four libraries, one stack.</h2>
@@ -227,6 +201,32 @@ onMounted(() => {
             </a>
           </div>
         </div>
+      </div>
+    </section>
+
+    <section id="ai" class="btv-section btv-ai">
+      <div class="btv-ai-panel">
+        <p class="btv-eyebrow">In the age of AI</p>
+        <h2 class="btv-h2 btv-ai-h2">Written with AI. Judged by the compiler.</h2>
+        <p class="btv-section-lead">None of this was invented for AI — AI just raised the stakes. When an agent writes the code, expressiveness and fail-fast stop being a matter of taste and become infrastructure.</p>
+        <div class="btv-ai-grid">
+          <div v-for="c in aiCards" :key="c.title" class="btv-ai-card">
+            <h3>{{ c.title }}</h3>
+            <p>{{ c.body }}</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="btv-section btv-insp">
+      <p class="btv-eyebrow">Inspirations</p>
+      <h2 class="btv-h2 btv-insp-h2">Standing on good shoulders.</h2>
+      <p class="btv-section-lead">btravstack borrows its instincts from the libraries that made TypeScript feel this way in the first place.</p>
+      <div class="btv-insp-grid">
+        <a v-for="i in inspirations" :key="i.name" :href="i.href" target="_blank" rel="noopener" class="pcard btv-insp-card">
+          <span class="btv-insp-name">{{ i.name }}</span>
+          <p class="btv-insp-body">{{ i.body }}</p>
+        </a>
       </div>
     </section>
 
@@ -268,7 +268,7 @@ onMounted(() => {
       </div>
       <div class="btv-foot-bottom">
         <span>MIT © 2026 <a class="foot-link btv-foot-muted2" href="https://github.com/btravers" target="_blank" rel="noopener">Benoit Travers</a></span>
-        <a class="foot-link btv-foot-mono" href="https://github.com/btravers" target="_blank" rel="noopener">@btravers · betterave 🇫🇷</a>
+        <a class="foot-link btv-foot-mono" href="https://github.com/btravers" target="_blank" rel="noopener">@btravers</a>
       </div>
     </footer>
 
