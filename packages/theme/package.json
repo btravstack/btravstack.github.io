@@ -34,12 +34,19 @@
     "prepack": "pnpm run build"
   },
   "peerDependencies": {
-    "vitepress": "^1.6.0"
+    "vitepress": "^1.6.0",
+    "vue": "^3.3.0"
+  },
+  "peerDependenciesMeta": {
+    "vue": {
+      "optional": true
+    }
   },
   "devDependencies": {
     "@types/node": "catalog:",
     "tsdown": "catalog:",
     "typescript": "catalog:",
-    "vitepress": "catalog:"
+    "vitepress": "catalog:",
+    "vue": "^3.5.0"
   }
 }
