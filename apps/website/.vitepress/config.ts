@@ -153,7 +153,7 @@ export default defineConfig({
     socialLinks: [{ icon: "github", link: "https://github.com/btravstack" }],
     footer: {
       message: "Type-safe building blocks for the TypeScript backend. Released under the MIT License.",
-      copyright: "© 2026 Benoit Travers · betterave 🇫🇷",
+      copyright: "© 2026 Benoit Travers",
     },
     search: { provider: "local" },
   },
