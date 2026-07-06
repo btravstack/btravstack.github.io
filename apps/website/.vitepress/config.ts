@@ -2,7 +2,7 @@ import { defineConfig } from "vitepress";
 
 const SITE_TITLE = "btravstack";
 const SITE_DESCRIPTION =
-  "Type-safe building blocks for the TypeScript backend: contracts for AMQP & Temporal, and errors as values.";
+  "Type-safe building blocks for the TypeScript backend: contracts for AMQP & Temporal, typed dependency injection, and errors as values.";
 const SITE_URL = "https://btravstack.github.io";
 
 // https://vitepress.dev/reference/site-config
@@ -156,5 +156,14 @@ export default defineConfig({
       copyright: "© 2026 Benoit Travers · betterave 🇫🇷",
     },
     search: { provider: "local" },
+  },
+
+  vite: {
+    ssr: {
+      // @btravstack/theme's entry imports "vue" (for its Layout); mark it
+      // noExternal so Vite processes the package and resolves "vue" to the
+      // app's copy instead of failing to externalize it during the build.
+      noExternal: ["@btravstack/theme"],
+    },
   },
 });

@@ -10,9 +10,22 @@ function toggleAppearance() {
 }
 
 const principles = [
-  { num: "01", title: "Contracts, not guesswork", body: "Declare your interface once. Types, autocompletion and validation flow to every call site — publisher, consumer, worker and client." },
-  { num: "02", title: "Errors as values", body: "Model failure in the type system. Anticipated errors are returned, not thrown — only a true defect ever escapes up the stack." },
-  { num: "03", title: "Validated at the edges", body: "Standard-Schema validation runs at every network boundary, so malformed data never makes it past the door of your service." },
+  { num: "01", title: "The signature is the doc", body: "A contract or a function signature should be enough to understand a system. Declare the interface once and read everything from it — no digging into implementations." },
+  { num: "02", title: "Fail fast, everywhere", body: "The sooner the error, the better the code. Anticipated failures are values in the type, malformed data stops at the boundary, missing wiring is a compile error." },
+  { num: "03", title: "Coherence at a high level", body: "Contracts pin down how the pieces fit — publisher and consumer, workflow and client, module and dependency can't drift apart while implementations change underneath." },
+];
+
+const aiCards = [
+  { title: "The tightest feedback loop", body: "An agent is only as good as the signal it gets back. Fail-fast code turns a wrong guess into a precise error in seconds — and fast errors are what make iteration converge." },
+  { title: "A deterministic metric", body: "Typechecking has no opinions. The contract holds or it doesn't — a reproducible, binary measure of generated code, before a single test runs." },
+  { title: "Review at the contract level", body: "Expressive contracts carry the intent. You review interfaces while the AI churns through implementations — the types guarantee the whole still fits together." },
+];
+
+const inspirations = [
+  { name: "zod", href: "https://zod.dev", body: "The schema as a single source of truth — write it once, infer the types." },
+  { name: "prisma", href: "https://www.prisma.io", body: "One declaration, a fully typed client — the whole database readable from its types." },
+  { name: "tRPC", href: "https://trpc.io", body: "End-to-end type safety across a network boundary, with no codegen step." },
+  { name: "oRPC", href: "https://orpc.unnoq.com", body: "Contract-first RPC — the contract is an artifact you define, share and implement against." },
 ];
 
 interface Project {
@@ -55,11 +68,11 @@ const projects: Project[] = [
     repo: "https://github.com/btravstack/unthrown", docs: "https://btravstack.github.io/unthrown/",
   },
   {
-    tag: "Wiring", name: "demesne", pkg: "demesne",
-    logo: "/logos/demesne", repoFull: "btravstack/demesne", stars0: 0,
-    blurb: "Type-safe dependency injection. A container holds your services' domain and provides it — with requirements and construction errors tracked in the type system.",
-    points: ["Missing wiring is a compile error", "Construction errors in the result type", "No decorators, no reflect-metadata"],
-    install: "pnpm add demesne",
+    tag: "Injection", name: "demesne", pkg: "demesne",
+    logo: "/logos/demesne", repoFull: "btravstack/demesne", stars0: 2,
+    blurb: "Type-safe dependency injection. Requirements and construction errors live in the type system — you cannot build until every dependency is wired.",
+    points: ["Missing wiring is a compile error", "Failures as one static union", "Scoped resources, LIFO release"],
+    install: "pnpm add demesne unthrown",
     repo: "https://github.com/btravstack/demesne", docs: "https://btravstack.github.io/demesne/",
   },
 ];
@@ -101,6 +114,7 @@ onMounted(() => {
         </a>
         <nav class="btv-nav">
           <a class="navlink nav-hide" href="#philosophy">Philosophy</a>
+          <a class="navlink nav-hide" href="#ai">Why now</a>
           <a class="navlink nav-hide" href="#projects" style="margin-right:6px">Projects</a>
           <ClientOnly>
             <button type="button" class="btv-toggle" :title="isDark ? 'Switch to light' : 'Switch to dark'" :aria-label="isDark ? 'Switch to light theme' : 'Switch to dark theme'" :aria-pressed="isDark" @click="toggleAppearance">
@@ -124,7 +138,7 @@ onMounted(() => {
         </div>
         <h1 class="btv-title"><span class="btv-pink">btrav</span><span>stack</span></h1>
         <p class="btv-lead">An expressive, robust TypeScript backend.</p>
-        <p class="btv-sub">A small set of type-safe building blocks for Node. Describe your messaging, workflows and errors once — and let the types flow to every call site.</p>
+        <p class="btv-sub">A small stack of type-safe building blocks for Node, built on two convictions: a signature should be enough to understand a system, and the fastest error is the best one. Declare the contract once — types, validation and feedback flow everywhere.</p>
         <div class="btv-cta-row">
           <a href="#projects" class="cta-primary btv-primary-btn">Explore the packages</a>
           <a href="https://github.com/btravstack" target="_blank" rel="noopener" class="cta-ghost btv-ghost-cta">
@@ -140,14 +154,40 @@ onMounted(() => {
 
     <section id="philosophy" class="btv-section btv-narrow">
       <p class="btv-eyebrow">Why btravstack</p>
-      <h2 class="btv-h2 btv-h2-wide">The compiler should catch what tests can't.</h2>
-      <p class="btv-section-lead">Each package is small, focused and does one thing well — but they share a worldview: your interfaces are contracts, failure is part of the type, and bad data stops at the door.</p>
+      <h2 class="btv-h2 btv-h2-wide">Expressive to read. Robust to run.</h2>
+      <p class="btv-section-lead">Each package is small, focused and does one thing well — but they share a worldview: expressive code you can understand from its signature alone, and robust code that fails fast enough to learn from.</p>
       <div class="btv-prin">
-        <div v-for="pr in principles" :key="pr.num" class="btv-prin-item">
-          <span class="btv-prin-num" aria-hidden="true">{{ pr.num }}</span>
+        <div v-for="pr in principles" :key="pr.num" class="btv-prin-card">
+          <div class="btv-prin-chip" aria-hidden="true">{{ pr.num }}</div>
           <h3 class="btv-prin-title">{{ pr.title }}</h3>
           <p class="btv-prin-body">{{ pr.body }}</p>
         </div>
+      </div>
+    </section>
+
+    <section id="ai" class="btv-section btv-ai">
+      <div class="btv-ai-panel">
+        <p class="btv-eyebrow">In the age of AI</p>
+        <h2 class="btv-h2 btv-ai-h2">Written with AI. Judged by the compiler.</h2>
+        <p class="btv-section-lead">None of this was invented for AI — AI just raised the stakes. When an agent writes the code, expressiveness and fail-fast stop being a matter of taste and become infrastructure.</p>
+        <div class="btv-ai-grid">
+          <div v-for="c in aiCards" :key="c.title" class="btv-ai-card">
+            <h3>{{ c.title }}</h3>
+            <p>{{ c.body }}</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="btv-section btv-insp">
+      <p class="btv-eyebrow">Inspirations</p>
+      <h2 class="btv-h2 btv-insp-h2">Standing on good shoulders.</h2>
+      <p class="btv-section-lead">btravstack borrows its instincts from the libraries that made TypeScript feel this way in the first place.</p>
+      <div class="btv-insp-grid">
+        <a v-for="i in inspirations" :key="i.name" :href="i.href" target="_blank" rel="noopener" class="pcard btv-insp-card">
+          <span class="btv-insp-name">{{ i.name }}</span>
+          <p class="btv-insp-body">{{ i.body }}</p>
+        </a>
       </div>
     </section>
 
@@ -157,15 +197,13 @@ onMounted(() => {
       <div class="grid-3 btv-projects">
         <div v-for="p in projects" :key="p.name" class="pcard btv-pcard">
           <div class="btv-pcard-top">
-            <div class="btv-pcard-id">
-              <img :src="`${p.logo}-${isDark ? 'dark' : 'light'}.svg`" width="46" height="46" :alt="`${p.name} logo`" class="btv-logo" />
-              <span class="btv-tag">{{ p.tag }}</span>
-            </div>
+            <img :src="`${p.logo}-${isDark ? 'dark' : 'light'}.svg`" width="56" height="56" :alt="`${p.name} logo`" class="btv-logo" />
             <span class="btv-stars">
               <svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor"><path d="M8 1.3l2.06 4.17 4.6.67-3.33 3.24.78 4.58L8 11.8l-4.11 2.16.78-4.58L1.34 6.14l4.6-.67L8 1.3z"/></svg>
               {{ formatStars(stars[p.repoFull]) }}
             </span>
           </div>
+          <span class="btv-tag">{{ p.tag }}</span>
           <h3 class="btv-pname">{{ p.name }}</h3>
           <code class="btv-pkg">{{ p.pkg }}</code>
           <p class="btv-blurb">{{ p.blurb }}</p>
@@ -230,7 +268,7 @@ onMounted(() => {
       </div>
       <div class="btv-foot-bottom">
         <span>MIT © 2026 <a class="foot-link btv-foot-muted2" href="https://github.com/btravers" target="_blank" rel="noopener">Benoit Travers</a></span>
-        <a class="foot-link btv-foot-mono" href="https://github.com/btravers" target="_blank" rel="noopener">@btravers</a>
+        <a class="foot-link btv-foot-mono" href="https://github.com/btravers" target="_blank" rel="noopener">@btravers · betterave 🇫🇷</a>
       </div>
     </footer>
 
@@ -258,6 +296,7 @@ onMounted(() => {
   --btv-hover: rgba(255, 255, 255, 0.05);
   --btv-pill: rgba(255, 255, 255, 0.04);
   --btv-footer: rgba(0, 0, 0, 0.2);
+  --btv-ai-card: rgba(21, 16, 28, 0.55);
   --card-rest-shadow: none;   /* dark cards: depth from the fill + hairline */
   --glow-display: block;      /* pink hero glow — a dark-scheme signature */
 }
@@ -265,6 +304,7 @@ onMounted(() => {
   --btv-hover: rgba(26, 12, 20, 0.05);
   --btv-pill: rgba(26, 12, 20, 0.035);
   --btv-footer: rgba(26, 12, 20, 0.025);
+  --btv-ai-card: rgba(255, 255, 255, 0.6);
   --card-rest-shadow: 0 1px 2px rgba(26, 12, 20, 0.05), 0 16px 32px -24px rgba(26, 12, 20, 0.22);
   --glow-display: none;       /* on near-white the pink glow reads as a washed
                                  "livid" cloud behind the wordmark — drop it */
@@ -323,34 +363,42 @@ onMounted(() => {
 .btv-h2-wide { max-width: 680px; }
 .btv-section-lead { margin: 16px 0 0; max-width: 640px; font-size: 16.5px; line-height: 1.65; color: var(--muted); }
 
-/* Principles — editorial, deliberately lighter than the filled package cards:
-   no fill, hairline rules, ghost numerals. Reads as "why"; the filled package
-   cards below read as "what". */
-.btv-prin { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0; margin-top: 44px; border-top: 1px solid var(--border-2); }
-.btv-prin-item { padding: 30px 30px 8px; border-left: 1px solid var(--border); }
-.btv-prin-item:first-child { border-left: none; padding-left: 0; }
-.btv-prin-num { font-family: var(--mono); font-weight: 500; font-size: 13px; letter-spacing: 1px; color: var(--text-accent); opacity: .85; }
-.btv-prin-title { margin: 18px 0 0; font-weight: 700; font-size: 19px; letter-spacing: -0.3px; color: var(--text); }
-.btv-prin-body { margin: 10px 0 0; font-size: 14.5px; line-height: 1.62; color: var(--muted); }
-@media (max-width: 880px) {
-  .btv-prin { grid-template-columns: minmax(0, 1fr); }
-  .btv-prin-item { border-left: none; padding: 26px 0 8px; border-top: 1px solid var(--border); }
-  .btv-prin-item:first-child { border-top: none; padding-top: 30px; }
-}
+/* Philosophy — filled cards with a numbered accent chip. */
+.btv-prin { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 18px; margin-top: 34px; }
+.btv-prin-card { background: var(--card); border: 1px solid var(--border); border-radius: 16px; padding: 22px; box-shadow: var(--card-rest-shadow); }
+.btv-prin-chip { width: 38px; height: 38px; border-radius: 10px; display: flex; align-items: center; justify-content: center; background: var(--accent-wash-2); border: 1px solid var(--accent-line); color: var(--text-accent); font-family: var(--mono); font-weight: 600; font-size: 15px; }
+.btv-prin-title { margin: 16px 0 0; font-weight: 700; font-size: 18px; letter-spacing: -0.3px; color: var(--text); }
+.btv-prin-body { margin: 9px 0 0; font-size: 14.5px; line-height: 1.6; color: var(--muted); }
+
+/* "In the age of AI" — a bordered gradient panel with translucent inner cards. */
+.btv-ai { padding-top: 76px; padding-bottom: 0; }
+.btv-ai-panel { background: linear-gradient(120deg, rgba(142,26,82,0.30), rgba(224,88,154,0.07)); border: 1px solid var(--border-2); border-radius: 24px; padding: 46px 40px; }
+.btv-ai-h2 { max-width: 640px; font-size: clamp(26px, 3.6vw, 36px); }
+.btv-ai-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 18px; margin-top: 32px; }
+.btv-ai-card { background: var(--btv-ai-card); border: 1px solid var(--border); border-radius: 16px; padding: 22px; }
+.btv-ai-card h3 { margin: 0; font-weight: 700; font-size: 17.5px; letter-spacing: -0.3px; color: var(--text); }
+.btv-ai-card p { margin: 9px 0 0; font-size: 14.5px; line-height: 1.6; color: var(--muted); }
+
+/* Inspirations — compact link cards. */
+.btv-insp { padding-top: 64px; padding-bottom: 0; }
+.btv-insp-h2 { font-size: clamp(24px, 3.2vw, 32px); }
+.btv-insp-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 18px; margin-top: 28px; }
+.btv-insp-card { display: block; text-decoration: none; background: var(--card); border: 1px solid var(--border); border-radius: 16px; padding: 20px 22px; box-shadow: var(--card-rest-shadow); }
+.btv-insp-name { font-family: var(--mono); font-weight: 600; font-size: 15.5px; color: var(--text); }
+.btv-insp-body { margin: 8px 0 0; font-size: 14px; line-height: 1.55; color: var(--muted); }
 
 /* Project cards — four across on wide screens ("four libraries, one stack"),
    two up on tablet, one on mobile (the .grid-3 rule below handles ≤880). */
 .btv-projects { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 18px; }
-@media (max-width: 1080px) { .btv-projects { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 1080px) { .btv-projects, .btv-insp-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
 .btv-pcard { display: flex; flex-direction: column; background: var(--card); border: 1px solid var(--border); border-radius: 20px; padding: 26px; box-shadow: var(--card-rest-shadow); }
 .pcard { transition: transform .2s ease, border-color .2s ease, box-shadow .2s ease; }
 .pcard:hover { transform: translateY(-4px); border-color: var(--border-2); box-shadow: var(--shadow-card); }
-.btv-pcard-top { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
-.btv-pcard-id { display: flex; align-items: center; gap: 11px; min-width: 0; }
-.btv-logo { display: block; flex: none; }
-.btv-tag { display: inline-flex; align-items: center; font-family: var(--mono); font-size: 11.5px; font-weight: 600; letter-spacing: 0.5px; text-transform: uppercase; color: var(--text-accent); background: var(--accent-wash); border: 1px solid var(--accent-line); padding: 5px 10px; border-radius: 999px; }
+.btv-pcard-top { display: flex; align-items: flex-start; justify-content: space-between; gap: 12px; }
+.btv-logo { display: block; flex: none; width: 56px; height: 56px; object-fit: contain; filter: drop-shadow(0 6px 14px rgba(0, 0, 0, 0.35)); }
+.btv-tag { display: inline-flex; align-self: flex-start; align-items: center; margin-top: 20px; font-family: var(--mono); font-size: 11.5px; font-weight: 600; letter-spacing: 0.5px; text-transform: uppercase; color: var(--text-accent); background: var(--accent-wash); border: 1px solid var(--accent-line); padding: 5px 10px; border-radius: 999px; }
 .btv-stars { display: inline-flex; align-items: center; gap: 5px; font-size: 13px; font-weight: 600; color: var(--faint); }
-.btv-pname { margin: 18px 0 0; font-weight: 800; font-size: 23px; letter-spacing: -0.6px; color: var(--text); }
+.btv-pname { margin: 14px 0 0; font-weight: 800; font-size: 23px; letter-spacing: -0.6px; color: var(--text); }
 .btv-pkg { display: inline-block; margin: 7px 0 0; font-family: var(--mono); font-size: 13px; color: var(--text-accent); background: none; padding: 0; }
 .btv-blurb { margin: 14px 0 0; min-height: 92px; font-size: 14.5px; line-height: 1.6; color: var(--muted); }
 .btv-points { list-style: none; margin: 18px 0 0; padding: 0; display: flex; flex-direction: column; gap: 9px; }
@@ -397,7 +445,9 @@ onMounted(() => {
 
 @media (max-width: 880px) {
   .grid-3 { grid-template-columns: minmax(0, 1fr) !important; }
+  .btv-prin, .btv-ai-grid, .btv-insp-grid { grid-template-columns: minmax(0, 1fr); }
   .btv-foot-grid { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) !important; }
+  .btv-ai-panel { padding: 34px 24px; }
 }
 @media (max-width: 560px) {
   .nav-hide { display: none !important; }
