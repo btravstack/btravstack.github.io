@@ -1,6 +1,8 @@
 /*
- * btravstack web fonts. Montserrat (display/UI) + JetBrains Mono (code).
- * Loaded from Google Fonts so the system stays zero-asset and portable;
- * the weights here match the --fw-* tokens in tokens.css.
+ * btravstack web fonts — the "Beetroot Atlas" pairing (2+1 rule).
+ *   Fraunces        (display serif, optical size + 500–700) — atlas headings
+ *   Switzer         (body/UI, 400–600, Fontshare) — refined neutral
+ *   JetBrains Mono  (code + labels)
  */
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=JetBrains+Mono:wght@400;500;600&display=swap');
+@import url('https://api.fontshare.com/v2/css?f[]=switzer@400,500,600&display=swap');

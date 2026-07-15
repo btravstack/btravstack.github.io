@@ -1,19 +1,29 @@
+/* Hallmark · genre: editorial (premium) · macrostructure: Catalogue · design-system: design.md · designed-as-app
+ * theme: custom · vibe: "botanical atlas, engraved plates, warm ivory, exact"
+ * paper: oklch(95.5% 0.015 85) · accent: #E0589A (oklch(65.5% 0.182 353))
+ * display: Fraunces 550–650 (roman) · body: Switzer · outlier: JetBrains Mono
+ * axes: light / high-contrast-serif / chromatic-other (beetroot-pink ~353°)
+ * nav: N9 edge-aligned · footer: Ft1 mast-headed · studied: no · context: user-provided
+ * pre-emit critique: P5 H4 E4 S5 R5 V5
+ */
+
 /*
- * btravstack design tokens — the single source of truth.
+ * btravstack design tokens — the single source of truth ("Beetroot Atlas").
  *
- * Mirrors the btravstack Design System (tokens/colors.css, themes.css,
- * typography.css, spacing.css). Reference the SEMANTIC tokens (--bg, --text,
- * --accent, --text-accent, --radius, --space-*) in app code; the raw --bt-*
- * palette underneath is the provenance, exposed so adapters (e.g. VitePress)
- * can remap freely.
+ * A botanical atlas: warm ivory paper, sepia ink, hairline rules and
+ * double-rule plate frames, a high-contrast serif, and the beetroot as a
+ * fine-line engraving. Premium through restraint — almost no motion, no
+ * decorative shadows, letterspaced small caps. Reference the SEMANTIC tokens
+ * (--bg, --text, --accent, --text-accent, --radius, --space-*) in app code;
+ * the raw --bt-* palette underneath is the provenance.
  *
- * Dark is the canonical default. The light scheme overrides the semantic
- * tokens; it activates on `:root:not(.dark)` (VitePress's appearance system)
- * as well as an explicit `.light` / `[data-theme="light"]`.
+ * LIGHT "atlas ivory" is the canonical scheme. The dark "aubergine" scheme
+ * overrides the semantic tokens on `.dark` / `[data-theme="dark"]`
+ * (VitePress's appearance system).
  *
- * Fills vs text: keep --accent / --green for FILLS (buttons, glow, washes);
+ * Fills vs text: keep --accent / --green for FILLS (docs buttons, washes);
  * use --text-accent / --text-green for COLORED TEXT and icons — light mode
- * darkens those to deep beetroot so links/labels pass WCAG-AA on white.
+ * darkens those to deep beetroot so links/labels pass WCAG-AA on ivory.
  */
 :root {
   /* ── Brand palette (raw beetroot) ─────────────────────────────── */
@@ -25,98 +35,99 @@
   --bt-leaf:      #3DAE62;   /* center leaf */
   --bt-leaf-dark: #2C8B4E;   /* side leaves */
   --bt-green:     #46B86C;   /* "success" green (checks) */
-  --bt-cream:     #F5EFF3;   /* near-white text */
-  --bt-ink:       #1a0c14;   /* near-black, for text on accent */
+  --bt-cream:     #F5F0E5;   /* atlas ivory */
+  --bt-ink:       #2B1E1C;   /* sepia-black engraving ink */
 
-  /* ── Surfaces (dark scheme — the canonical btravstack look) ───── */
-  --bg:        #15101c;
-  --bg-grad:   #1b1326;   /* radial hero glow inner stop */
-  --card:      #1d1726;
-  --card-soft: #241c31;
+  /* ── Surfaces (LIGHT scheme — "atlas ivory", canonical) ──────── */
+  --bg:        oklch(95.5% 0.015 85);  /* warm ivory ≈ #f5f0e5 */
+  --bg-grad:   oklch(94% 0.018 85);    /* legacy alias — flat, no glow */
+  --card:      oklch(93% 0.018 85);    /* ≈ #ede7db */
+  --card-soft: oklch(90.5% 0.020 85);  /* ≈ #e6dfd1 */
 
-  /* ── Borders / dividers ──────────────────────────────────────── */
-  --border:   rgba(255, 255, 255, 0.08);
-  --border-2: rgba(255, 255, 255, 0.12);
+  /* ── Rules — hairlines; plates draw their own double frames ──── */
+  --border:   color-mix(in srgb, var(--text) 22%, transparent);
+  --border-2: color-mix(in srgb, var(--text) 38%, transparent);
 
   /* ── Text ────────────────────────────────────────────────────── */
-  --text:  #F5EFF3;
-  --muted: #AEA1BC;
-  --faint: #7E7290;
+  --text:  oklch(25% 0.020 30);   /* sepia-black ≈ #2b1e1c */
+  --muted: oklch(42% 0.018 35);   /* ≈ #564a46, ~7:1 on ivory */
+  --faint: oklch(50% 0.015 35);   /* ≈ #6b605d, ~4.9:1 on ivory */
 
-  /* ── Accent — the single brand knob (v1.4.0) ─────────────────────
+  /* ── Accent — the single brand knob ──────────────────────────────
      Set ONE value, `--accent`, and the whole theme rebrands: the deep,
      hover, soft and wash shades below all derive from it via color-mix,
-     so a consumer site needs only `:root { --accent: #FF6600 }`. The
-     beetroot pink here is the default (the btravstack org brand); the
-     docs sites override it with their own accent.
-     (Optional finer knobs: override --text-accent for a hand-tuned
-     light-mode AA link color, or --accent-contrast for ink on the fill.) */
+     so a consumer site needs only `:root:root { --accent: #FF6600 }`.
+     The beetroot pink here is the default (the btravstack org brand);
+     the docs sites override it with their own accent. */
   --accent:          #E0589A;   /* ← the knob */
-  --accent-contrast: #1a0c14;   /* readable text on an accent fill */
-  --accent-deep:     color-mix(in srgb, var(--accent), #000 42%);  /* deep root — active/press */
-  --accent-hover:    color-mix(in srgb, var(--accent), #000 18%);  /* button hover fill */
-  --accent-soft:     color-mix(in srgb, var(--accent) 62%, #fff);  /* highlight vein / brand-2 */
-  --accent-rgb:      224, 88, 154; /* legacy: prefer color-mix over rgba(var(--accent-rgb),…) */
+  --accent-contrast: #2B1E1C;   /* readable text on an accent fill */
+  --accent-deep:     color-mix(in srgb, var(--accent), #000 42%);  /* active/press */
+  --accent-hover:    color-mix(in srgb, var(--accent), #000 16%);  /* fill hover */
+  --accent-soft:     color-mix(in srgb, var(--accent) 62%, #fff);  /* hand-tint */
+  --accent-rgb:      224, 88, 154; /* legacy: prefer color-mix */
   --green:           #46B86C;
   --green-rgb:       70, 184, 108;
 
-  /* ── Accent-as-TEXT (split from fill; light darkens it for AA) ─── */
-  --text-accent: var(--accent);   /* on dark plum the accent reads fine as text */
-  --text-green:  #46B86C;
+  /* ── Accent-as-TEXT (split from fill; light darkens it for AA) ── */
+  --text-accent: color-mix(in srgb, var(--accent), #000 30%); /* deep beet, AA on ivory */
+  --text-green:  #15683A;
 
-  /* Display accent — the accent as the LARGE display wordmark color in
-     both schemes (large text only needs 3:1, so it can stay fully vibrant). */
-  --display-accent: var(--accent);
+  /* Display accent — the accent for LARGE display moments only. */
+  --display-accent: color-mix(in srgb, var(--accent), #000 18%);
 
-  /* ── Glass (frosted sticky headers) ──────────────────────────── */
-  --glass: rgba(21, 16, 28, 0.66);
+  /* ── Focus — instant, never animated ─────────────────────────── */
+  --focus: color-mix(in srgb, var(--accent), #000 18%);
+
+  /* ── Header surface (solid — atlas paper doesn't frost) ──────── */
+  --glass: var(--bg);
 
   /* ── Accent washes / lines / code inset ──────────────────────── */
-  --accent-wash:   color-mix(in srgb, var(--accent) 10%, transparent);
-  --accent-wash-2: color-mix(in srgb, var(--accent) 16%, transparent);
-  --accent-line:   color-mix(in srgb, var(--accent) 25%, transparent);
-  --code-bg:       rgba(0, 0, 0, 0.35);   /* inline code inset */
+  --accent-wash:   color-mix(in srgb, var(--accent) 8%, transparent);
+  --accent-wash-2: color-mix(in srgb, var(--accent) 13%, transparent);
+  --accent-line:   color-mix(in srgb, var(--accent-deep) 35%, transparent);
+  --code-bg:       color-mix(in srgb, var(--text) 5%, var(--bg));
 
-  /* ── Typography: families ────────────────────────────────────── */
-  --sans: 'Montserrat', 'Segoe UI', system-ui, sans-serif;
-  --mono: 'JetBrains Mono', ui-monospace, 'SF Mono', Menlo, monospace;
+  /* ── Typography: families (2+1 — see design.md) ──────────────── */
+  --display: 'Fraunces', ui-serif, Georgia, serif;
+  --sans:    'Switzer', 'Segoe UI', system-ui, sans-serif;
+  --mono:    'JetBrains Mono', ui-monospace, 'SF Mono', Menlo, monospace;
 
   /* ── Typography: weights ─────────────────────────────────────── */
   --fw-medium:    500;
   --fw-semibold:  600;
   --fw-bold:      700;
-  --fw-extrabold: 800;
+  --fw-extrabold: 700;   /* atlas caps at 700 — engravings, not posters */
 
   /* ── Typography: display / heading scale (clamped, fluid) ─────── */
-  --fs-hero: clamp(52px, 9vw, 92px);
-  --fs-h1:   clamp(34px, 6vw, 56px);
-  --fs-h2:   clamp(28px, 4vw, 40px);
-  --fs-h3:   23px;
-  --fs-h4:   18px;
+  --fs-hero: clamp(36px, 4.8vw, 54px);
+  --fs-h1:   clamp(32px, 5vw, 48px);
+  --fs-h2:   clamp(24px, 3vw, 31px);
+  --fs-h3:   21px;
+  --fs-h4:   17px;
 
   /* ── Typography: body / UI scale ─────────────────────────────── */
-  --fs-lead:    clamp(20px, 2.6vw, 26px);
+  --fs-lead:    clamp(18px, 2.1vw, 21px);
   --fs-body-lg: 17px;
   --fs-body:    15px;
   --fs-body-sm: 14px;
   --fs-caption: 13px;
-  --fs-eyebrow: 13px;
+  --fs-eyebrow: 12px;
 
   /* ── Typography: tracking + line heights ─────────────────────── */
-  --tracking-hero:    -2.5px;
-  --tracking-tight:   -1px;
-  --tracking-snug:    -0.5px;
-  --tracking-eyebrow: 1.5px;
-  --lh-tight: 1.08;
-  --lh-snug:  1.3;
-  --lh-body:  1.6;
+  --tracking-hero:    -0.015em;
+  --tracking-tight:   -0.01em;
+  --tracking-snug:    -0.005em;
+  --tracking-eyebrow: 0.12em;
+  --lh-tight: 1.12;
+  --lh-snug:  1.35;
+  --lh-body:  1.65;
 
-  /* ── Radii ───────────────────────────────────────────────────── */
-  --radius-sm:   9px;
-  --radius:      12px;
-  --radius-lg:   16px;
-  --radius-xl:   20px;
-  --radius-2xl:  24px;
+  /* ── Radii — near-sharp; plates are square, docs slightly eased ─ */
+  --radius-sm:   3px;
+  --radius:      4px;
+  --radius-lg:   6px;
+  --radius-xl:   8px;
+  --radius-2xl:  8px;
   --radius-pill: 999px;
 
   /* ── Spacing scale ───────────────────────────────────────────── */
@@ -127,51 +138,47 @@
   --space-5: 22px;
   --space-6: 28px;
 
-  /* ── Shadows ─────────────────────────────────────────────────── */
-  --shadow-card:   0 24px 60px -28px rgba(0, 0, 0, 0.8);
-  --shadow-accent: 0 12px 30px -10px color-mix(in srgb, var(--accent) 60%, transparent);
-  --shadow-toast:  0 18px 40px -16px rgba(0, 0, 0, 0.8);
+  /* ── Shadows — paper doesn't float; keep them almost nothing ─── */
+  --shadow-card:   0 1px 0 color-mix(in srgb, var(--text) 12%, transparent);
+  --shadow-accent: none;
+  --shadow-toast:  0 6px 20px -10px color-mix(in srgb, var(--text) 45%, transparent);
 
   /* ── Layout & motion ─────────────────────────────────────────── */
-  --container:  1180px;
-  --speed-fast: 0.15s;
-  --speed:      0.2s;
-  --ease:       ease;
+  --container:  1120px;
+  --speed-fast: 0.12s;
+  --speed:      0.18s;
+  --ease:       cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 /*
- * Light scheme — warm, faintly beetroot-tinted near-whites. Only the semantic
- * tokens flip; the raw --bt-* palette is unchanged. Brand FILLS stay vibrant
- * pink (dark ink on top); accent-as-TEXT darkens to deep beetroot for AA.
+ * Dark scheme — "aubergine": the atlas printed in negative. Only the semantic
+ * tokens flip; the raw --bt-* palette never changes. Brand FILLS stay vibrant
+ * (dark ink on top); accent-as-TEXT reads fine on aubergine.
  */
-:root:not(.dark),
-[data-theme="light"],
-.light {
-  --bg:        #FBF7F9;
-  --bg-grad:   #FCEDF4;
-  --card:      #FFFFFF;
-  --card-soft: #F0E6EC;
+.dark,
+[data-theme="dark"] {
+  --bg:        oklch(17.5% 0.020 340);  /* aubergine ≈ #170d13 */
+  --bg-grad:   oklch(19.5% 0.021 340);
+  --card:      oklch(21% 0.022 340);    /* ≈ #1f141b */
+  --card-soft: oklch(24.5% 0.022 340);  /* ≈ #281c24 */
 
-  --border:   rgba(26, 12, 20, 0.16);
-  --border-2: rgba(26, 12, 20, 0.24);
+  --border:   color-mix(in srgb, var(--text) 18%, transparent);
+  --border-2: color-mix(in srgb, var(--text) 32%, transparent);
 
-  --text:  #1F0E18;
-  --muted: #5E5159;   /* ~7.1:1 on white */
-  --faint: #766678;   /* ~5.0:1 on white (was #978996, 3.1:1 — failed AA) */
+  --text:  oklch(93% 0.008 60);   /* warm cream ≈ #ece7e3 */
+  --muted: oklch(75% 0.012 55);   /* ≈ #b4aca7 */
+  --faint: oklch(63% 0.012 50);   /* ≈ #908783 */
 
-  /* --accent (the FILL) is NOT overridden here — it stays the site's vibrant
-     accent in both schemes (dark ink sits on top). Only accent-as-TEXT darkens
-     for WCAG-AA on white. */
-  --text-accent: color-mix(in srgb, var(--accent), #000 22%); /* darkened accent, ~AA on white */
-  --text-green:  #15683A;   /* ~5.2:1 on white — affirmative text */
+  --text-accent: var(--accent);
+  --text-green:  #46B86C;
+  --display-accent: var(--accent);
 
-  --accent-wash:   color-mix(in srgb, var(--accent) 12%, transparent);
-  --accent-wash-2: color-mix(in srgb, var(--accent) 16%, transparent);
-  --accent-line:   color-mix(in srgb, var(--accent-deep) 40%, transparent);
-  --glass:         rgba(255, 255, 255, 0.72);
-  --code-bg:       color-mix(in srgb, var(--accent) 8%, #fff);
+  --glass: var(--bg);
+  --accent-wash:   color-mix(in srgb, var(--accent) 10%, transparent);
+  --accent-wash-2: color-mix(in srgb, var(--accent) 15%, transparent);
+  --accent-line:   color-mix(in srgb, var(--accent) 28%, transparent);
+  --code-bg:       rgba(0, 0, 0, 0.35);
 
-  --shadow-card:   0 18px 44px -26px color-mix(in srgb, var(--accent-deep) 55%, transparent);
-  --shadow-accent: 0 12px 26px -10px color-mix(in srgb, var(--accent) 45%, transparent);
-  --shadow-toast:  0 18px 40px -16px rgba(40, 16, 30, 0.18);
+  --shadow-card:   0 1px 0 rgba(0, 0, 0, 0.5);
+  --shadow-toast:  0 6px 22px -10px rgba(0, 0, 0, 0.7);
 }

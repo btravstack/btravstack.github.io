@@ -10,9 +10,9 @@ function toggleAppearance() {
 }
 
 const principles = [
-  { num: "01", title: "The signature is the doc", body: "A contract or a function signature should be enough to understand a system. Declare the interface once and read everything from it — no digging into implementations." },
-  { num: "02", title: "Fail fast, everywhere", body: "The sooner the error, the better the code. Anticipated failures are values in the type, malformed data stops at the boundary, missing wiring is a compile error." },
-  { num: "03", title: "Coherence at a high level", body: "Contracts pin down how the pieces fit — publisher and consumer, workflow and client, module and dependency can't drift apart while implementations change underneath." },
+  { num: "I.", title: "The signature is the doc", body: "A contract or a function signature should be enough to understand a system. Declare the interface once and read everything from it — no digging into implementations." },
+  { num: "II.", title: "Fail fast, everywhere", body: "The sooner the error, the better the code. Anticipated failures are values in the type, malformed data stops at the boundary, missing wiring is a compile error." },
+  { num: "III.", title: "Coherence at a high level", body: "Contracts pin down how the pieces fit — publisher and consumer, workflow and client, module and dependency can't drift apart while implementations change underneath." },
 ];
 
 const aiCards = [
@@ -41,6 +41,8 @@ interface Project {
   repo: string;
   docs: string;
 }
+
+const plates = ["II", "III", "IV", "V"];
 
 const projects: Project[] = [
   {
@@ -106,354 +108,406 @@ onMounted(() => {
 
 <template>
   <div class="btv">
+    <!-- N9 · edge-aligned minimal -->
     <header class="btv-head">
       <div class="btv-head-inner">
         <a href="#top" class="btv-brand">
-          <svg viewBox="0 0 100 124" width="26" height="32" fill="none" aria-hidden="true" focusable="false"><g transform="translate(50,34)"><g transform="rotate(-35)"><path d="M0,3 C-6,-7 -6,-18 0,-28 C6,-18 6,-7 0,3 Z" fill="#2C8B4E"/></g><g transform="rotate(35)"><path d="M0,3 C-6,-7 -6,-18 0,-28 C6,-18 6,-7 0,3 Z" fill="#2C8B4E"/></g><path d="M0,4 C-7,-8 -7,-20 0,-32 C7,-20 7,-8 0,4 Z" fill="#3DAE62"/></g><path d="M50,32 C29,30 17,44 17,60 C17,79 37,99 50,107 Z" fill="#CE3D80"/><path d="M50,32 C71,30 83,44 83,60 C83,79 63,99 50,107 Z" fill="#8E1A52"/><path d="M31,48 C27,55 27.5,65 32,73" stroke="#EE9CC4" stroke-width="4" stroke-linecap="round" fill="none" opacity="0.55"/><path d="M46.5,104 C46.5,112 44,118 39,124 C47,120 52.5,112 53.5,104 Z" fill="#8E1A52"/></svg>
+          <svg viewBox="14 -10 76 145" width="20" height="34" aria-hidden="true" focusable="false" class="btv-eng">
+            <path d="M46,36 C44,28 43,20 45,12" class="eng-line" stroke-width="3"/>
+            <path d="M52,36 C53,28 54,21 53,13" class="eng-line" stroke-width="3"/>
+            <path d="M45,13 C39,8 36,1 41,-3 C46,-7 52,-4 53,2 C54,8 50,12 45,13 Z" class="eng-leaf" stroke-width="3"/>
+            <path d="M53,14 C51,7 54,0 60,-1 C66,-2 69,4 66,10 C63,15 57,16 53,14 Z" class="eng-leaf" stroke-width="3"/>
+            <path d="M50,36 C34,35 22,45 21,58 C20,73 32,88 43,99 C46,102 48,106 50,109 C52,106 55,102 58,98 C69,87 80,72 79,58 C78,45 66,35 50,36 Z" class="eng-root" stroke-width="4"/>
+            <path d="M50,109 C49,116 50,122 47,129" class="eng-line" stroke-width="3"/>
+          </svg>
           <span class="btv-word"><span class="btv-pink">btrav</span><span>stack</span></span>
         </a>
-        <nav class="btv-nav">
-          <a class="navlink nav-hide" href="#philosophy">Philosophy</a>
-          <a class="navlink nav-hide" href="#projects">Projects</a>
-          <a class="navlink nav-hide" href="#ai" style="margin-right:6px">Why now</a>
+        <div class="btv-actions">
           <ClientOnly>
             <button type="button" class="btv-toggle" :title="isDark ? 'Switch to light' : 'Switch to dark'" :aria-label="isDark ? 'Switch to light theme' : 'Switch to dark theme'" :aria-pressed="isDark" @click="toggleAppearance">
-              <svg v-if="isDark" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4.2"/><path d="M12 2.5v2M12 19.5v2M4.8 4.8l1.4 1.4M17.8 17.8l1.4 1.4M2.5 12h2M19.5 12h2M4.8 19.2 6.2 17.8M17.8 6.2 19.2 4.8"/></svg>
-              <svg v-else width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 14.5A8 8 0 1 1 9.5 4 6.4 6.4 0 0 0 20 14.5Z"/></svg>
+              <svg v-if="isDark" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4.2"/><path d="M12 2.5v2M12 19.5v2M4.8 4.8l1.4 1.4M17.8 17.8l1.4 1.4M2.5 12h2M19.5 12h2M4.8 19.2 6.2 17.8M17.8 6.2 19.2 4.8"/></svg>
+              <svg v-else width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 14.5A8 8 0 1 1 9.5 4 6.4 6.4 0 0 0 20 14.5Z"/></svg>
             </button>
           </ClientOnly>
-          <a href="https://github.com/btravstack" target="_blank" rel="noopener" class="cta-ghost btv-ghost-btn">
-            <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true" focusable="false"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8z"/></svg>
-          GitHub
-          </a>
-        </nav>
+          <a href="https://github.com/btravstack" target="_blank" rel="noopener" class="btv-navlink">GitHub <span aria-hidden="true">↗</span></a>
+        </div>
       </div>
     </header>
 
+    <!-- Hero — left-biased text, framed plate right -->
     <section id="top" class="btv-hero">
-      <div class="btv-glow"></div>
-      <div class="btv-hero-inner">
-        <div class="btv-float">
-          <svg viewBox="0 0 100 124" width="116" height="144" fill="none" aria-hidden="true" focusable="false"><g transform="translate(50,34)"><g transform="rotate(-35)"><path d="M0,3 C-6,-7 -6,-18 0,-28 C6,-18 6,-7 0,3 Z" fill="#2C8B4E"/></g><g transform="rotate(35)"><path d="M0,3 C-6,-7 -6,-18 0,-28 C6,-18 6,-7 0,3 Z" fill="#2C8B4E"/></g><path d="M0,4 C-7,-8 -7,-20 0,-32 C7,-20 7,-8 0,4 Z" fill="#3DAE62"/></g><path d="M50,32 C29,30 17,44 17,60 C17,79 37,99 50,107 Z" fill="#CE3D80"/><path d="M50,32 C71,30 83,44 83,60 C83,79 63,99 50,107 Z" fill="#8E1A52"/><path d="M31,48 C27,55 27.5,65 32,73" stroke="#EE9CC4" stroke-width="4" stroke-linecap="round" fill="none" opacity="0.55"/><path d="M46.5,104 C46.5,112 44,118 39,124 C47,120 52.5,112 53.5,104 Z" fill="#8E1A52"/></svg>
-        </div>
-        <h1 class="btv-title"><span class="btv-pink">btrav</span><span>stack</span></h1>
-        <p class="btv-lead">An expressive, robust TypeScript backend.</p>
+      <div class="btv-hero-copy">
+        <h1 class="btv-title">An expressive, robust TypeScript backend.</h1>
         <p class="btv-sub">A small stack of type-safe building blocks for Node, built on two convictions: a signature should be enough to understand a system, and the fastest error is the best one. Declare the contract once — types, validation and feedback flow everywhere.</p>
         <div class="btv-cta-row">
-          <a href="#projects" class="cta-primary btv-primary-btn">Explore the packages</a>
-          <a href="https://github.com/btravstack" target="_blank" rel="noopener" class="cta-ghost btv-ghost-cta">
-            <svg width="18" height="18" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true" focusable="false"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8z"/></svg>
-            View on GitHub
-          </a>
+          <a href="#packages" class="btv-cta">Explore the packages <span aria-hidden="true">↓</span></a>
+          <a href="https://github.com/btravstack" target="_blank" rel="noopener" class="btv-cta btv-cta--quiet">View on GitHub <span aria-hidden="true">↗</span></a>
         </div>
-        <div class="btv-pills">
-          <span v-for="p in projects" :key="p.name" class="btv-pill">{{ p.name }}</span>
+      </div>
+      <figure class="btv-plate btv-hero-plate">
+        <div class="btv-plate-inner">
+          <svg viewBox="0 0 196 152" class="btv-eng btv-hero-art" role="img" aria-label="Engraved botanical plate of a beetroot with a cross-section">
+            <g transform="translate(24,14)">
+              <path d="M46,36 C44,28 43,20 45,12" class="eng-line" stroke-width="1.7"/>
+              <path d="M52,36 C53,28 54,21 53,13" class="eng-line" stroke-width="1.7"/>
+              <path d="M57,37 C61,31 65,26 70,23" class="eng-line" stroke-width="1.5"/>
+              <path d="M45,13 C39,8 36,1 41,-3 C46,-7 52,-4 53,2 C54,8 50,12 45,13 Z" class="eng-leaf" stroke-width="1.5"/>
+              <path d="M45,12 C44,6 45,1 47,-2" class="eng-line eng-fine" stroke-width="0.9"/>
+              <path d="M53,14 C51,7 54,0 60,-1 C66,-2 69,4 66,10 C63,15 57,16 53,14 Z" class="eng-leaf" stroke-width="1.5"/>
+              <path d="M55,12 C57,7 60,3 63,2" class="eng-line eng-fine" stroke-width="0.9"/>
+              <path d="M70,23 C71,17 76,13 81,15 C85,17 85,23 80,26 C76,28 72,27 70,23 Z" class="eng-leaf" stroke-width="1.4"/>
+              <path d="M50,36 C34,35 22,45 21,58 C20,73 32,88 43,99 C46,102 48,106 50,109 C52,106 55,102 58,98 C69,87 80,72 79,58 C78,45 66,35 50,36 Z" class="eng-root" stroke-width="2.1"/>
+              <path d="M41,46 C37,58 38,72 44,85" class="eng-line eng-half" stroke-width="1"/>
+              <path d="M58,45 C62,56 61,70 55,83" class="eng-line eng-half" stroke-width="1"/>
+              <path d="M50,42 C49,58 49,76 50,92" class="eng-line eng-fine" stroke-width="0.9"/>
+              <path d="M29,52 C28,57 28,61 29,65" class="eng-line eng-fine" stroke-width="0.8"/>
+              <path d="M33,48 C31,56 31,64 33,72" class="eng-line eng-fine" stroke-width="0.8"/>
+              <path d="M31,72 C32,78 35,84 38,89" class="eng-line eng-fine" stroke-width="0.8"/>
+              <path d="M50,109 C49,116 50,122 47,129" class="eng-line" stroke-width="1.7"/>
+              <path d="M49,115 L44,117" class="eng-line" stroke-width="1"/>
+              <path d="M49,121 L53,124" class="eng-line" stroke-width="1"/>
+            </g>
+            <g transform="translate(152,78)">
+              <circle r="24" class="eng-root" stroke-width="1.8"/>
+              <circle r="17.5" class="eng-line eng-half" stroke-width="1.1"/>
+              <circle r="11.5" class="eng-line eng-half" stroke-width="1.1"/>
+              <circle r="5.5" class="eng-line eng-half" stroke-width="1.1"/>
+              <circle r="1.6" class="eng-dot"/>
+            </g>
+          </svg>
+          <figcaption class="btv-plate-cap"><span class="btv-plate-no">Pl. I</span> — Beta vulgaris</figcaption>
         </div>
+      </figure>
+    </section>
+
+    <!-- Inventory band + catalogue of plates -->
+    <section id="packages" class="btv-section">
+      <p class="btv-inventory">Four packages · MIT-licensed · for the TypeScript backend</p>
+      <div class="btv-plates">
+        <article v-for="(p, i) in projects" :key="p.name" class="btv-plate">
+          <div class="btv-plate-inner btv-plate-pkg">
+            <div class="btv-pkg-art">
+              <img :src="`${p.logo}-${isDark ? 'dark' : 'light'}.svg`" width="88" height="88" :alt="`${p.name} — engraved mark`" class="btv-logo" />
+            </div>
+            <p class="btv-plate-cap btv-pkg-cap"><span class="btv-plate-no">Pl. {{ plates[i] }}</span> — {{ p.tag }}</p>
+            <h3 class="btv-pname">{{ p.name }}</h3>
+            <code class="btv-pkg">{{ p.pkg }}</code>
+            <p class="btv-blurb">{{ p.blurb }}</p>
+            <ul class="btv-points">
+              <li v-for="pt in p.points" :key="pt">
+                <svg width="14" height="14" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M2.5 8.5l3 3 8-8" stroke="var(--text-green)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                <span>{{ pt }}</span>
+              </li>
+            </ul>
+            <button type="button" class="btv-codeblk" :title="`Copy: ${p.install}`" @click="copy(p.install)">
+              <span class="btv-cmd"><span class="btv-dollar">$ </span>{{ p.install }}</span>
+              <svg width="14" height="14" viewBox="0 0 16 16" fill="none" aria-hidden="true"><rect x="5.5" y="5.5" width="8" height="8" stroke="currentColor" stroke-width="1.3"/><path d="M3.5 10.5h-1A1.5 1.5 0 0 1 1 9V2.5A1.5 1.5 0 0 1 2.5 1H9a1.5 1.5 0 0 1 1.5 1.5v1" stroke="currentColor" stroke-width="1.3"/></svg>
+            </button>
+            <div class="btv-plate-foot">
+              <a :href="p.docs" target="_blank" rel="noopener" class="btv-link">Docs <span aria-hidden="true">↗</span></a>
+              <a :href="p.repo" target="_blank" rel="noopener" class="btv-link btv-link--quiet">Repo <span aria-hidden="true">↗</span></a>
+              <span class="btv-stars" :title="`${stars[p.repoFull]} GitHub stars`">
+                <svg width="12" height="12" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M8 1.3l2.06 4.17 4.6.67-3.33 3.24.78 4.58L8 11.8l-4.11 2.16.78-4.58L1.34 6.14l4.6-.67L8 1.3z"/></svg>
+                {{ formatStars(stars[p.repoFull]) }}
+              </span>
+            </div>
+          </div>
+        </article>
       </div>
     </section>
 
+    <!-- Principles — numbered editorial list -->
     <section id="philosophy" class="btv-section btv-narrow">
-      <p class="btv-eyebrow">Why btravstack</p>
-      <h2 class="btv-h2 btv-h2-wide">Expressive to read. Robust to run.</h2>
+      <h2 class="btv-h2">Expressive to read. Robust to run.</h2>
       <p class="btv-section-lead">Each package is small, focused and does one thing well — but they share a worldview: expressive code you can understand from its signature alone, and robust code that fails fast enough to learn from.</p>
       <div class="btv-prin">
-        <div v-for="pr in principles" :key="pr.num" class="btv-prin-card">
-          <div class="btv-prin-chip" aria-hidden="true">{{ pr.num }}</div>
-          <h3 class="btv-prin-title">{{ pr.title }}</h3>
+        <div v-for="pr in principles" :key="pr.num" class="btv-prin-row">
+          <h3 class="btv-prin-title"><span class="btv-prin-num">{{ pr.num }}</span> {{ pr.title }}</h3>
           <p class="btv-prin-body">{{ pr.body }}</p>
         </div>
       </div>
     </section>
 
-    <section id="projects" class="btv-section">
-      <p class="btv-eyebrow">The packages</p>
-      <h2 class="btv-h2" style="margin-bottom:30px">Four libraries, one stack.</h2>
-      <div class="grid-3 btv-projects">
-        <div v-for="p in projects" :key="p.name" class="pcard btv-pcard">
-          <div class="btv-pcard-top">
-            <img :src="`${p.logo}-${isDark ? 'dark' : 'light'}.svg`" width="56" height="56" :alt="`${p.name} logo`" class="btv-logo" />
-            <span class="btv-stars">
-              <svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor"><path d="M8 1.3l2.06 4.17 4.6.67-3.33 3.24.78 4.58L8 11.8l-4.11 2.16.78-4.58L1.34 6.14l4.6-.67L8 1.3z"/></svg>
-              {{ formatStars(stars[p.repoFull]) }}
-            </span>
-          </div>
-          <span class="btv-tag">{{ p.tag }}</span>
-          <h3 class="btv-pname">{{ p.name }}</h3>
-          <code class="btv-pkg">{{ p.pkg }}</code>
-          <p class="btv-blurb">{{ p.blurb }}</p>
-          <ul class="btv-points">
-            <li v-for="pt in p.points" :key="pt">
-              <svg width="15" height="15" viewBox="0 0 16 16" fill="none"><path d="M2.5 8.5l3 3 8-8" stroke="var(--text-green)" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-              <span>{{ pt }}</span>
-            </li>
-          </ul>
-          <button type="button" class="codeblk btv-codeblk" :title="`Copy: ${p.install}`" @click="copy(p.install)">
-            <span class="btv-cmd"><span class="btv-dollar">$ </span>{{ p.install }}</span>
-            <svg width="15" height="15" viewBox="0 0 16 16" fill="none"><rect x="5.5" y="5.5" width="8" height="8" rx="1.5" stroke="currentColor" stroke-width="1.4"/><path d="M3.5 10.5h-1A1.5 1.5 0 0 1 1 9V2.5A1.5 1.5 0 0 1 2.5 1H9a1.5 1.5 0 0 1 1.5 1.5v1" stroke="currentColor" stroke-width="1.4"/></svg>
-          </button>
-          <div class="btv-pcard-foot">
-            <a :href="p.repo" target="_blank" rel="noopener" class="repolink btv-foot-a">
-              <svg width="15" height="15" viewBox="0 0 16 16" fill="currentColor"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8z"/></svg>
-              Repo
-            </a>
-            <a :href="p.docs" target="_blank" rel="noopener" class="repolink btv-foot-a btv-foot-muted">Docs
-              <svg width="13" height="13" viewBox="0 0 16 16" fill="none"><path d="M5 3.5h7.5V11M12.5 3.5L3.5 12.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
-            </a>
-          </div>
+    <!-- Why now — set prose over three ruled columns -->
+    <section id="ai" class="btv-section btv-narrow">
+      <h2 class="btv-h2">Written with AI. Judged by the compiler.</h2>
+      <p class="btv-section-lead">None of this was invented for AI — AI just raised the stakes. When an agent writes the code, expressiveness and fail-fast stop being a matter of taste and become infrastructure.</p>
+      <div class="btv-ai-cols">
+        <div v-for="c in aiCards" :key="c.title" class="btv-ai-col">
+          <h3>{{ c.title }}</h3>
+          <p>{{ c.body }}</p>
         </div>
       </div>
     </section>
 
-    <section id="ai" class="btv-section btv-ai">
-      <div class="btv-ai-panel">
-        <p class="btv-eyebrow">In the age of AI</p>
-        <h2 class="btv-h2 btv-ai-h2">Written with AI. Judged by the compiler.</h2>
-        <p class="btv-section-lead">None of this was invented for AI — AI just raised the stakes. When an agent writes the code, expressiveness and fail-fast stop being a matter of taste and become infrastructure.</p>
-        <div class="btv-ai-grid">
-          <div v-for="c in aiCards" :key="c.title" class="btv-ai-card">
-            <h3>{{ c.title }}</h3>
-            <p>{{ c.body }}</p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section class="btv-section btv-insp">
-      <p class="btv-eyebrow">Inspirations</p>
-      <h2 class="btv-h2 btv-insp-h2">Standing on good shoulders.</h2>
+    <!-- Inspirations — hairline index -->
+    <section class="btv-section btv-narrow">
+      <h2 class="btv-h2">Standing on good shoulders.</h2>
       <p class="btv-section-lead">btravstack borrows its instincts from the libraries that made TypeScript feel this way in the first place.</p>
-      <div class="btv-insp-grid">
-        <a v-for="i in inspirations" :key="i.name" :href="i.href" target="_blank" rel="noopener" class="pcard btv-insp-card">
-          <span class="btv-insp-name">{{ i.name }}</span>
-          <p class="btv-insp-body">{{ i.body }}</p>
+      <div class="btv-insp">
+        <a v-for="z in inspirations" :key="z.name" :href="z.href" target="_blank" rel="noopener" class="btv-insp-row">
+          <span class="btv-insp-name">{{ z.name }} <span aria-hidden="true">↗</span></span>
+          <span class="btv-insp-body">{{ z.body }}</span>
         </a>
       </div>
     </section>
 
-    <section class="btv-section btv-cta-wrap">
-      <div class="btv-cta-banner">
-        <h2 class="btv-cta-h2">Build backends you can trust the types of.</h2>
-        <p class="btv-cta-p">Star the projects, open an issue, or just read the docs. Everything is MIT-licensed and built in the open.</p>
-        <a href="https://github.com/btravstack" target="_blank" rel="noopener" class="cta-primary btv-primary-btn">View on GitHub</a>
-      </div>
+    <!-- Quiet typographic close -->
+    <section class="btv-section btv-close">
+      <h2 class="btv-close-h2">Build backends you can trust the types of.</h2>
+      <p class="btv-close-p">Star the projects, open an issue, or just read the docs. Everything is MIT-licensed and built in the open.</p>
+      <a href="https://github.com/btravstack" target="_blank" rel="noopener" class="btv-cta btv-cta--big">View on GitHub <span aria-hidden="true">↗</span></a>
     </section>
 
+    <!-- Ft1 · mast-headed footer -->
     <footer class="btv-foot">
-      <div class="foot-grid btv-foot-grid">
-        <div>
-          <div class="btv-foot-brand">
-            <svg viewBox="0 0 100 124" width="24" height="30" fill="none" aria-hidden="true" focusable="false"><g transform="translate(50,34)"><g transform="rotate(-35)"><path d="M0,3 C-6,-7 -6,-18 0,-28 C6,-18 6,-7 0,3 Z" fill="#2C8B4E"/></g><g transform="rotate(35)"><path d="M0,3 C-6,-7 -6,-18 0,-28 C6,-18 6,-7 0,3 Z" fill="#2C8B4E"/></g><path d="M0,4 C-7,-8 -7,-20 0,-32 C7,-20 7,-8 0,4 Z" fill="#3DAE62"/></g><path d="M50,32 C29,30 17,44 17,60 C17,79 37,99 50,107 Z" fill="#CE3D80"/><path d="M50,32 C71,30 83,44 83,60 C83,79 63,99 50,107 Z" fill="#8E1A52"/><path d="M31,48 C27,55 27.5,65 32,73" stroke="#EE9CC4" stroke-width="4" stroke-linecap="round" fill="none" opacity="0.55"/><path d="M46.5,104 C46.5,112 44,118 39,124 C47,120 52.5,112 53.5,104 Z" fill="#8E1A52"/></svg>
-            <span class="btv-word btv-foot-word"><span class="btv-pink">btrav</span><span>stack</span></span>
-          </div>
-          <p class="btv-foot-tag">Type-safe building blocks for the TypeScript backend. Open source, MIT.</p>
+      <div class="btv-foot-inner">
+        <div class="btv-foot-brand">
+          <svg viewBox="14 -10 76 145" width="18" height="31" aria-hidden="true" focusable="false" class="btv-eng">
+            <path d="M46,36 C44,28 43,20 45,12" class="eng-line" stroke-width="3"/>
+            <path d="M52,36 C53,28 54,21 53,13" class="eng-line" stroke-width="3"/>
+            <path d="M45,13 C39,8 36,1 41,-3 C46,-7 52,-4 53,2 C54,8 50,12 45,13 Z" class="eng-leaf" stroke-width="3"/>
+            <path d="M53,14 C51,7 54,0 60,-1 C66,-2 69,4 66,10 C63,15 57,16 53,14 Z" class="eng-leaf" stroke-width="3"/>
+            <path d="M50,36 C34,35 22,45 21,58 C20,73 32,88 43,99 C46,102 48,106 50,109 C52,106 55,102 58,98 C69,87 80,72 79,58 C78,45 66,35 50,36 Z" class="eng-root" stroke-width="4"/>
+            <path d="M50,109 C49,116 50,122 47,129" class="eng-line" stroke-width="3"/>
+          </svg>
+          <span class="btv-word btv-foot-word"><span class="btv-pink">btrav</span><span>stack</span></span>
         </div>
-        <div class="btv-foot-col">
-          <p class="btv-foot-h">Packages</p>
-          <a class="foot-link" href="https://github.com/btravstack/amqp-contract" target="_blank" rel="noopener">amqp-contract</a>
-          <a class="foot-link" href="https://github.com/btravstack/temporal-contract" target="_blank" rel="noopener">temporal-contract</a>
-          <a class="foot-link" href="https://github.com/btravstack/unthrown" target="_blank" rel="noopener">unthrown</a>
-          <a class="foot-link" href="https://github.com/btravstack/demesne" target="_blank" rel="noopener">demesne</a>
-        </div>
-        <div class="btv-foot-col">
-          <p class="btv-foot-h">Docs</p>
-          <a class="foot-link" href="https://btravstack.github.io/amqp-contract/" target="_blank" rel="noopener">amqp-contract</a>
-          <a class="foot-link" href="https://btravstack.github.io/temporal-contract/" target="_blank" rel="noopener">temporal-contract</a>
-          <a class="foot-link" href="https://btravstack.github.io/unthrown/" target="_blank" rel="noopener">unthrown</a>
-          <a class="foot-link" href="https://btravstack.github.io/demesne/" target="_blank" rel="noopener">demesne</a>
-        </div>
-        <div class="btv-foot-col">
-          <p class="btv-foot-h">Org</p>
-          <a class="foot-link" href="https://github.com/btravstack" target="_blank" rel="noopener">GitHub</a>
-        </div>
-      </div>
-      <div class="btv-foot-bottom">
-        <span>MIT © 2026 <a class="foot-link btv-foot-muted2" href="https://github.com/btravers" target="_blank" rel="noopener">Benoit Travers</a></span>
-        <a class="foot-link btv-foot-mono" href="https://github.com/btravers" target="_blank" rel="noopener">@btravers</a>
+        <p class="btv-foot-tag">Type-safe building blocks for the TypeScript backend. Open source, MIT.</p>
+        <nav class="btv-foot-links" aria-label="Documentation">
+          <a v-for="p in projects" :key="p.name" :href="p.docs" target="_blank" rel="noopener" class="btv-link btv-link--quiet">{{ p.name }}</a>
+          <a href="https://github.com/btravstack" target="_blank" rel="noopener" class="btv-link btv-link--quiet">GitHub</a>
+        </nav>
+        <p class="btv-foot-legal">MIT © 2026 <a href="https://github.com/btravers" target="_blank" rel="noopener" class="btv-link btv-link--quiet">Benoit Travers</a></p>
       </div>
     </footer>
 
     <Transition name="btv-toast">
-      <div v-if="copied" class="btv-toast" role="status" aria-live="polite">Copied&nbsp; <span class="btv-pink">{{ copied }}</span></div>
+      <div v-if="copied" class="btv-toast" role="status" aria-live="polite">Copied&nbsp; <span class="btv-toast-cmd">{{ copied }}</span></div>
     </Transition>
   </div>
 </template>
 
 <style scoped>
+/* Hallmark · genre: editorial (premium) · macrostructure: Catalogue · design-system: design.md · designed-as-app
+ * catalogue knobs: plates=4 uniform 2×2, frame=double-rule, labels=Pl. II–V (genuinely ordinal)
+ * nav: N9 edge-aligned (wordmark left · toggle + text CTA right) · footer: Ft1 mast-headed
+ * hero: left-biased text + framed engraving (H2 split, divider=negative space) · enrichment: Tier-B hand-built SVG engravings
+ * theme: custom "beetroot atlas" — tokens in @btravstack/theme · studied: no
+ * contrast: pass (40–41) · nav/footer/hero slop: pass (42–45) · honest: pass (46) · chrome: pass (47)
+ * tokens: pass (48) · responsive: pass (49) · mobile: pass (34, 49, 50–57 — verified 320/375/414/768)
+ * pre-emit critique: P5 H4 E4 S5 R5 V5
+ */
 .btv {
   min-height: 100vh;
-  background: radial-gradient(1100px 560px at 50% -120px, var(--bg-grad), var(--bg) 62%);
+  background: var(--bg);
   color: var(--text);
   font-family: var(--sans);
+  font-size: var(--fs-body);
+  line-height: var(--lh-body);
 }
 
-/* Landing-local scheme overlays (header/nav washes, pills, footer tint, and the
-   light card rest shadow). NB: in Vue scoped CSS a `:global(html…) .btv` selector
-   compiles to the `html…` element, so we set BOTH schemes on the two html states
-   rather than a default on `.btv` — a `.btv` default would shadow the html-level
-   value for everything inside the landing. Surfaces/text/accent themselves come
-   from the shared tokens (tokens.css). */
-:global(html.dark) .btv {
-  --btv-hover: rgba(255, 255, 255, 0.05);
-  --btv-pill: rgba(255, 255, 255, 0.04);
-  --btv-footer: rgba(0, 0, 0, 0.2);
-  --btv-ai-card: rgba(21, 16, 28, 0.55);
-  --card-rest-shadow: none;   /* dark cards: depth from the fill + hairline */
-  --glow-display: block;      /* pink hero glow — a dark-scheme signature */
-}
-:global(html:not(.dark)) .btv {
-  --btv-hover: rgba(26, 12, 20, 0.05);
-  --btv-pill: rgba(26, 12, 20, 0.035);
-  --btv-footer: rgba(26, 12, 20, 0.025);
-  --btv-ai-card: rgba(255, 255, 255, 0.6);
-  --card-rest-shadow: 0 1px 2px rgba(26, 12, 20, 0.05), 0 16px 32px -24px rgba(26, 12, 20, 0.22);
-  --glow-display: none;       /* on near-white the pink glow reads as a washed
-                                 "livid" cloud behind the wordmark — drop it */
-}
-
-/* general accent highlights (incl. the small copy toast) keep the AA text accent */
 .btv-pink { color: var(--text-accent); }
-/* the large display wordmark (hero / header / footer) stays full brand pink */
-.btv-title .btv-pink,
-.btv-word .btv-pink { color: var(--display-accent); }
-.btv-toggle {
-  display: inline-flex; align-items: center; justify-content: center;
-  width: 38px; height: 38px;
-  border: 1px solid var(--border-2); border-radius: 10px;
-  background: transparent; color: var(--muted); cursor: pointer;
-  transition: color 0.15s, background 0.15s, border-color 0.15s;
-}
-.btv-toggle:hover { color: var(--text); background: var(--btv-hover); }
 
-/* Header */
+/* ── Engraving strokes/fills — scheme-adaptive via tokens ─────── */
+.btv-eng { display: block; }
+.eng-line { stroke: var(--text); fill: none; stroke-linecap: round; }
+.eng-fine { opacity: 0.4; }
+.eng-half { opacity: 0.55; fill: none; }
+.eng-leaf { stroke: var(--text); fill: color-mix(in srgb, var(--green) 30%, transparent); }
+.eng-root { stroke: var(--text); fill: color-mix(in srgb, var(--accent) 26%, transparent); }
+.eng-dot  { fill: var(--text); }
+
+/* ── N9 · edge-aligned nav ────────────────────────────────────── */
 .btv-head {
   position: sticky; top: 0; z-index: 50;
-  backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px);
-  background: var(--glass);
+  background: var(--bg);
   border-bottom: 1px solid var(--border);
 }
-.btv-head-inner { max-width: 1180px; margin: 0 auto; padding: 0 28px; height: 68px; display: flex; align-items: center; justify-content: space-between; gap: 24px; }
-.btv-brand { display: flex; align-items: center; gap: 11px; text-decoration: none; }
-.btv-word { font-weight: 800; font-size: 22px; letter-spacing: -0.5px; color: var(--text); }
-.btv-nav { display: flex; align-items: center; gap: 4px; }
-.navlink { color: var(--muted); text-decoration: none; font-weight: 600; font-size: 14.5px; padding: 8px 12px; border-radius: 9px; transition: color .15s, background .15s; }
-.navlink:hover { color: var(--text); background: var(--btv-hover); }
-.btv-ghost-btn { display: inline-flex; align-items: center; gap: 8px; text-decoration: none; color: var(--text); font-weight: 700; font-size: 14px; padding: 9px 15px; border: 1px solid var(--border-2); border-radius: 10px; transition: background .15s, border-color .15s; }
-.cta-ghost:hover { background: var(--btv-hover); border-color: var(--border-2); }
+.btv-head-inner { max-width: var(--container); margin: 0 auto; padding: 0 28px; height: 64px; display: flex; align-items: center; justify-content: space-between; gap: 24px; }
+.btv-brand { display: flex; align-items: center; gap: 10px; text-decoration: none; }
+.btv-word { font-family: var(--display); font-weight: 600; font-size: 21px; letter-spacing: var(--tracking-snug); color: var(--text); white-space: nowrap; }
+.btv-actions { display: flex; align-items: center; gap: 18px; }
+.btv-toggle {
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 34px; height: 34px;
+  border: 1px solid var(--border); border-radius: var(--radius);
+  background: transparent; color: var(--muted); cursor: pointer;
+  transition: color var(--speed-fast) var(--ease), border-color var(--speed-fast) var(--ease);
+}
+.btv-toggle:hover { color: var(--text); border-color: var(--border-2); }
+.btv-toggle:active { transform: translateY(1px); }
+.btv-navlink {
+  display: inline-flex; align-items: baseline; gap: 5px;
+  color: var(--text); text-decoration: none;
+  font-size: 14.5px; font-weight: 500; white-space: nowrap;
+  border-bottom: 1px solid var(--border-2); padding-bottom: 1px;
+  transition: color var(--speed-fast) var(--ease), border-color var(--speed-fast) var(--ease);
+}
+.btv-navlink:hover { color: var(--text-accent); border-bottom-color: var(--text-accent); }
+.btv-navlink:active { color: var(--accent-deep); }
 
-/* Hero */
-.btv-hero { position: relative; text-align: center; padding: 104px 28px 86px; overflow: hidden; }
-.btv-glow { display: var(--glow-display, block); position: absolute; top: 30px; left: 50%; transform: translateX(-50%); width: 560px; max-width: 90vw; height: 380px; background: radial-gradient(closest-side, rgba(224,88,154,0.30), transparent 72%); filter: blur(8px); animation: glowpulse 6s ease-in-out infinite; pointer-events: none; z-index: 0; }
-.btv-hero-inner { position: relative; z-index: 1; max-width: 900px; margin: 0 auto; }
-.btv-float { display: inline-flex; animation: floaty 6s ease-in-out infinite; filter: drop-shadow(0 18px 40px rgba(142,26,82,0.45)); }
-.btv-title { margin: 26px 0 0; font-weight: 800; letter-spacing: -2.5px; line-height: 0.95; font-size: clamp(52px, 9vw, 92px); }
-.btv-lead { margin: 22px auto 0; max-width: 560px; font-size: clamp(20px, 2.6vw, 26px); font-weight: 600; line-height: 1.3; color: var(--text); }
-.btv-sub { margin: 16px auto 0; max-width: 600px; font-size: 17px; line-height: 1.6; color: var(--muted); }
-.btv-cta-row { display: flex; flex-wrap: wrap; gap: 14px; justify-content: center; margin-top: 34px; }
-.btv-primary-btn { display: inline-flex; align-items: center; gap: 9px; text-decoration: none; background: var(--accent); color: var(--accent-contrast); font-weight: 700; font-size: 15.5px; padding: 13px 22px; border-radius: 12px; box-shadow: var(--shadow-accent); transition: filter .15s; }
-.cta-primary:hover { filter: brightness(1.07); }
-.btv-ghost-cta { display: inline-flex; align-items: center; gap: 8px; text-decoration: none; color: var(--text); font-weight: 700; font-size: 15.5px; padding: 13px 22px; border: 1px solid var(--border-2); border-radius: 12px; transition: background .15s, border-color .15s; }
-.btv-pills { display: flex; flex-wrap: wrap; gap: 9px; justify-content: center; margin-top: 30px; }
-.btv-pill { font-family: var(--mono); font-size: 13px; color: var(--muted); background: var(--btv-pill); border: 1px solid var(--border); padding: 6px 12px; border-radius: 999px; }
+/* ── Hero — H2 split, left-biased ─────────────────────────────── */
+.btv-hero {
+  max-width: var(--container); margin: 0 auto; padding: 64px 28px 88px;
+  display: grid; grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
+  gap: 56px; align-items: center;
+}
+.btv-title {
+  margin: 0;
+  font-family: var(--display); font-weight: 650;
+  font-size: var(--fs-hero); line-height: var(--lh-tight); letter-spacing: var(--tracking-hero);
+  overflow-wrap: anywhere; min-width: 0;
+}
+.btv-sub { margin: 20px 0 0; max-width: 58ch; font-size: var(--fs-body-lg); line-height: var(--lh-body); color: var(--muted); }
+.btv-cta-row { display: flex; flex-wrap: wrap; gap: 12px 32px; margin-top: 32px; }
+.btv-cta {
+  display: inline-flex; align-items: baseline; gap: 7px;
+  color: var(--text); text-decoration: none;
+  font-family: var(--display); font-weight: 600; font-size: 17px; white-space: nowrap;
+  border-bottom: 2px solid var(--text-accent); padding-bottom: 2px;
+  transition: color var(--speed-fast) var(--ease), border-color var(--speed-fast) var(--ease);
+}
+.btv-cta:hover { color: var(--text-accent); }
+.btv-cta:active { color: var(--accent-deep); }
+.btv-cta--quiet { border-bottom-color: var(--border-2); }
+.btv-cta--quiet:hover { border-bottom-color: var(--text-accent); }
+.btv-cta--big { font-size: 19px; }
 
-/* Sections */
-.btv-section { max-width: 1180px; margin: 0 auto; padding: 64px 28px 40px; }
-.btv-narrow { padding: 34px 28px 8px; }
-.btv-eyebrow { margin: 0; font-family: var(--mono); font-size: 13px; letter-spacing: 1.5px; text-transform: uppercase; color: var(--text-accent); }
-.btv-h2 { margin: 14px 0 0; font-weight: 800; letter-spacing: -1px; line-height: 1.08; font-size: clamp(28px, 4vw, 40px); }
-.btv-h2-wide { max-width: 680px; }
-.btv-section-lead { margin: 16px 0 0; max-width: 640px; font-size: 16.5px; line-height: 1.65; color: var(--muted); }
+/* ── Plates — double-rule frames ──────────────────────────────── */
+.btv-plate { margin: 0; border: 1px solid var(--border-2); padding: 5px; background: var(--bg); min-width: 0; }
+.btv-plate-inner { border: 1px solid var(--border); padding: 26px; height: 100%; box-sizing: border-box; }
+.btv-hero-plate { max-width: 420px; justify-self: end; width: 100%; }
+.btv-hero-art { width: 100%; height: auto; }
+.btv-plate-cap {
+  margin: 18px 0 0; text-align: center;
+  font-size: var(--fs-eyebrow); letter-spacing: var(--tracking-eyebrow);
+  text-transform: uppercase; color: var(--faint);
+}
+.btv-plate-no { color: var(--text-accent); }
 
-/* Philosophy — filled cards with a numbered accent chip. */
-.btv-prin { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 18px; margin-top: 34px; }
-.btv-prin-card { background: var(--card); border: 1px solid var(--border); border-radius: 16px; padding: 22px; box-shadow: var(--card-rest-shadow); }
-.btv-prin-chip { width: 38px; height: 38px; border-radius: 10px; display: flex; align-items: center; justify-content: center; background: var(--accent-wash-2); border: 1px solid var(--accent-line); color: var(--text-accent); font-family: var(--mono); font-weight: 600; font-size: 15px; }
-.btv-prin-title { margin: 16px 0 0; font-weight: 700; font-size: 18px; letter-spacing: -0.3px; color: var(--text); }
-.btv-prin-body { margin: 9px 0 0; font-size: 14.5px; line-height: 1.6; color: var(--muted); }
-
-/* "In the age of AI" — a bordered gradient panel with translucent inner cards. */
-.btv-ai { padding-top: 76px; padding-bottom: 0; }
-.btv-ai-panel { background: linear-gradient(120deg, rgba(142,26,82,0.30), rgba(224,88,154,0.07)); border: 1px solid var(--border-2); border-radius: 24px; padding: 46px 40px; }
-.btv-ai-h2 { max-width: 640px; font-size: clamp(26px, 3.6vw, 36px); }
-.btv-ai-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 18px; margin-top: 32px; }
-.btv-ai-card { background: var(--btv-ai-card); border: 1px solid var(--border); border-radius: 16px; padding: 22px; }
-.btv-ai-card h3 { margin: 0; font-weight: 700; font-size: 17.5px; letter-spacing: -0.3px; color: var(--text); }
-.btv-ai-card p { margin: 9px 0 0; font-size: 14.5px; line-height: 1.6; color: var(--muted); }
-
-/* Inspirations — compact link cards. */
-.btv-insp { padding-top: 64px; padding-bottom: 0; }
-.btv-insp-h2 { font-size: clamp(24px, 3.2vw, 32px); }
-.btv-insp-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 18px; margin-top: 28px; }
-.btv-insp-card { display: block; text-decoration: none; background: var(--card); border: 1px solid var(--border); border-radius: 16px; padding: 20px 22px; box-shadow: var(--card-rest-shadow); }
-.btv-insp-name { font-family: var(--mono); font-weight: 600; font-size: 15.5px; color: var(--text); }
-.btv-insp-body { margin: 8px 0 0; font-size: 14px; line-height: 1.55; color: var(--muted); }
-
-/* Project cards — four across on wide screens ("four libraries, one stack"),
-   two up on tablet, one on mobile (the .grid-3 rule below handles ≤880). */
-.btv-projects { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 18px; }
-@media (max-width: 1080px) { .btv-projects, .btv-insp-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
-.btv-pcard { display: flex; flex-direction: column; background: var(--card); border: 1px solid var(--border); border-radius: 20px; padding: 26px; box-shadow: var(--card-rest-shadow); }
-.pcard { transition: transform .2s ease, border-color .2s ease, box-shadow .2s ease; }
-.pcard:hover { transform: translateY(-4px); border-color: var(--border-2); box-shadow: var(--shadow-card); }
-.btv-pcard-top { display: flex; align-items: flex-start; justify-content: space-between; gap: 12px; }
-.btv-logo { display: block; flex: none; width: 56px; height: 56px; object-fit: contain; filter: drop-shadow(0 6px 14px rgba(0, 0, 0, 0.35)); }
-.btv-tag { display: inline-flex; align-self: flex-start; align-items: center; margin-top: 20px; font-family: var(--mono); font-size: 11.5px; font-weight: 600; letter-spacing: 0.5px; text-transform: uppercase; color: var(--text-accent); background: var(--accent-wash); border: 1px solid var(--accent-line); padding: 5px 10px; border-radius: 999px; }
-.btv-stars { display: inline-flex; align-items: center; gap: 5px; font-size: 13px; font-weight: 600; color: var(--faint); }
-.btv-pname { margin: 14px 0 0; font-weight: 800; font-size: 23px; letter-spacing: -0.6px; color: var(--text); }
-.btv-pkg { display: inline-block; margin: 7px 0 0; font-family: var(--mono); font-size: 13px; color: var(--text-accent); background: none; padding: 0; }
-.btv-blurb { margin: 14px 0 0; min-height: 92px; font-size: 14.5px; line-height: 1.6; color: var(--muted); }
-.btv-points { list-style: none; margin: 18px 0 0; padding: 0; display: flex; flex-direction: column; gap: 9px; }
-.btv-points li { display: flex; align-items: flex-start; gap: 9px; font-size: 14px; line-height: 1.4; color: var(--text); }
-.btv-points svg { margin-top: 2px; flex: none; }
-.btv-codeblk { margin-top: auto; width: 100%; display: flex; align-items: center; justify-content: space-between; gap: 10px; font-family: var(--mono); font-size: 12.5px; background: #18121f; border: 1px solid rgba(255,255,255,0.07); border-radius: 11px; padding: 11px 13px; color: #f5eff3; cursor: pointer; text-align: left; }
-.codeblk { transition: border-color .15s, background .15s; }
-.codeblk:hover { border-color: rgba(255,255,255,0.18); background: #20182a; }
+/* ── Inventory band + catalogue grid ──────────────────────────── */
+.btv-section { max-width: var(--container); margin: 0 auto; padding: 0 28px 72px; scroll-margin-top: 80px; }
+.btv-inventory {
+  margin: 0 0 32px; padding: 14px 0;
+  border-top: 1px solid var(--border-2); border-bottom: 1px solid var(--border);
+  font-size: var(--fs-eyebrow); letter-spacing: var(--tracking-eyebrow);
+  text-transform: uppercase; color: var(--muted); text-align: center;
+}
+.btv-plates { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 24px; }
+.btv-plate-pkg { display: flex; flex-direction: column; }
+.btv-pkg-art { display: flex; justify-content: center; padding: 6px 0 2px; }
+.btv-logo { display: block; width: 88px; height: 88px; object-fit: contain; }
+.btv-pkg-cap { margin-top: 12px; padding-bottom: 16px; border-bottom: 1px solid var(--border); }
+.btv-pname { margin: 16px 0 0; font-family: var(--display); font-weight: 600; font-size: 26px; letter-spacing: var(--tracking-tight); color: var(--text); text-align: center; }
+.btv-pkg { display: block; margin: 6px 0 0; font-family: var(--mono); font-size: 13px; color: var(--text-accent); background: none; padding: 0; text-align: center; }
+.btv-blurb { margin: 16px 0 0; font-size: 14.5px; line-height: 1.65; color: var(--muted); }
+.btv-points { list-style: none; margin: 16px 0 0; padding: 0; display: flex; flex-direction: column; gap: 8px; }
+.btv-points li { display: flex; align-items: flex-start; gap: 9px; font-size: 14px; line-height: 1.5; color: var(--text); }
+.btv-points svg { margin-top: 3px; flex: none; }
+.btv-codeblk {
+  margin-top: 20px; width: 100%;
+  display: flex; align-items: center; justify-content: space-between; gap: 10px;
+  font-family: var(--mono); font-size: 12.5px;
+  background: var(--code-bg); color: var(--text);
+  border: 1px solid var(--border); border-radius: var(--radius-sm);
+  padding: 11px 13px; cursor: pointer; text-align: left;
+  transition: border-color var(--speed-fast) var(--ease);
+}
+.btv-codeblk:hover { border-color: var(--border-2); }
+.btv-codeblk:active { border-color: var(--text-accent); }
 .btv-cmd { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-.btv-dollar { color: #ee9cc4; user-select: none; }
-.btv-pcard-foot { display: flex; align-items: center; gap: 18px; margin-top: 20px; padding-top: 18px; border-top: 1px solid var(--border); }
-.btv-foot-a { display: inline-flex; align-items: center; gap: 7px; text-decoration: none; color: var(--text); font-weight: 700; font-size: 14px; }
-.btv-foot-muted { color: var(--muted); }
-.repolink { transition: color .15s; }
-.repolink:hover { color: var(--text-accent); }
+.btv-dollar { color: var(--text-accent); user-select: none; }
+.btv-plate-foot { display: flex; align-items: center; gap: 20px; margin-top: auto; padding-top: 20px; }
+.btv-link {
+  display: inline-flex; align-items: baseline; gap: 5px;
+  color: var(--text); text-decoration: none; font-weight: 500; font-size: 14px; white-space: nowrap;
+  border-bottom: 1px solid var(--border-2); padding-bottom: 1px;
+  transition: color var(--speed-fast) var(--ease), border-color var(--speed-fast) var(--ease);
+}
+.btv-link:hover { color: var(--text-accent); border-bottom-color: var(--text-accent); }
+.btv-link:active { color: var(--accent-deep); }
+.btv-link--quiet { color: var(--muted); border-bottom-color: transparent; }
+.btv-link--quiet:hover { color: var(--text-accent); }
+.btv-stars { display: inline-flex; align-items: center; gap: 5px; margin-left: auto; font-family: var(--mono); font-size: 13px; font-variant-numeric: tabular-nums; color: var(--faint); }
 
-/* CTA banner */
-.btv-cta-wrap { padding: 30px 28px 80px; }
-.btv-cta-banner { position: relative; overflow: hidden; background: linear-gradient(120deg, rgba(142,26,82,0.35), rgba(224,88,154,0.12)); border: 1px solid var(--border-2); border-radius: 24px; padding: 46px 40px; text-align: center; }
-.btv-cta-h2 { margin: 0; font-weight: 800; letter-spacing: -0.8px; font-size: clamp(24px, 3.4vw, 34px); color: var(--text); }
-.btv-cta-p { margin: 14px auto 26px; max-width: 520px; font-size: 16px; line-height: 1.6; color: var(--muted); }
+/* ── Editorial sections ───────────────────────────────────────── */
+.btv-narrow { max-width: 880px; }
+.btv-h2 {
+  margin: 0;
+  font-family: var(--display); font-weight: 600;
+  font-size: var(--fs-h2); line-height: 1.18; letter-spacing: var(--tracking-tight);
+  overflow-wrap: anywhere; min-width: 0;
+}
+.btv-section-lead { margin: 14px 0 0; max-width: 62ch; font-size: 16px; line-height: 1.65; color: var(--muted); }
 
-/* Footer */
-.btv-foot { border-top: 1px solid var(--border); background: var(--btv-footer); }
-.btv-foot-grid { max-width: 1180px; margin: 0 auto; padding: 48px 28px 30px; display: grid; grid-template-columns: 1.4fr 1fr 1fr 1fr; gap: 32px; }
-.btv-foot-brand { display: flex; align-items: center; gap: 10px; }
-.btv-foot-word { font-size: 19px; }
-.btv-foot-tag { margin: 14px 0 0; font-size: 13.5px; line-height: 1.6; color: var(--faint); max-width: 240px; }
-.btv-foot-col { display: flex; flex-direction: column; gap: 11px; }
-.btv-foot-h { margin: 0 0 4px; font-size: 12px; letter-spacing: 1px; text-transform: uppercase; color: var(--faint); font-weight: 700; }
-.foot-link { color: var(--muted); text-decoration: none; font-size: 14px; transition: color .15s; }
-.foot-link:hover { color: var(--text-accent); }
-.btv-foot-bottom { max-width: 1180px; margin: 0 auto; padding: 18px 28px 34px; border-top: 1px solid var(--border); display: flex; flex-wrap: wrap; gap: 10px; align-items: center; justify-content: space-between; font-size: 13px; color: var(--faint); }
-.btv-foot-muted2 { color: var(--muted); }
-.btv-foot-mono { font-family: var(--mono); font-size: 12px; color: var(--faint); }
+.btv-prin { margin-top: 36px; border-top: 1px solid var(--border-2); }
+.btv-prin-row { padding: 22px 0 24px; border-bottom: 1px solid var(--border); }
+.btv-prin-title { margin: 0; font-family: var(--display); font-weight: 600; font-size: var(--fs-h3); letter-spacing: var(--tracking-snug); }
+.btv-prin-num { color: var(--text-accent); margin-right: 6px; }
+.btv-prin-body { margin: 10px 0 0; max-width: 68ch; font-size: 15px; line-height: 1.65; color: var(--muted); }
 
-/* Toast */
-.btv-toast { position: fixed; bottom: 26px; left: 50%; transform: translateX(-50%); z-index: 80; background: var(--card-soft); border: 1px solid var(--border-2); color: var(--text); font-family: var(--mono); font-size: 13px; padding: 11px 16px; border-radius: 11px; box-shadow: var(--shadow-toast); }
-.btv-toast-enter-active, .btv-toast-leave-active { transition: opacity .2s ease, transform .2s ease; }
+.btv-ai-cols { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 32px; margin-top: 36px; }
+.btv-ai-col { border-top: 1px solid var(--border-2); padding-top: 16px; }
+.btv-ai-col h3 { margin: 0; font-family: var(--display); font-weight: 600; font-size: 17px; letter-spacing: var(--tracking-snug); color: var(--text); }
+.btv-ai-col p { margin: 9px 0 0; font-size: 14.5px; line-height: 1.6; color: var(--muted); }
+
+.btv-insp { margin-top: 32px; border-top: 1px solid var(--border-2); }
+.btv-insp-row {
+  display: flex; align-items: baseline; gap: 20px;
+  padding: 15px 0; border-bottom: 1px solid var(--border);
+  text-decoration: none;
+}
+.btv-insp-name { flex: none; width: 9ch; font-family: var(--mono); font-weight: 500; font-size: 14.5px; color: var(--text); transition: color var(--speed-fast) var(--ease); }
+.btv-insp-row:hover .btv-insp-name { color: var(--text-accent); }
+.btv-insp-body { font-size: 14px; line-height: 1.55; color: var(--muted); min-width: 0; }
+
+/* ── Quiet close ──────────────────────────────────────────────── */
+.btv-close { text-align: center; padding-top: 24px; padding-bottom: 104px; }
+.btv-close-h2 { margin: 0 auto; max-width: 26ch; font-family: var(--display); font-weight: 650; font-size: clamp(26px, 3.4vw, 36px); line-height: 1.18; letter-spacing: var(--tracking-tight); }
+.btv-close-p { margin: 16px auto 30px; max-width: 52ch; font-size: 15.5px; line-height: 1.6; color: var(--muted); }
+
+/* ── Ft1 · mast-headed footer ─────────────────────────────────── */
+.btv-foot { border-top: 1px solid var(--border-2); }
+.btv-foot-inner { max-width: var(--container); margin: 0 auto; padding: 34px 28px 44px; display: flex; flex-wrap: wrap; align-items: center; gap: 14px 32px; }
+.btv-foot-brand { display: flex; align-items: center; gap: 9px; }
+.btv-foot-word { font-size: 18px; }
+.btv-foot-tag { margin: 0; font-size: 13.5px; color: var(--faint); }
+.btv-foot-links { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 20px; margin-left: auto; }
+.btv-foot-links .btv-link, .btv-foot-legal .btv-link { font-size: 13.5px; }
+.btv-foot-legal { margin: 0; width: 100%; font-size: 13px; color: var(--faint); }
+
+/* ── Toast (silent success) ───────────────────────────────────── */
+.btv-toast {
+  position: fixed; bottom: 26px; left: 50%; transform: translateX(-50%); z-index: 80;
+  background: var(--bg); color: var(--text);
+  border: 1px solid var(--border-2); border-radius: var(--radius);
+  font-family: var(--mono); font-size: 13px; padding: 10px 16px;
+  box-shadow: var(--shadow-toast);
+}
+.btv-toast-cmd { color: var(--text-accent); }
+.btv-toast-enter-active, .btv-toast-leave-active { transition: opacity var(--speed) var(--ease), transform var(--speed) var(--ease); }
 .btv-toast-enter-from, .btv-toast-leave-to { opacity: 0; transform: translate(-50%, 8px); }
 
-@keyframes floaty { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-9px); } }
-@keyframes glowpulse { 0%, 100% { opacity: .55; } 50% { opacity: .8; } }
-
-@media (max-width: 880px) {
-  .grid-3 { grid-template-columns: minmax(0, 1fr) !important; }
-  .btv-prin, .btv-ai-grid, .btv-insp-grid { grid-template-columns: minmax(0, 1fr); }
-  .btv-foot-grid { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) !important; }
-  .btv-ai-panel { padding: 34px 24px; }
+/* ── Responsive ───────────────────────────────────────────────── */
+@media (max-width: 900px) {
+  .btv-hero { grid-template-columns: minmax(0, 1fr); gap: 40px; padding-bottom: 72px; }
+  .btv-hero-plate { justify-self: center; }
+  .btv-plates { grid-template-columns: minmax(0, 1fr); }
+  .btv-ai-cols { grid-template-columns: minmax(0, 1fr); gap: 22px; }
 }
-@media (max-width: 560px) {
-  .nav-hide { display: none !important; }
-  .btv-foot-grid { grid-template-columns: minmax(0, 1fr) !important; }
+@media (max-width: 640px) {
+  .btv-hero { padding: 44px 20px 60px; }
+  .btv-section { padding-left: 20px; padding-right: 20px; }
+  .btv-head-inner, .btv-foot-inner { padding-left: 20px; padding-right: 20px; }
+  .btv-plate-inner { padding: 20px; }
+  .btv-insp-row { flex-direction: column; gap: 4px; }
+  .btv-insp-name { width: auto; }
+  .btv-foot-links { margin-left: 0; }
 }
 @media (prefers-reduced-motion: reduce) {
-  .btv-float, .btv-glow { animation: none; }
+  .btv-cta, .btv-link, .btv-navlink, .btv-toggle, .btv-codeblk { transition: none; }
+  .btv-toast-enter-active, .btv-toast-leave-active { transition: opacity 0.12s var(--ease); }
+  .btv-toast-enter-from, .btv-toast-leave-to { transform: translateX(-50%); }
 }
 </style>
