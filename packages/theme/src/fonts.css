@@ -1,6 +1,8 @@
 /*
- * btravstack web fonts. Montserrat (display/UI) + JetBrains Mono (code).
- * Loaded from Google Fonts so the system stays zero-asset and portable;
- * the weights here match the --fw-* tokens in tokens.css.
+ * btravstack web fonts — the "Beetroot Soft" pairing (2+1 rule).
+ *   Plus Jakarta Sans (display, 600–800) — rounded humanist, warm, never childish
+ *   Geist             (body/UI, 400–700)
+ *   JetBrains Mono    (code + labels)
+ * Loaded from Google Fonts so the system stays zero-asset and portable.
  */
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@600;700;800&family=Geist:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap');

@@ -1,0 +1,26 @@
+[
+  {
+    "date": "2026-07-16",
+    "scope": "app",
+    "macrostructure": "Bento Grid",
+    "theme": "custom",
+    "theme_axes": "light / rounded-sans / chromatic-other (beetroot-pink ~353)",
+    "vibe": "warm, rounded, charming beetroot, soft-but-exact",
+    "enrichment": "H9 original gradient mascot (Tier-B, restored)",
+    "nav": "N1b",
+    "footer": "Ft8 marquee",
+    "brief": "btravstack org rebrand v2 — Beetroot Soft (playful), replaces rejected Beetroot Riso"
+  },
+  {
+    "date": "2026-07-16",
+    "scope": "app",
+    "macrostructure": "Manifesto",
+    "theme": "custom",
+    "theme_axes": "light / display-heavy / chromatic-other (beetroot-pink ~353)",
+    "vibe": "beetroot risograph, contract-as-document, raw, technical",
+    "enrichment": "Tier-B hand-built SVG (flat riso logo set)",
+    "nav": "N7 brutal slab",
+    "footer": "Ft4 dense colophon",
+    "brief": "btravstack org rebrand v1 — Beetroot Riso (REJECTED by user; PR #27)"
+  }
+]

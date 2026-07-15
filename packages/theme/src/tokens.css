@@ -1,18 +1,28 @@
+/* Hallmark · genre: playful · macrostructure: Bento Grid · design-system: design.md · designed-as-app
+ * theme: custom · vibe: "warm, rounded, charming beetroot, soft-but-exact"
+ * paper: oklch(97.5% 0.008 353) · accent: #E0589A (oklch(65.5% 0.182 353))
+ * display: Plus Jakarta Sans 700/800 · body: Geist · outlier: JetBrains Mono
+ * axes: light / rounded-sans / chromatic-other (beetroot-pink ~353°)
+ * nav: N1b · footer: Ft8 marquee · studied: no · context: user-provided
+ * pre-emit critique: P4 H4 E4 S4 R4 V5
+ */
+
 /*
- * btravstack design tokens — the single source of truth.
+ * btravstack design tokens — the single source of truth ("Beetroot Soft").
  *
- * Mirrors the btravstack Design System (tokens/colors.css, themes.css,
- * typography.css, spacing.css). Reference the SEMANTIC tokens (--bg, --text,
+ * Soft and exact at once: warm near-white paper, white card lifts, 12px
+ * corners, soft accent-tinted shadows, and the beetroot as a charming
+ * character rather than a mark. Reference the SEMANTIC tokens (--bg, --text,
  * --accent, --text-accent, --radius, --space-*) in app code; the raw --bt-*
  * palette underneath is the provenance, exposed so adapters (e.g. VitePress)
  * can remap freely.
  *
- * Dark is the canonical default. The light scheme overrides the semantic
- * tokens; it activates on `:root:not(.dark)` (VitePress's appearance system)
- * as well as an explicit `.light` / `[data-theme="light"]`.
+ * LIGHT is the canonical scheme. The dark "plum" scheme overrides the
+ * semantic tokens on `.dark` / `[data-theme="dark"]` (VitePress's
+ * appearance system).
  *
- * Fills vs text: keep --accent / --green for FILLS (buttons, glow, washes);
- * use --text-accent / --text-green for COLORED TEXT and icons — light mode
+ * Fills vs text: keep --accent / --green for FILLS (buttons, washes); use
+ * --text-accent / --text-green for COLORED TEXT and icons — light mode
  * darkens those to deep beetroot so links/labels pass WCAG-AA on white.
  */
 :root {
@@ -26,60 +36,62 @@
   --bt-leaf-dark: #2C8B4E;   /* side leaves */
   --bt-green:     #46B86C;   /* "success" green (checks) */
   --bt-cream:     #F5EFF3;   /* near-white text */
-  --bt-ink:       #1a0c14;   /* near-black, for text on accent */
+  --bt-ink:       #1F1218;   /* near-black, for text on accent */
 
-  /* ── Surfaces (dark scheme — the canonical btravstack look) ───── */
-  --bg:        #15101c;
-  --bg-grad:   #1b1326;   /* radial hero glow inner stop */
-  --card:      #1d1726;
-  --card-soft: #241c31;
+  /* ── Surfaces (LIGHT scheme — canonical) ─────────────────────── */
+  --bg:        oklch(97.5% 0.008 353);  /* warm near-white ≈ #faf4f6 */
+  --bg-grad:   oklch(95.5% 0.014 353);  /* soft wash (legacy alias) */
+  --card:      oklch(99.5% 0.003 353);  /* white lift */
+  --card-soft: oklch(95% 0.012 353);
 
-  /* ── Borders / dividers ──────────────────────────────────────── */
-  --border:   rgba(255, 255, 255, 0.08);
-  --border-2: rgba(255, 255, 255, 0.12);
+  /* ── Borders / dividers — soft hairlines ─────────────────────── */
+  --border:   color-mix(in srgb, var(--text) 12%, transparent);
+  --border-2: color-mix(in srgb, var(--text) 20%, transparent);
 
   /* ── Text ────────────────────────────────────────────────────── */
-  --text:  #F5EFF3;
-  --muted: #AEA1BC;
-  --faint: #7E7290;
+  --text:  oklch(24% 0.020 350);   /* ≈ #291d23 */
+  --muted: oklch(42% 0.018 350);   /* ~7:1 on paper */
+  --faint: oklch(52% 0.015 350);   /* ~4.6:1 on paper */
 
-  /* ── Accent — the single brand knob (v1.4.0) ─────────────────────
+  /* ── Accent — the single brand knob ──────────────────────────────
      Set ONE value, `--accent`, and the whole theme rebrands: the deep,
      hover, soft and wash shades below all derive from it via color-mix,
-     so a consumer site needs only `:root { --accent: #FF6600 }`. The
-     beetroot pink here is the default (the btravstack org brand); the
-     docs sites override it with their own accent.
-     (Optional finer knobs: override --text-accent for a hand-tuned
-     light-mode AA link color, or --accent-contrast for ink on the fill.) */
+     so a consumer site needs only `:root:root { --accent: #FF6600 }`.
+     The beetroot pink here is the default (the btravstack org brand);
+     the docs sites override it with their own accent. */
   --accent:          #E0589A;   /* ← the knob */
-  --accent-contrast: #1a0c14;   /* readable text on an accent fill */
-  --accent-deep:     color-mix(in srgb, var(--accent), #000 42%);  /* deep root — active/press */
-  --accent-hover:    color-mix(in srgb, var(--accent), #000 18%);  /* button hover fill */
-  --accent-soft:     color-mix(in srgb, var(--accent) 62%, #fff);  /* highlight vein / brand-2 */
-  --accent-rgb:      224, 88, 154; /* legacy: prefer color-mix over rgba(var(--accent-rgb),…) */
+  --accent-contrast: #1F1218;   /* readable text on an accent fill */
+  --accent-deep:     color-mix(in srgb, var(--accent), #000 42%);  /* active/press */
+  --accent-hover:    color-mix(in srgb, var(--accent), #000 14%);  /* button hover fill */
+  --accent-soft:     color-mix(in srgb, var(--accent) 62%, #fff);  /* highlight vein */
+  --accent-rgb:      224, 88, 154; /* legacy: prefer color-mix */
   --green:           #46B86C;
   --green-rgb:       70, 184, 108;
 
-  /* ── Accent-as-TEXT (split from fill; light darkens it for AA) ─── */
-  --text-accent: var(--accent);   /* on dark plum the accent reads fine as text */
-  --text-green:  #46B86C;
+  /* ── Accent-as-TEXT (split from fill; light darkens it for AA) ── */
+  --text-accent: color-mix(in srgb, var(--accent), #000 28%); /* deep beet, AA on paper */
+  --text-green:  #15683A;
 
-  /* Display accent — the accent as the LARGE display wordmark color in
-     both schemes (large text only needs 3:1, so it can stay fully vibrant). */
-  --display-accent: var(--accent);
+  /* Display accent — the accent as the LARGE display wordmark color
+     (large text only needs 3:1, so it can stay vibrant). */
+  --display-accent: color-mix(in srgb, var(--accent), #000 12%);
+
+  /* ── Focus — instant, never animated ─────────────────────────── */
+  --focus: color-mix(in srgb, var(--accent), #000 16%);
 
   /* ── Glass (frosted sticky headers) ──────────────────────────── */
-  --glass: rgba(21, 16, 28, 0.66);
+  --glass: color-mix(in srgb, var(--bg) 76%, transparent);
 
   /* ── Accent washes / lines / code inset ──────────────────────── */
-  --accent-wash:   color-mix(in srgb, var(--accent) 10%, transparent);
-  --accent-wash-2: color-mix(in srgb, var(--accent) 16%, transparent);
-  --accent-line:   color-mix(in srgb, var(--accent) 25%, transparent);
-  --code-bg:       rgba(0, 0, 0, 0.35);   /* inline code inset */
+  --accent-wash:   color-mix(in srgb, var(--accent) 9%, transparent);
+  --accent-wash-2: color-mix(in srgb, var(--accent) 14%, transparent);
+  --accent-line:   color-mix(in srgb, var(--accent-deep) 35%, transparent);
+  --code-bg:       color-mix(in srgb, var(--accent) 7%, #fff);
 
-  /* ── Typography: families ────────────────────────────────────── */
-  --sans: 'Montserrat', 'Segoe UI', system-ui, sans-serif;
-  --mono: 'JetBrains Mono', ui-monospace, 'SF Mono', Menlo, monospace;
+  /* ── Typography: families (2+1 — see design.md) ──────────────── */
+  --display: 'Plus Jakarta Sans', 'Segoe UI', system-ui, sans-serif;
+  --sans:    'Geist', 'Segoe UI', system-ui, sans-serif;
+  --mono:    'JetBrains Mono', ui-monospace, 'SF Mono', Menlo, monospace;
 
   /* ── Typography: weights ─────────────────────────────────────── */
   --fw-medium:    500;
@@ -88,14 +100,14 @@
   --fw-extrabold: 800;
 
   /* ── Typography: display / heading scale (clamped, fluid) ─────── */
-  --fs-hero: clamp(52px, 9vw, 92px);
+  --fs-hero: clamp(38px, 5.5vw, 60px);
   --fs-h1:   clamp(34px, 6vw, 56px);
-  --fs-h2:   clamp(28px, 4vw, 40px);
-  --fs-h3:   23px;
-  --fs-h4:   18px;
+  --fs-h2:   clamp(24px, 3.2vw, 32px);
+  --fs-h3:   20px;
+  --fs-h4:   17px;
 
   /* ── Typography: body / UI scale ─────────────────────────────── */
-  --fs-lead:    clamp(20px, 2.6vw, 26px);
+  --fs-lead:    clamp(18px, 2.2vw, 22px);
   --fs-body-lg: 17px;
   --fs-body:    15px;
   --fs-body-sm: 14px;
@@ -103,20 +115,20 @@
   --fs-eyebrow: 13px;
 
   /* ── Typography: tracking + line heights ─────────────────────── */
-  --tracking-hero:    -2.5px;
-  --tracking-tight:   -1px;
-  --tracking-snug:    -0.5px;
-  --tracking-eyebrow: 1.5px;
-  --lh-tight: 1.08;
+  --tracking-hero:    -0.025em;
+  --tracking-tight:   -0.015em;
+  --tracking-snug:    -0.01em;
+  --tracking-eyebrow: 0.08em;
+  --lh-tight: 1.12;
   --lh-snug:  1.3;
   --lh-body:  1.6;
 
-  /* ── Radii ───────────────────────────────────────────────────── */
-  --radius-sm:   9px;
-  --radius:      12px;
-  --radius-lg:   16px;
-  --radius-xl:   20px;
-  --radius-2xl:  24px;
+  /* ── Radii — rounded, friendly (12px cards, 999px pills) ─────── */
+  --radius-sm:   8px;
+  --radius:      10px;
+  --radius-lg:   12px;
+  --radius-xl:   14px;
+  --radius-2xl:  16px;
   --radius-pill: 999px;
 
   /* ── Spacing scale ───────────────────────────────────────────── */
@@ -127,51 +139,48 @@
   --space-5: 22px;
   --space-6: 28px;
 
-  /* ── Shadows ─────────────────────────────────────────────────── */
-  --shadow-card:   0 24px 60px -28px rgba(0, 0, 0, 0.8);
-  --shadow-accent: 0 12px 30px -10px color-mix(in srgb, var(--accent) 60%, transparent);
-  --shadow-toast:  0 18px 40px -16px rgba(0, 0, 0, 0.8);
+  /* ── Shadows — soft, accent-tinted, restrained ───────────────── */
+  --shadow-card:   0 8px 24px -10px color-mix(in srgb, var(--accent-deep) 40%, transparent);
+  --shadow-accent: 0 8px 20px -8px color-mix(in srgb, var(--accent) 55%, transparent);
+  --shadow-toast:  0 12px 28px -12px color-mix(in srgb, var(--accent-deep) 45%, transparent);
 
   /* ── Layout & motion ─────────────────────────────────────────── */
   --container:  1180px;
   --speed-fast: 0.15s;
   --speed:      0.2s;
-  --ease:       ease;
+  --ease:       cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 /*
- * Light scheme — warm, faintly beetroot-tinted near-whites. Only the semantic
- * tokens flip; the raw --bt-* palette is unchanged. Brand FILLS stay vibrant
- * pink (dark ink on top); accent-as-TEXT darkens to deep beetroot for AA.
+ * Dark scheme — the soft plum the brand grew up on. Only the semantic tokens
+ * flip; the raw --bt-* palette and the hue family never change. Brand FILLS
+ * stay vibrant (dark ink on top); accent-as-TEXT reads fine on plum.
  */
-:root:not(.dark),
-[data-theme="light"],
-.light {
-  --bg:        #FBF7F9;
-  --bg-grad:   #FCEDF4;
-  --card:      #FFFFFF;
-  --card-soft: #F0E6EC;
+.dark,
+[data-theme="dark"] {
+  --bg:        oklch(18.5% 0.025 310);  /* plum ≈ #171021 */
+  --bg-grad:   oklch(21% 0.028 310);
+  --card:      oklch(22% 0.026 310);
+  --card-soft: oklch(25.5% 0.027 310);
 
-  --border:   rgba(26, 12, 20, 0.16);
-  --border-2: rgba(26, 12, 20, 0.24);
+  --border:   color-mix(in srgb, var(--text) 10%, transparent);
+  --border-2: color-mix(in srgb, var(--text) 16%, transparent);
 
-  --text:  #1F0E18;
-  --muted: #5E5159;   /* ~7.1:1 on white */
-  --faint: #766678;   /* ~5.0:1 on white (was #978996, 3.1:1 — failed AA) */
+  --text:  oklch(94% 0.008 340);
+  --muted: oklch(76% 0.014 330);
+  --faint: oklch(62% 0.014 320);
 
-  /* --accent (the FILL) is NOT overridden here — it stays the site's vibrant
-     accent in both schemes (dark ink sits on top). Only accent-as-TEXT darkens
-     for WCAG-AA on white. */
-  --text-accent: color-mix(in srgb, var(--accent), #000 22%); /* darkened accent, ~AA on white */
-  --text-green:  #15683A;   /* ~5.2:1 on white — affirmative text */
+  --text-accent: var(--accent);
+  --text-green:  #46B86C;
+  --display-accent: var(--accent);
 
-  --accent-wash:   color-mix(in srgb, var(--accent) 12%, transparent);
+  --glass: color-mix(in srgb, var(--bg) 72%, transparent);
+  --accent-wash:   color-mix(in srgb, var(--accent) 11%, transparent);
   --accent-wash-2: color-mix(in srgb, var(--accent) 16%, transparent);
-  --accent-line:   color-mix(in srgb, var(--accent-deep) 40%, transparent);
-  --glass:         rgba(255, 255, 255, 0.72);
-  --code-bg:       color-mix(in srgb, var(--accent) 8%, #fff);
+  --accent-line:   color-mix(in srgb, var(--accent) 26%, transparent);
+  --code-bg:       rgba(0, 0, 0, 0.35);
 
-  --shadow-card:   0 18px 44px -26px color-mix(in srgb, var(--accent-deep) 55%, transparent);
-  --shadow-accent: 0 12px 26px -10px color-mix(in srgb, var(--accent) 45%, transparent);
-  --shadow-toast:  0 18px 40px -16px rgba(40, 16, 30, 0.18);
+  --shadow-card:   0 12px 32px -14px rgba(0, 0, 0, 0.7);
+  --shadow-accent: 0 8px 22px -8px color-mix(in srgb, var(--accent) 45%, transparent);
+  --shadow-toast:  0 12px 30px -12px rgba(0, 0, 0, 0.7);
 }
