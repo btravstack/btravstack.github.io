@@ -1,6 +1,8 @@
 /*
- * btravstack web fonts. Montserrat (display/UI) + JetBrains Mono (code).
- * Loaded from Google Fonts so the system stays zero-asset and portable;
- * the weights here match the --fw-* tokens in tokens.css.
+ * btravstack web fonts — the "Beetroot Riso" pairing (2+1 rule).
+ *   Bricolage Grotesque (display, 700/800) — riso-bold declaration voice
+ *   Geist               (body/UI, 400–700)
+ *   JetBrains Mono      (code + clause numerals)
+ * Loaded from Google Fonts so the system stays zero-asset and portable.
  */
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700;12..96,800&family=Geist:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap');
