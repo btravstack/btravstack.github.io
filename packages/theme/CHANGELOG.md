@@ -1,5 +1,11 @@
 # @btravstack/theme
 
+## 1.6.1
+
+### Patch Changes
+
+- 095f054: The "Part of BtravStack" strip now shows the new waving character mascot and the BtravStack brand casing.
+
 ## 1.6.0
 
 ### Minor Changes
