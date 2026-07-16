@@ -44,6 +44,7 @@
   --pkg-temporal: #6B76F2;
   --pkg-unthrown: #46B86C;
   --pkg-demesne:  #B45CE0;
+  --pkg-start:    #22B8CF;
 
   /* ── Surfaces (DARK scheme — canonical: near-neutral black) ──── */
   --bg:        oklch(13% 0.006 310);   /* ≈ #080709 — the canvas */
