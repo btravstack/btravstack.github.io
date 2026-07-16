@@ -210,7 +210,7 @@ onMounted(() => {
               {{ formatCount(stars[p.repoFull]) }}
             </span>
           </div>
-          <p class="btv-tag"><span class="btv-dot" aria-hidden="true"></span>{{ p.tag }}<span v-if="p.status" class="btv-chip" :title="`${p.name} is ${p.status} — the API will evolve`"><img :src="`/logos/beet-worker-${isDark ? 'dark' : 'light'}.svg`" alt="" aria-hidden="true" class="btv-chip-beet" />{{ p.status }}</span></p>
+          <p class="btv-tag"><span class="btv-dot" aria-hidden="true"></span>{{ p.tag }}<span v-if="p.status" class="btv-chip" :title="`${p.name} is ${p.status} — the API will evolve`"><img :src="`/logos/beet-worker-${isDark ? 'dark' : 'light'}.svg`" width="13" height="15" alt="" aria-hidden="true" class="btv-chip-beet" />{{ p.status }}</span></p>
           <h3 class="btv-pname">{{ p.name }}</h3>
           <code class="btv-pkg">{{ p.pkg }}</code>
           <p class="btv-blurb">{{ p.blurb }}</p>
@@ -237,7 +237,7 @@ onMounted(() => {
           </div>
           <div class="btv-wip-body">
             <div class="btv-panel-top">
-              <p class="btv-tag btv-tag--wip"><span class="btv-dot" aria-hidden="true"></span>{{ incubating.tag }}<span class="btv-chip"><img :src="`/logos/beet-worker-${isDark ? 'dark' : 'light'}.svg`" alt="" aria-hidden="true" class="btv-chip-beet" />under construction</span></p>
+              <p class="btv-tag btv-tag--wip"><span class="btv-dot" aria-hidden="true"></span>{{ incubating.tag }}<span class="btv-chip"><img :src="`/logos/beet-worker-${isDark ? 'dark' : 'light'}.svg`" width="13" height="15" alt="" aria-hidden="true" class="btv-chip-beet" />under construction</span></p>
               <span class="btv-stars" :title="`${stars[incubating.repoFull]} GitHub stars`">
                 <svg width="13" height="13" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M8 1.3l2.06 4.17 4.6.67-3.33 3.24.78 4.58L8 11.8l-4.11 2.16.78-4.58L1.34 6.14l4.6-.67L8 1.3z"/></svg>
                 {{ formatCount(stars[incubating.repoFull]) }}

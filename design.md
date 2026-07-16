@@ -56,6 +56,7 @@ atmospheric (studied register — dark, quiet, confident; no blooms).
 | `--pkg-temporal` | `#6B76F2` | darken 30% at point of use |
 | `--pkg-unthrown` | `#46B86C` | darken 30% at point of use |
 | `--pkg-demesne` | `#B45CE0` | darken 30% at point of use |
+| `--pkg-start` | `#22B8CF` | darken 30% at point of use |
 
 **The multi-accent rule (the studied signature).** The canvas and chrome are
 near-neutral; color belongs to the *products*. Package names, category dots
@@ -81,8 +82,10 @@ as `—`, never a made-up figure.
 Named px scale in `packages/theme/src/tokens.css` (`--space-1…6`). Corners:
 10–14px cards, 999px only where legacy pills remain. **No hairline card
 borders** — elevation via `--card` / `--card-soft`; 1px rules only as
-page-level dividers (stats strip, footer). Shadows: darkness at rest;
-per-package color glow on package-panel hover only.
+page-level dividers (stats strip, footer). The one sanctioned border is the
+1.5px *dashed* accent edge on an incubating/WIP surface (see Logos → Status
+badge and "What pages MUST share"). Shadows: darkness at rest; per-package
+color glow on package-panel hover only.
 
 ## Motion
 
@@ -104,15 +107,28 @@ per-package color glow on package-panel hover only.
 ## Logos
 
 The original soft gradient marks stay — mascot, rabbit, hourglass, no-throw,
-shield. They read perfectly on the near-black canvas and each sits inside its
-package-colored panel context.
+shield, and the start liftoff beet. They read perfectly on the near-black
+canvas and each sits inside its package-colored panel context. A package's
+product mark is not a "character moment" — it's the logo of that panel, the
+same way each docs site carries its own.
+
+**Status badge.** The worker beet (hard hat + shovel) is a small
+complementary *marker*, never a project logo: it appears only inside a
+maturity chip (`alpha`, `under construction`) at ~13px, or as a 64px figure in
+a docs-page notice strip. Incubating projects still carry their own product
+mark everywhere a logo belongs.
 
 ## What pages MUST share
 
 - The wordmark voice and the one-knob accent architecture.
 - The neutral-canvas / colored-products split (the multi-accent rule).
-- Geist + JetBrains Mono, elevation-not-borders, honest numbers.
-- Exactly one character moment (the floating mascot) per page.
+- Geist + JetBrains Mono, elevation-not-borders, honest numbers. **One
+  exception:** an incubating/WIP surface may carry a 1.5px *dashed* accent
+  border — a deliberate "not finished" signal, distinct from the banned
+  hairline card border. Solid card borders remain banned.
+- Exactly one decorative character moment (the floating mascot) per page.
+  Product logos and the small status badge don't count against this — they're
+  functional marks, not decoration.
 
 ## What pages MAY differ on
 
@@ -136,6 +152,7 @@ The canonical export lives at `packages/theme/src/tokens.css` (published as
   --pkg-temporal:  #6B76F2;
   --pkg-unthrown:  #46B86C;
   --pkg-demesne:   #B45CE0;
+  --pkg-start:     #22B8CF;
   --font-display:  "Geist", sans-serif; /* 800 for display */
   --font-body:     "Geist", sans-serif;
   --font-mono:     "JetBrains Mono", monospace;
