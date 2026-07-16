@@ -1,5 +1,11 @@
 # @btravstack/theme
 
+## 1.7.0
+
+### Minor Changes
+
+- 3c47dc0: add the start package accent token (`--pkg-start`)
+
 ## 1.6.1
 
 ### Patch Changes
