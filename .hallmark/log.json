@@ -2,14 +2,14 @@
   {
     "date": "2026-07-16",
     "scope": "app",
-    "macrostructure": "Marquee Hero",
-    "theme": "custom",
-    "theme_axes": "dark / geometric-sans / chromatic-other (beetroot-pink ~353)",
-    "vibe": "late-night plum, warm bloom, velvet, exact",
-    "enrichment": "H9 original gradient mascot (Tier-B, kept) + two fixed blooms",
-    "nav": "N5 floating pill",
-    "footer": "Ft5 statement",
-    "brief": "btravstack org rebrand v4 — Beetroot Nocturne (dark atmospheric); exploration branch, sibling of approved v3 Atlas"
+    "macrostructure": "Ecosystem Index",
+    "theme": "studied-DNA (source: https://tanstack.com/)",
+    "theme_axes": "dark / geometric-sans / multi-accent (org beetroot + per-package)",
+    "vibe": "neutral black canvas, colorful stack, real numbers",
+    "enrichment": "H9 original gradient mascot (Tier-B, kept)",
+    "nav": "N1b",
+    "footer": "Ft3 index (genuine hub)",
+    "brief": "btravstack org rebrand v5 \u2014 Beetroot Stack, studied from tanstack.com (user's stated inspiration); reworked onto design/beetroot-nocturne (PR #30)"
   },
   {
     "date": "2026-07-16",
@@ -21,7 +21,7 @@
     "enrichment": "Tier-B hand-built SVG engravings (plates + full logo set)",
     "nav": "N9 edge-aligned",
     "footer": "Ft1 mast-headed",
-    "brief": "btravstack org rebrand v3 — Beetroot Atlas (LIKED by user; PR #29, branch design/beetroot-atlas)"
+    "brief": "btravstack org rebrand v3 \u2014 Beetroot Atlas (LIKED by user; PR #29, branch design/beetroot-atlas)"
   },
   {
     "date": "2026-07-16",
@@ -33,7 +33,7 @@
     "enrichment": "H9 original gradient mascot (Tier-B, restored)",
     "nav": "N1b",
     "footer": "Ft8 marquee",
-    "brief": "btravstack org rebrand v2 — Beetroot Soft (REJECTED by user; PR #28)"
+    "brief": "btravstack org rebrand v2 \u2014 Beetroot Soft (REJECTED by user; PR #28)"
   },
   {
     "date": "2026-07-16",
@@ -45,6 +45,6 @@
     "enrichment": "Tier-B hand-built SVG (flat riso logo set)",
     "nav": "N7 brutal slab",
     "footer": "Ft4 dense colophon",
-    "brief": "btravstack org rebrand v1 — Beetroot Riso (REJECTED by user; PR #27)"
+    "brief": "btravstack org rebrand v1 \u2014 Beetroot Riso (REJECTED by user; PR #27)"
   }
 ]

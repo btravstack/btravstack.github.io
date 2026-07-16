@@ -3,13 +3,13 @@
  */
 
 /*
- * @btravstack/theme — VitePress style entry ("Beetroot Nocturne").
+ * @btravstack/theme — VitePress style entry ("Beetroot Stack").
  *
  * Maps the btravstack design tokens onto VitePress's own `--vp-*` variables so
  * every btravstack site (the website + the docs sites) shares one look.
  * Because the semantic tokens (--bg, --text, --text-accent, …) flip per scheme
  * in tokens.css, this mapping is written once and adapts automatically:
- *   - dark  → the deep plum nocturne canvas, vibrant pink links (canonical)
+ *   - dark  → the near-black stack canvas, per-site accent links (canonical)
  *   - light → warm near-white surfaces, deep-beet links (WCAG-AA)
  *
  * The `:root:root` selector raises specificity to (0,2,0) so the mapping wins
@@ -71,7 +71,7 @@
      the floating mark wherever the layout places it. */
   --vp-home-hero-name-color: var(--vp-c-text-1);
   --vp-home-hero-name-background: none;
-  --vp-home-hero-image-background-image: radial-gradient(closest-side, color-mix(in srgb, var(--accent) 26%, transparent), transparent 72%);
+  --vp-home-hero-image-background-image: radial-gradient(closest-side, color-mix(in srgb, var(--accent) 18%, transparent), transparent 72%);
   --vp-home-hero-image-filter: blur(8px);
 }
 
@@ -92,18 +92,6 @@ html, body { overflow-x: clip; }
 .VPHero .image-container { animation: btv-floaty 6s var(--ease) infinite; }
 .VPHero .image-src { filter: drop-shadow(0 18px 40px color-mix(in srgb, var(--accent-deep) 45%, transparent)); }
 @keyframes btv-floaty { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-9px); } }
-
-/* One ambient bloom bleeding off the docs-home top-right (genre-sanctioned). */
-.VPHome { position: relative; }
-.VPHome::before {
-  content: "";
-  position: absolute; top: -40px; right: -120px; z-index: 0;
-  width: 620px; height: 620px; max-width: 85vw;
-  background: radial-gradient(closest-side, var(--bloom), transparent 70%);
-  pointer-events: none;
-}
-.VPHome .VPHero,
-.VPHome .VPFeatures { position: relative; z-index: 1; }
 
 /* Navbar logo sizing via VitePress's own variable. */
 :root:root { --vp-nav-logo-height: 34px; }
