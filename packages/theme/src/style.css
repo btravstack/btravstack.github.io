@@ -1,13 +1,16 @@
+/* Hallmark · genre: atmospheric · design-system: design.md · designed-as-app
+ * scope: VitePress chrome mapping for all btravstack sites (docs + landing shell)
+ */
+
 /*
- * @btravstack/theme — VitePress style entry.
+ * @btravstack/theme — VitePress style entry ("Beetroot Stack").
  *
  * Maps the btravstack design tokens onto VitePress's own `--vp-*` variables so
  * every btravstack site (the website + the docs sites) shares one look.
  * Because the semantic tokens (--bg, --text, --text-accent, …) flip per scheme
  * in tokens.css, this mapping is written once and adapts automatically:
- *   - dark  → the btravstack plum surfaces, pink links
- *   - light → clean warm-white surfaces, brand darkened to deep beetroot
- *             (--text-accent) so links/headings pass WCAG-AA on white
+ *   - dark  → the near-black stack canvas, per-site accent links (canonical)
+ *   - light → warm near-white surfaces, deep-beet links (WCAG-AA)
  *
  * The `:root:root` selector raises specificity to (0,2,0) so the mapping wins
  * over VitePress's own `:root` / `.dark` defaults regardless of load order.
@@ -38,8 +41,7 @@
   --vp-c-brand-soft: color-mix(in srgb, var(--accent) 16%, transparent);
   --vp-c-brand:      var(--text-accent); /* legacy alias */
 
-  /* Inline code — accent-as-text so it stays readable on the (scheme-aware)
-     code inset: pink on dark, deep beetroot on the light code wash */
+  /* Inline code — accent-as-text on the scheme-aware code inset */
   --vp-code-color: var(--text-accent);
   --vp-code-bg:    var(--code-bg);
 
@@ -65,92 +67,67 @@
   --vp-custom-block-warning-border: var(--accent-line);
   --vp-custom-block-warning-text:   var(--text-accent);
 
-  /* Home hero: gradient name + accent glow behind the logo */
-  --vp-home-hero-name-color: transparent;
-  --vp-home-hero-name-background: linear-gradient(120deg, var(--text-accent), var(--accent-soft));
-  --vp-home-hero-image-background-image: radial-gradient(closest-side, color-mix(in srgb, var(--accent) 30%, transparent), transparent 72%);
+  /* Home hero: solid ink name (no gradient text) + a warm bloom that tracks
+     the floating mark wherever the layout places it. */
+  --vp-home-hero-name-color: var(--vp-c-text-1);
+  --vp-home-hero-name-background: none;
+  --vp-home-hero-image-background-image: radial-gradient(closest-side, color-mix(in srgb, var(--accent) 18%, transparent), transparent 72%);
   --vp-home-hero-image-filter: blur(8px);
 }
 
-/* ── Playful flourishes — shared across every btravstack site ───── */
+/* ── Nocturne chrome — shared across every btravstack site ─────── */
 
-/* Home hero: a gently floating logo. The beetroot glow lives BEHIND the hero
-   image itself (--vp-home-hero-image-background-image, set above) so it tracks
-   the logo wherever the layout places it. We deliberately do NOT add a separate
-   centered ::before glow: the landing page uses its own bespoke layout (not
-   .VPHome), and on the docs sites the default home hero is left-aligned with the
-   image on the right — a hard-centered glow there just floats, disconnected. */
-.VPHome { overflow-x: clip; }
-.VPHero .image-container { animation: btv-floaty 6s ease-in-out infinite; }
+/* No horizontal scroll, ever (clip — not hidden — so sticky keeps working). */
+html, body { overflow-x: clip; }
+
+/* Weighty display voice on the big headings. */
+.VPHero .name,
+.VPHero .text { font-family: var(--display); letter-spacing: var(--tracking-hero); }
+.VPHero .name { font-weight: 700; }
+.VPFeature .title { letter-spacing: var(--tracking-snug); }
+.VPNavBar .title { font-weight: 700; }
+
+/* Home hero: the gently floating mark — the one character moment per page. */
+.VPHome { overflow-x: clip; position: relative; }
+.VPHero .image-container { animation: btv-floaty 6s var(--ease) infinite; }
 .VPHero .image-src { filter: drop-shadow(0 18px 40px color-mix(in srgb, var(--accent-deep) 45%, transparent)); }
-@keyframes btv-floaty { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
+@keyframes btv-floaty { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-9px); } }
 
-/* Navbar logo: VitePress's 24px mark reads as a speck next to the wordmark.
-   Size it up through VitePress's own variable (--vp-nav-logo-height) rather than
-   overriding `.logo { height }` — VitePress sets the height from a scoped
-   `:deep(.logo)` selector that out-specifies a plain `.VPNavBarTitle .logo`, so
-   the variable is the only reliable lever. Spacing stays on the logo's default
-   margin (no extra `gap`, which would compound with it).
-   Light/dark switching is left to VitePress: with `logo: { light, dark }` per
-   repo, its native .VPImage class toggle already shows the right artwork. */
+/* Navbar logo sizing via VitePress's own variable. */
 :root:root { --vp-nav-logo-height: 34px; }
 @media (max-width: 768px) { :root:root { --vp-nav-logo-height: 28px; } }
 
-/* Home hero: tighten the display type. (The hero `image:` is one file per repo,
-   set in index.md frontmatter; for a crisp mark in both schemes make it
-   scheme-aware there — hero.image.light / hero.image.dark.) */
-.VPHero .name { letter-spacing: -1.5px; }
-.VPHero .text { letter-spacing: -0.5px; }
-
-/* Feature cards: hairline border + a soft lift on hover, echoing the landing
-   page's package cards; brand-tinted icon chip. */
+/* Feature cards: elevation through lightness + a warm glow on hover. */
 .VPFeature {
-  border: 1px solid var(--vp-c-divider);
+  border: 1px solid transparent;
   border-radius: var(--radius-lg);
-  transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+  transition: transform var(--speed) var(--ease), box-shadow var(--speed) var(--ease);
 }
 .VPFeature:hover {
-  transform: translateY(-4px);
-  border-color: var(--vp-c-border);
-  box-shadow: var(--shadow-card);
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-accent);
 }
 .VPFeature .icon {
   border-radius: var(--radius) !important;
   background: var(--vp-c-brand-soft) !important;
-  border: 1px solid color-mix(in srgb, var(--accent) 22%, transparent);
+  border: 1px solid var(--accent-line);
 }
-.VPFeature .title { letter-spacing: -0.3px; }
 
-/* Brand buttons: springy hover */
-.VPButton.brand { transition: filter 0.15s, transform 0.15s; }
-.VPButton.brand:hover { filter: brightness(1.07); transform: translateY(-1px); }
+/* Brand buttons: confident pill, quiet press. */
+.VPButton { font-weight: 600; }
+.VPButton.brand { transition: background-color var(--speed-fast) var(--ease), transform var(--speed-fast) var(--ease); }
+.VPButton.brand:hover { transform: translateY(-1px); }
+.VPButton.brand:active { transform: translateY(0); }
 
-/* Rounder, pinker code */
+/* Rounded code + admonitions. */
 .vp-doc :not(pre) > code { border-radius: 7px; }
 .vp-doc div[class*="language-"] { border-radius: var(--radius); }
 .vp-doc .custom-block { border-radius: var(--radius); }
 
-/* ── Home hero: a bigger mark + a large accent glow shape ─────────
-   The default hero only has a small glow hugging the logo; the docs
-   mockups show a broad accent wash bleeding off the top-right. */
-/* position: relative only — the existing `.VPHome { overflow-x: clip }` above
-   handles the glow's horizontal bleed; a full `overflow: clip` here would also
-   clip vertical content like the feature-card hover-lift shadows. */
-.VPHome { position: relative; }
-.VPHome::before {
-  content: "";
-  position: absolute; top: -40px; right: -120px; z-index: 0;
-  width: 620px; height: 620px; max-width: 85vw;
-  background: radial-gradient(closest-side, color-mix(in srgb, var(--accent) 16%, transparent), transparent 70%);
-  pointer-events: none;
-}
-.VPHome .VPHero,
-.VPHome .VPFeatures { position: relative; z-index: 1; }
+/* Hero mark sizing on docs homes (all project logos are square). */
 @media (min-width: 960px) {
   .VPHero .image-container { width: 340px; height: 340px; }
   .VPHero .image-bg { width: 100%; height: 100%; }
-  /* the mark ships at a small intrinsic size, so stretch it explicitly
-     (all project logos are square) rather than relying on max-width */
   .VPHero .image-src {
     width: 300px;
     height: 300px;
@@ -160,10 +137,17 @@
   }
 }
 
+/* Focus is a first-class state — instant, visible, never animated. */
+:focus-visible {
+  outline: 2px solid var(--focus);
+  outline-offset: 2px;
+  transition: none;
+}
+
 /* ── "Part of btravstack" org-attribution strip (layout-bottom slot) ── */
 .btv-partof {
-  border-top: 1px solid var(--vp-c-divider);
-  background: var(--vp-c-bg-alt);
+  border-top: 1px solid var(--border);
+  background: var(--card);
   padding: 16px 24px;
   display: flex;
   justify-content: center;
@@ -176,18 +160,18 @@
   font-weight: 600;
   color: var(--vp-c-text-3);
   text-decoration: none;
-  transition: color 0.15s;
+  transition: color var(--speed-fast) var(--ease);
 }
-.btv-partof-link:hover { color: var(--vp-c-text-2); }
+.btv-partof-link:hover { color: var(--vp-c-text-1); }
 .btv-partof-link:focus-visible {
-  outline: 2px solid var(--accent);
+  outline: 2px solid var(--focus);
   outline-offset: 3px;
   border-radius: 4px;
   color: var(--vp-c-text-1);
 }
 .btv-partof-mark { display: inline-flex; line-height: 0; }
 .btv-partof-word { font-weight: 700; letter-spacing: -0.3px; color: var(--vp-c-text-2); }
-.btv-partof-pink { color: var(--bt-pink); }
+.btv-partof-pink { color: var(--text-accent); }
 
 @media (prefers-reduced-motion: reduce) {
   .VPHero .image-container { animation: none; }
