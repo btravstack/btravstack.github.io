@@ -1,6 +1,6 @@
 {
   "name": "@btravstack/theme",
-  "version": "1.5.0",
+  "version": "1.6.0",
   "description": "Shared VitePress theme and design tokens for btravstack sites",
   "license": "MIT",
   "author": "Benoit TRAVERS",
