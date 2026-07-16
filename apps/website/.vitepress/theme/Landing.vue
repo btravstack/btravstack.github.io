@@ -125,8 +125,8 @@ onMounted(() => {
     <header class="btv-head">
       <div class="btv-head-inner">
         <a href="#top" class="btv-brand">
-          <svg viewBox="0 0 100 124" width="24" height="30" fill="none" aria-hidden="true" focusable="false"><g transform="translate(50,34)"><g transform="rotate(-35)"><path d="M0,3 C-6,-7 -6,-18 0,-28 C6,-18 6,-7 0,3 Z" fill="#2C8B4E"/></g><g transform="rotate(35)"><path d="M0,3 C-6,-7 -6,-18 0,-28 C6,-18 6,-7 0,3 Z" fill="#2C8B4E"/></g><path d="M0,4 C-7,-8 -7,-20 0,-32 C7,-20 7,-8 0,4 Z" fill="#3DAE62"/></g><path d="M50,32 C29,30 17,44 17,60 C17,79 37,99 50,107 Z" fill="#CE3D80"/><path d="M50,32 C71,30 83,44 83,60 C83,79 63,99 50,107 Z" fill="#8E1A52"/><path d="M31,48 C27,55 27.5,65 32,73" stroke="#EE9CC4" stroke-width="4" stroke-linecap="round" fill="none" opacity="0.55"/><path d="M46.5,104 C46.5,112 44,118 39,124 C47,120 52.5,112 53.5,104 Z" fill="#8E1A52"/></svg>
-          <span class="btv-word"><span class="btv-pink">btrav</span><span>stack</span></span>
+          <svg viewBox="-2 -12 104 148" width="21" height="30" fill="none" aria-hidden="true" focusable="false"><g transform="rotate(-6 50 68)"><path d="M46,34 C44,26 44,18 47,10" stroke="#2C8B4E" stroke-width="3.6" stroke-linecap="round" fill="none"/><path d="M47,10 C40,7 37,-2 43,-6 C50,-10 56,-3 54,3 C53,7 51,9 47,10 Z" fill="#3DAE62"/><path d="M41,36 C34,31 26,30 21,34 C16,38 19,45 26,45 C32,45 38,41 41,36 Z" fill="#2C8B4E"/><path d="M57,34 C62,27 70,24 76,28 C81,32 78,39 71,40 C65,40 60,37 57,34 Z" fill="#3DAE62"/><g transform="rotate(-38 16 66)"><rect x="4" y="62" width="20" height="9" rx="4.5" fill="#CE3D80"/></g><g transform="rotate(24 84 78)"><rect x="76" y="74" width="18" height="9" rx="4.5" fill="#8E1A52"/></g><path d="M50,32 C28,31 14,45 14,62 C14,81 30,98 44,108 C47,111 48,114 50,116 C52,114 53,111 56,108 C70,98 86,81 86,62 C86,45 72,31 50,32 Z" fill="#CE3D80"/><path d="M63,35 C76,41 86,50 86,62 C86,79 73,94 58,106 C69,91 78,76 78,62 C78,51 72,42 63,35 Z" fill="#8E1A52" opacity="0.85"/><path d="M27,47 C23,53 22,61 24,68" stroke="#EE9CC4" stroke-width="3.4" stroke-linecap="round" fill="none" opacity="0.55"/><circle cx="38" cy="60" r="5.2" fill="#3A0D24"/><circle cx="39.7" cy="58.3" r="1.8" fill="#FFFFFF"/><circle cx="63" cy="60" r="5.2" fill="#3A0D24"/><circle cx="64.7" cy="58.3" r="1.8" fill="#FFFFFF"/><path d="M41,71 Q50.5,80 60,71" stroke="#3A0D24" stroke-width="3.4" stroke-linecap="round" fill="none"/><circle cx="29" cy="69" r="4.2" fill="#EE9CC4" opacity="0.75"/><circle cx="72" cy="69" r="4.2" fill="#EE9CC4" opacity="0.75"/><path d="M50,116 C49,121 52,124 49,129 C47,132 44,132 43,130" stroke="#8E1A52" stroke-width="2.8" stroke-linecap="round" fill="none"/></g></svg>
+          <span class="btv-word"><span class="btv-pink">Btrav</span><span>Stack</span></span>
         </a>
         <nav class="btv-links nav-hide" aria-label="Primary">
           <a class="navlink" href="#packages">The stack</a>
@@ -149,7 +149,7 @@ onMounted(() => {
     <section id="top" class="btv-hero">
       <div class="btv-hero-grid">
         <div class="btv-hero-copy">
-          <h1 class="btv-title"><span class="btv-pink">btrav</span>stack</h1>
+          <h1 class="btv-title"><span class="btv-pink">Btrav</span>Stack</h1>
           <p class="btv-tagline">An expressive, robust <span class="btv-tagline-mark">TypeScript</span> backend.</p>
           <p class="btv-sub">A small stack of type-safe building blocks for Node, built on two convictions: a signature should be enough to understand a system, and the fastest error is the best one. Declare the contract once — types, validation and feedback flow everywhere.</p>
           <div class="btv-cta-row">
@@ -158,7 +158,7 @@ onMounted(() => {
           </div>
         </div>
         <div class="btv-float">
-          <svg viewBox="0 0 100 124" width="150" height="186" fill="none" aria-hidden="true" focusable="false"><g transform="translate(50,34)"><g transform="rotate(-35)"><path d="M0,3 C-6,-7 -6,-18 0,-28 C6,-18 6,-7 0,3 Z" fill="#2C8B4E"/></g><g transform="rotate(35)"><path d="M0,3 C-6,-7 -6,-18 0,-28 C6,-18 6,-7 0,3 Z" fill="#2C8B4E"/></g><path d="M0,4 C-7,-8 -7,-20 0,-32 C7,-20 7,-8 0,4 Z" fill="#3DAE62"/></g><path d="M50,32 C29,30 17,44 17,60 C17,79 37,99 50,107 Z" fill="#CE3D80"/><path d="M50,32 C71,30 83,44 83,60 C83,79 63,99 50,107 Z" fill="#8E1A52"/><path d="M31,48 C27,55 27.5,65 32,73" stroke="#EE9CC4" stroke-width="4" stroke-linecap="round" fill="none" opacity="0.55"/><path d="M46.5,104 C46.5,112 44,118 39,124 C47,120 52.5,112 53.5,104 Z" fill="#8E1A52"/></svg>
+          <svg viewBox="-2 -12 104 148" width="131" height="186" fill="none" aria-hidden="true" focusable="false"><g transform="rotate(-6 50 68)"><path d="M46,34 C44,26 44,18 47,10" stroke="#2C8B4E" stroke-width="3.6" stroke-linecap="round" fill="none"/><path d="M47,10 C40,7 37,-2 43,-6 C50,-10 56,-3 54,3 C53,7 51,9 47,10 Z" fill="#3DAE62"/><path d="M41,36 C34,31 26,30 21,34 C16,38 19,45 26,45 C32,45 38,41 41,36 Z" fill="#2C8B4E"/><path d="M57,34 C62,27 70,24 76,28 C81,32 78,39 71,40 C65,40 60,37 57,34 Z" fill="#3DAE62"/><g transform="rotate(-38 16 66)"><rect x="4" y="62" width="20" height="9" rx="4.5" fill="#CE3D80"/></g><g transform="rotate(24 84 78)"><rect x="76" y="74" width="18" height="9" rx="4.5" fill="#8E1A52"/></g><path d="M50,32 C28,31 14,45 14,62 C14,81 30,98 44,108 C47,111 48,114 50,116 C52,114 53,111 56,108 C70,98 86,81 86,62 C86,45 72,31 50,32 Z" fill="#CE3D80"/><path d="M63,35 C76,41 86,50 86,62 C86,79 73,94 58,106 C69,91 78,76 78,62 C78,51 72,42 63,35 Z" fill="#8E1A52" opacity="0.85"/><path d="M27,47 C23,53 22,61 24,68" stroke="#EE9CC4" stroke-width="3.4" stroke-linecap="round" fill="none" opacity="0.55"/><circle cx="38" cy="60" r="5.2" fill="#3A0D24"/><circle cx="39.7" cy="58.3" r="1.8" fill="#FFFFFF"/><circle cx="63" cy="60" r="5.2" fill="#3A0D24"/><circle cx="64.7" cy="58.3" r="1.8" fill="#FFFFFF"/><path d="M41,71 Q50.5,80 60,71" stroke="#3A0D24" stroke-width="3.4" stroke-linecap="round" fill="none"/><circle cx="29" cy="69" r="4.2" fill="#EE9CC4" opacity="0.75"/><circle cx="72" cy="69" r="4.2" fill="#EE9CC4" opacity="0.75"/><path d="M50,116 C49,121 52,124 49,129 C47,132 44,132 43,130" stroke="#8E1A52" stroke-width="2.8" stroke-linecap="round" fill="none"/></g></svg>
         </div>
       </div>
       <ClientOnly>
@@ -182,7 +182,7 @@ onMounted(() => {
     <!-- The stack — each package in its own color -->
     <section id="packages" class="btv-section">
       <h2 class="btv-h2">Four libraries, one stack.</h2>
-      <p class="btv-section-lead">Each package carries its own color and its own docs — together they cover messaging, workflows, errors and wiring.</p>
+      <p class="btv-section-lead">Messaging, workflows, errors and wiring — four focused packages that compose into one coherent backend.</p>
       <div class="btv-panels">
         <article v-for="p in projects" :key="p.name" class="btv-panel" :style="{ '--pkg': `var(--pkg-${p.key})` }">
           <div class="btv-panel-top">
@@ -242,7 +242,7 @@ onMounted(() => {
     <!-- Inspirations -->
     <section class="btv-section">
       <h2 class="btv-h2">Standing on good shoulders.</h2>
-      <p class="btv-section-lead">btravstack borrows its instincts from the libraries that made TypeScript feel this way in the first place.</p>
+      <p class="btv-section-lead">BtravStack borrows its instincts from the libraries that made TypeScript feel this way in the first place.</p>
       <div class="btv-insp">
         <a v-for="z in inspirations" :key="z.name" :href="z.href" target="_blank" rel="noopener" class="btv-insp-row">
           <span class="btv-insp-name">{{ z.name }} <span aria-hidden="true">↗</span></span>
@@ -263,8 +263,8 @@ onMounted(() => {
       <div class="btv-foot-grid">
         <div class="btv-foot-brandcol">
           <div class="btv-foot-brand">
-            <svg viewBox="0 0 100 124" width="20" height="25" fill="none" aria-hidden="true" focusable="false"><g transform="translate(50,34)"><g transform="rotate(-35)"><path d="M0,3 C-6,-7 -6,-18 0,-28 C6,-18 6,-7 0,3 Z" fill="#2C8B4E"/></g><g transform="rotate(35)"><path d="M0,3 C-6,-7 -6,-18 0,-28 C6,-18 6,-7 0,3 Z" fill="#2C8B4E"/></g><path d="M0,4 C-7,-8 -7,-20 0,-32 C7,-20 7,-8 0,4 Z" fill="#3DAE62"/></g><path d="M50,32 C29,30 17,44 17,60 C17,79 37,99 50,107 Z" fill="#CE3D80"/><path d="M50,32 C71,30 83,44 83,60 C83,79 63,99 50,107 Z" fill="#8E1A52"/><path d="M31,48 C27,55 27.5,65 32,73" stroke="#EE9CC4" stroke-width="4" stroke-linecap="round" fill="none" opacity="0.55"/><path d="M46.5,104 C46.5,112 44,118 39,124 C47,120 52.5,112 53.5,104 Z" fill="#8E1A52"/></svg>
-            <span class="btv-word btv-foot-word"><span class="btv-pink">btrav</span><span>stack</span></span>
+            <svg viewBox="-2 -12 104 148" width="18" height="25" fill="none" aria-hidden="true" focusable="false"><g transform="rotate(-6 50 68)"><path d="M46,34 C44,26 44,18 47,10" stroke="#2C8B4E" stroke-width="3.6" stroke-linecap="round" fill="none"/><path d="M47,10 C40,7 37,-2 43,-6 C50,-10 56,-3 54,3 C53,7 51,9 47,10 Z" fill="#3DAE62"/><path d="M41,36 C34,31 26,30 21,34 C16,38 19,45 26,45 C32,45 38,41 41,36 Z" fill="#2C8B4E"/><path d="M57,34 C62,27 70,24 76,28 C81,32 78,39 71,40 C65,40 60,37 57,34 Z" fill="#3DAE62"/><g transform="rotate(-38 16 66)"><rect x="4" y="62" width="20" height="9" rx="4.5" fill="#CE3D80"/></g><g transform="rotate(24 84 78)"><rect x="76" y="74" width="18" height="9" rx="4.5" fill="#8E1A52"/></g><path d="M50,32 C28,31 14,45 14,62 C14,81 30,98 44,108 C47,111 48,114 50,116 C52,114 53,111 56,108 C70,98 86,81 86,62 C86,45 72,31 50,32 Z" fill="#CE3D80"/><path d="M63,35 C76,41 86,50 86,62 C86,79 73,94 58,106 C69,91 78,76 78,62 C78,51 72,42 63,35 Z" fill="#8E1A52" opacity="0.85"/><path d="M27,47 C23,53 22,61 24,68" stroke="#EE9CC4" stroke-width="3.4" stroke-linecap="round" fill="none" opacity="0.55"/><circle cx="38" cy="60" r="5.2" fill="#3A0D24"/><circle cx="39.7" cy="58.3" r="1.8" fill="#FFFFFF"/><circle cx="63" cy="60" r="5.2" fill="#3A0D24"/><circle cx="64.7" cy="58.3" r="1.8" fill="#FFFFFF"/><path d="M41,71 Q50.5,80 60,71" stroke="#3A0D24" stroke-width="3.4" stroke-linecap="round" fill="none"/><circle cx="29" cy="69" r="4.2" fill="#EE9CC4" opacity="0.75"/><circle cx="72" cy="69" r="4.2" fill="#EE9CC4" opacity="0.75"/><path d="M50,116 C49,121 52,124 49,129 C47,132 44,132 43,130" stroke="#8E1A52" stroke-width="2.8" stroke-linecap="round" fill="none"/></g></svg>
+            <span class="btv-word btv-foot-word"><span class="btv-pink">Btrav</span><span>Stack</span></span>
           </div>
           <p class="btv-foot-tag">Type-safe building blocks for the TypeScript backend. Open source, MIT.</p>
         </div>

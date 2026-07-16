@@ -1,6 +1,6 @@
 import { defineConfig } from "vitepress";
 
-const SITE_TITLE = "btravstack";
+const SITE_TITLE = "BtravStack";
 const SITE_DESCRIPTION =
   "Type-safe building blocks for the TypeScript backend: contracts for AMQP & Temporal, typed dependency injection, and errors as values.";
 const SITE_URL = "https://btravstack.github.io";
@@ -46,7 +46,7 @@ export default defineConfig({
       "meta",
       {
         property: "og:image:alt",
-        content: "btravstack — type-safe building blocks for the TypeScript backend",
+        content: "BtravStack — type-safe building blocks for the TypeScript backend",
       },
     ],
 
@@ -59,7 +59,7 @@ export default defineConfig({
       "meta",
       {
         name: "twitter:image:alt",
-        content: "btravstack — type-safe building blocks for the TypeScript backend",
+        content: "BtravStack — type-safe building blocks for the TypeScript backend",
       },
     ],
 
@@ -94,7 +94,7 @@ export default defineConfig({
       JSON.stringify({
         "@context": "https://schema.org",
         "@type": "ItemList",
-        name: "btravstack packages",
+        name: "BtravStack packages",
         itemListElement: [
           {
             "@type": "ListItem",
