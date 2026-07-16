@@ -210,7 +210,7 @@ onMounted(() => {
               {{ formatCount(stars[p.repoFull]) }}
             </span>
           </div>
-          <p class="btv-tag"><span class="btv-dot" aria-hidden="true"></span>{{ p.tag }}<span v-if="p.status" class="btv-chip" :title="`${p.name} is ${p.status} — the API will evolve`">{{ p.status }}</span></p>
+          <p class="btv-tag"><span class="btv-dot" aria-hidden="true"></span>{{ p.tag }}<span v-if="p.status" class="btv-chip" :title="`${p.name} is ${p.status} — the API will evolve`"><img :src="`/logos/beet-worker-${isDark ? 'dark' : 'light'}.svg`" alt="" aria-hidden="true" class="btv-chip-beet" />{{ p.status }}</span></p>
           <h3 class="btv-pname">{{ p.name }}</h3>
           <code class="btv-pkg">{{ p.pkg }}</code>
           <p class="btv-blurb">{{ p.blurb }}</p>
@@ -233,11 +233,11 @@ onMounted(() => {
         <!-- Under construction — the stack, assembled -->
         <article class="btv-panel btv-panel--wip" :style="{ '--pkg': 'var(--pkg-start)' }">
           <div class="btv-wip-figure">
-            <img :src="`/logos/beet-worker-${isDark ? 'dark' : 'light'}.svg`" width="96" height="108" alt="A beetroot in a hard hat, digging" class="btv-wip-beet" />
+            <img :src="`/logos/start-${isDark ? 'dark' : 'light'}.svg`" width="72" height="106" alt="start logo" class="btv-wip-mark" />
           </div>
           <div class="btv-wip-body">
             <div class="btv-panel-top">
-              <p class="btv-tag btv-tag--wip"><span class="btv-dot" aria-hidden="true"></span>{{ incubating.tag }}<span class="btv-chip">under construction</span></p>
+              <p class="btv-tag btv-tag--wip"><span class="btv-dot" aria-hidden="true"></span>{{ incubating.tag }}<span class="btv-chip"><img :src="`/logos/beet-worker-${isDark ? 'dark' : 'light'}.svg`" alt="" aria-hidden="true" class="btv-chip-beet" />under construction</span></p>
               <span class="btv-stars" :title="`${stars[incubating.repoFull]} GitHub stars`">
                 <svg width="13" height="13" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M8 1.3l2.06 4.17 4.6.67-3.33 3.24.78 4.58L8 11.8l-4.11 2.16.78-4.58L1.34 6.14l4.6-.67L8 1.3z"/></svg>
                 {{ formatCount(stars[incubating.repoFull]) }}
@@ -469,6 +469,7 @@ onMounted(() => {
 }
 .btv-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--pkg); flex: none; }
 .btv-chip {
+  display: inline-flex; align-items: center; gap: 5px;
   margin-left: 2px; padding: 1.5px 9px 2.5px;
   border: 1px solid color-mix(in srgb, var(--pkg) 45%, transparent);
   border-radius: var(--radius-pill);
@@ -476,6 +477,8 @@ onMounted(() => {
   color: color-mix(in srgb, var(--pkg) 80%, var(--text));
 }
 :global(html:not(.dark)) .btv-chip { color: color-mix(in srgb, var(--pkg), #000 32%); }
+/* The worker beet, badge-sized — a complementary WIP marker, never a project logo */
+.btv-chip-beet { width: 13px; height: 15px; flex: none; }
 /* Under-construction panel: full-width, dashed edge, the worker beet on site */
 .btv-panel--wip {
   grid-column: 1 / -1;
@@ -483,8 +486,8 @@ onMounted(() => {
   background: color-mix(in srgb, var(--card) 72%, transparent);
   border: 1.5px dashed color-mix(in srgb, var(--pkg) 38%, transparent);
 }
-.btv-wip-figure { flex: none; display: flex; align-items: center; justify-content: center; width: 132px; }
-.btv-wip-beet { display: block; }
+.btv-wip-figure { flex: none; display: flex; align-items: center; justify-content: center; width: 116px; }
+.btv-wip-mark { display: block; }
 .btv-wip-body { min-width: 0; flex: 1; }
 .btv-wip-body .btv-panel-top { align-items: center; }
 .btv-tag--wip { margin-top: 0; }
