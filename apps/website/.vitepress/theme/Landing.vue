@@ -169,7 +169,7 @@ onMounted(() => {
             <span class="btv-stat-l">npm downloads / month</span>
           </div>
           <div class="btv-stat" role="listitem">
-            <span class="btv-stat-n">3</span>
+            <span class="btv-stat-n">{{ projects.length }}</span>
             <span class="btv-stat-l">packages, MIT-licensed</span>
           </div>
         </div>
