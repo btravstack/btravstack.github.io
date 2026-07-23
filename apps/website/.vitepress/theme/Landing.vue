@@ -42,11 +42,19 @@ interface Project {
   install: string;
   repo: string;
   docs: string;
-  /** Optional maturity chip shown next to the tag ("alpha", …). */
-  status?: string;
 }
 
+// unthrown leads: it's the base the two contract packages build on, and the
+// most versatile of the three.
 const projects: Project[] = [
+  {
+    key: "unthrown", tag: "Errors", name: "unthrown", pkg: "unthrown", npm: "unthrown",
+    logo: "/logos/unthrown", repoFull: "btravstack/unthrown", stars0: 1,
+    blurb: "Explicit errors as values — with a separate defect channel for the unexpected. Only a true defect ever throws, and only at unwrap.",
+    points: ["Errors as values, typed in E", "A separate defect channel", "Zero runtime dependencies"],
+    install: "pnpm add unthrown",
+    repo: "https://github.com/btravstack/unthrown", docs: "https://btravstack.github.io/unthrown/",
+  },
   {
     key: "amqp", tag: "Messaging", name: "amqp-contract", pkg: "@amqp-contract/contract", npm: "@amqp-contract/contract",
     logo: "/logos/amqp-contract", repoFull: "btravstack/amqp-contract", stars0: 18,
@@ -63,39 +71,10 @@ const projects: Project[] = [
     install: "pnpm add @temporal-contract/contract",
     repo: "https://github.com/btravstack/temporal-contract", docs: "https://btravstack.github.io/temporal-contract/",
   },
-  {
-    key: "unthrown", tag: "Errors", name: "unthrown", pkg: "unthrown", npm: "unthrown",
-    logo: "/logos/unthrown", repoFull: "btravstack/unthrown", stars0: 1,
-    blurb: "Explicit errors as values — with a separate defect channel for the unexpected. Only a true defect ever throws, and only at unwrap.",
-    points: ["Errors as values, typed in E", "A separate defect channel", "Zero runtime dependencies"],
-    install: "pnpm add unthrown",
-    repo: "https://github.com/btravstack/unthrown", docs: "https://btravstack.github.io/unthrown/",
-  },
-  {
-    key: "demesne", tag: "Injection", name: "demesne", pkg: "demesne", npm: "demesne",
-    logo: "/logos/demesne", repoFull: "btravstack/demesne", stars0: 2, status: "alpha",
-    blurb: "Type-safe dependency injection. Requirements and construction errors live in the type system — you cannot build until every dependency is wired.",
-    points: ["Missing wiring is a compile error", "Failures as one static union", "Scoped resources, LIFO release"],
-    install: "pnpm add demesne unthrown",
-    repo: "https://github.com/btravstack/demesne", docs: "https://btravstack.github.io/demesne/",
-  },
 ];
 
-/**
- * Under construction — the stack, assembled. Not in `projects` on purpose:
- * its packages are private (no install command, no npm downloads), so it
- * renders as a distinct work-in-progress panel instead of a package card.
- */
-const incubating = {
-  key: "start", tag: "Framework", name: "start", pkg: "@btravstack/start-*",
-  repoFull: "btravstack/start", stars0: 0,
-  blurb: "TanStack Start, but for a backend — the stack above, assembled. Your application is one demesne graph; start adds the process spine and serves that same graph over any transport: a contract, a handler, and a host per invocation.",
-  points: ["HTTP, AMQP and Temporal hosts over one kernel", "Config, wiring, errors and shutdown shared across hosts", "Incubating — packages are private while the API settles"],
-  repo: "https://github.com/btravstack/start", docs: "https://btravstack.github.io/start/",
-};
-
-/** Every repo shown on the page — the four packages plus the incubating framework. */
-const allRepos = [...projects, incubating];
+/** Every repo shown on the page — the three published packages. */
+const allRepos = projects;
 
 const stars = reactive<Record<string, number>>(
   Object.fromEntries(allRepos.map((p) => [p.repoFull, p.stars0])),
@@ -190,7 +169,7 @@ onMounted(() => {
             <span class="btv-stat-l">npm downloads / month</span>
           </div>
           <div class="btv-stat" role="listitem">
-            <span class="btv-stat-n">4</span>
+            <span class="btv-stat-n">3</span>
             <span class="btv-stat-l">packages, MIT-licensed</span>
           </div>
         </div>
@@ -199,8 +178,8 @@ onMounted(() => {
 
     <!-- The stack — each package in its own color -->
     <section id="packages" class="btv-section">
-      <h2 class="btv-h2">Four libraries, one stack.</h2>
-      <p class="btv-section-lead">Messaging, workflows, errors and wiring — four focused packages that compose into one coherent backend.</p>
+      <h2 class="btv-h2">Three libraries, one stack.</h2>
+      <p class="btv-section-lead">Errors, messaging and workflows — three focused packages that compose into one coherent backend.</p>
       <div class="btv-panels">
         <article v-for="p in projects" :key="p.name" class="btv-panel" :style="{ '--pkg': `var(--pkg-${p.key})` }">
           <div class="btv-panel-top">
@@ -210,7 +189,7 @@ onMounted(() => {
               {{ formatCount(stars[p.repoFull]) }}
             </span>
           </div>
-          <p class="btv-tag"><span class="btv-dot" aria-hidden="true"></span>{{ p.tag }}<span v-if="p.status" class="btv-chip" :title="`${p.name} is ${p.status} — the API will evolve`"><img :src="`/logos/beet-worker-${isDark ? 'dark' : 'light'}.svg`" width="13" height="15" alt="" aria-hidden="true" class="btv-chip-beet" />{{ p.status }}</span></p>
+          <p class="btv-tag"><span class="btv-dot" aria-hidden="true"></span>{{ p.tag }}</p>
           <h3 class="btv-pname">{{ p.name }}</h3>
           <code class="btv-pkg">{{ p.pkg }}</code>
           <p class="btv-blurb">{{ p.blurb }}</p>
@@ -227,35 +206,6 @@ onMounted(() => {
           <div class="btv-panel-links">
             <a :href="p.docs" target="_blank" rel="noopener" class="btv-link">Docs <span aria-hidden="true">↗</span></a>
             <a :href="p.repo" target="_blank" rel="noopener" class="btv-link btv-link--quiet">Repo <span aria-hidden="true">↗</span></a>
-          </div>
-        </article>
-
-        <!-- Under construction — the stack, assembled -->
-        <article class="btv-panel btv-panel--wip" :style="{ '--pkg': 'var(--pkg-start)' }">
-          <div class="btv-wip-figure">
-            <img :src="`/logos/start-${isDark ? 'dark' : 'light'}.svg`" width="72" height="106" alt="start logo" class="btv-wip-mark" />
-          </div>
-          <div class="btv-wip-body">
-            <div class="btv-panel-top">
-              <p class="btv-tag btv-tag--wip"><span class="btv-dot" aria-hidden="true"></span>{{ incubating.tag }}<span class="btv-chip"><img :src="`/logos/beet-worker-${isDark ? 'dark' : 'light'}.svg`" width="13" height="15" alt="" aria-hidden="true" class="btv-chip-beet" />under construction</span></p>
-              <span class="btv-stars" :title="`${stars[incubating.repoFull]} GitHub stars`">
-                <svg width="13" height="13" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M8 1.3l2.06 4.17 4.6.67-3.33 3.24.78 4.58L8 11.8l-4.11 2.16.78-4.58L1.34 6.14l4.6-.67L8 1.3z"/></svg>
-                {{ formatCount(stars[incubating.repoFull]) }}
-              </span>
-            </div>
-            <h3 class="btv-pname">{{ incubating.name }}</h3>
-            <code class="btv-pkg">{{ incubating.pkg }}</code>
-            <p class="btv-blurb">{{ incubating.blurb }}</p>
-            <ul class="btv-points">
-              <li v-for="pt in incubating.points" :key="pt">
-                <svg width="15" height="15" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M2.5 8.5l3 3 8-8" stroke="var(--text-green)" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                <span>{{ pt }}</span>
-              </li>
-            </ul>
-            <div class="btv-panel-links">
-              <a :href="incubating.docs" target="_blank" rel="noopener" class="btv-link">Docs <span aria-hidden="true">↗</span></a>
-              <a :href="incubating.repo" target="_blank" rel="noopener" class="btv-link btv-link--quiet">Repo <span aria-hidden="true">↗</span></a>
-            </div>
           </div>
         </article>
       </div>
@@ -447,7 +397,7 @@ onMounted(() => {
 .btv-section-lead { margin: 12px 0 0; max-width: 60ch; font-size: 16px; line-height: 1.65; color: var(--muted); }
 
 /* ── The stack — per-package accent panels ────────────────────── */
-.btv-panels { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 20px; margin-top: 34px; }
+.btv-panels { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 20px; margin-top: 34px; }
 .btv-panel {
   display: flex; flex-direction: column;
   background: var(--card); border-radius: var(--radius-lg); padding: 26px;
@@ -468,33 +418,6 @@ onMounted(() => {
   color: var(--muted);
 }
 .btv-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--pkg); flex: none; }
-.btv-chip {
-  display: inline-flex; align-items: center; gap: 5px;
-  margin-left: 2px; padding: 1.5px 9px 2.5px;
-  border: 1px solid color-mix(in srgb, var(--pkg) 45%, transparent);
-  border-radius: var(--radius-pill);
-  font-size: 10.5px; letter-spacing: 0.05em; white-space: nowrap;
-  color: color-mix(in srgb, var(--pkg) 80%, var(--text));
-}
-:global(html:not(.dark)) .btv-chip { color: color-mix(in srgb, var(--pkg), #000 32%); }
-/* The worker beet, badge-sized — a complementary WIP marker, never a project logo */
-.btv-chip-beet { width: 13px; height: 15px; flex: none; }
-/* Under-construction panel: full-width, dashed edge, the worker beet on site */
-.btv-panel--wip {
-  grid-column: 1 / -1;
-  flex-direction: row; align-items: center; gap: 28px;
-  background: color-mix(in srgb, var(--card) 72%, transparent);
-  border: 1.5px dashed color-mix(in srgb, var(--pkg) 38%, transparent);
-}
-.btv-wip-figure { flex: none; display: flex; align-items: center; justify-content: center; width: 116px; }
-.btv-wip-mark { display: block; }
-.btv-wip-body { min-width: 0; flex: 1; }
-.btv-wip-body .btv-panel-top { align-items: center; }
-.btv-tag--wip { margin-top: 0; }
-@media (max-width: 720px) {
-  .btv-panel--wip { flex-direction: column; align-items: stretch; gap: 10px; }
-  .btv-wip-figure { width: auto; }
-}
 .btv-pname {
   margin: 6px 0 0; font-family: var(--display); font-weight: 800; font-size: 23px;
   letter-spacing: var(--tracking-snug);
@@ -598,7 +521,7 @@ onMounted(() => {
   .btv-hero-grid { grid-template-columns: minmax(0, 1fr); gap: 28px; }
   .btv-float { order: -1; justify-self: start; }
   .btv-float svg { width: 110px; height: 136px; }
-  .btv-panels { grid-template-columns: minmax(0, 1fr); }
+  .btv-panels { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .btv-cols, .btv-ai-grid { grid-template-columns: minmax(0, 1fr); }
   .btv-foot-grid { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); }
 }
@@ -608,6 +531,7 @@ onMounted(() => {
   .btv-head-inner { grid-template-columns: auto 1fr; padding: 0 16px; }
   .btv-actions { justify-self: end; }
   .btv-stats { gap: 12px 36px; margin-top: 40px; }
+  .btv-panels { grid-template-columns: minmax(0, 1fr); }
   .btv-insp { grid-template-columns: minmax(0, 1fr); }
   .btv-foot-grid { grid-template-columns: minmax(0, 1fr); }
 }
