@@ -44,8 +44,8 @@ interface Project {
   docs: string;
 }
 
-// unthrown leads: it's the base the two contract packages build on, and the
-// most versatile of the three.
+// Ordered as the stack reads — errors, the domain built on them, then the
+// transports that carry it. unthrown leads: the other three build on it.
 const projects: Project[] = [
   {
     key: "unthrown", tag: "Errors", name: "unthrown", pkg: "unthrown", npm: "unthrown",
@@ -54,6 +54,14 @@ const projects: Project[] = [
     points: ["Errors as values, typed in E", "A separate defect channel", "Zero runtime dependencies"],
     install: "pnpm add unthrown",
     repo: "https://github.com/btravstack/unthrown", docs: "https://btravstack.github.io/unthrown/",
+  },
+  {
+    key: "entity", tag: "Domain", name: "entity", pkg: "@btravstack/entity", npm: "@btravstack/entity",
+    logo: "/logos/entity", repoFull: "btravstack/entity", stars0: 3,
+    blurb: "Domain entities declared once. One field map gives you a type, four request/response schemas, behaviour, and a class that is itself a zod schema — so entities nest inside each other without losing what makes them entities.",
+    points: ["Branded fields and immutable data", "Sealed construction, enforced invariants", "Result instead of throws"],
+    install: "pnpm add @btravstack/entity",
+    repo: "https://github.com/btravstack/entity", docs: "https://btravstack.github.io/entity/",
   },
   {
     key: "amqp", tag: "Messaging", name: "amqp-contract", pkg: "@amqp-contract/contract", npm: "@amqp-contract/contract",
@@ -73,7 +81,7 @@ const projects: Project[] = [
   },
 ];
 
-/** Every repo shown on the page — the three published packages. */
+/** Every repo shown on the page — the published packages. */
 const allRepos = projects;
 
 const stars = reactive<Record<string, number>>(
@@ -178,8 +186,8 @@ onMounted(() => {
 
     <!-- The stack — each package in its own color -->
     <section id="packages" class="btv-section">
-      <h2 class="btv-h2">Three libraries, one stack.</h2>
-      <p class="btv-section-lead">Errors, messaging and workflows — three focused packages that compose into one coherent backend.</p>
+      <h2 class="btv-h2">Four libraries, one stack.</h2>
+      <p class="btv-section-lead">Errors, domain, messaging and workflows — four focused packages that compose into one coherent backend.</p>
       <div class="btv-panels">
         <article v-for="p in projects" :key="p.name" class="btv-panel" :style="{ '--pkg': `var(--pkg-${p.key})` }">
           <div class="btv-panel-top">
