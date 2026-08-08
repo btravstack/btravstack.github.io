@@ -9,7 +9,7 @@ grow.
 *colorful stack of distinct tools* on a near-neutral black canvas: the
 beetroot pink is the ORG accent (wordmark, links, CTAs, mascot), while each
 package glows in **its own accent** — amqp orange, temporal indigo, unthrown
-green, demesne violet. Weight-contrast typography (one grotesque at 400 vs
+teal. Weight-contrast typography (one grotesque at 400 vs
 800), elevation through surface lightness, real numbers in the hero, and the
 gradient beetroot mascot as the one character moment.
 
@@ -54,9 +54,7 @@ atmospheric (studied register — dark, quiet, confident; no blooms).
 | `--accent` (org) | **#E0589A** — THE knob | same (text darkens for AA) |
 | `--pkg-amqp` | `#FF6600` | darken 30% at point of use |
 | `--pkg-temporal` | `#6B76F2` | darken 30% at point of use |
-| `--pkg-unthrown` | `#46B86C` | darken 30% at point of use |
-| `--pkg-demesne` | `#B45CE0` | darken 30% at point of use |
-| `--pkg-start` | `#22B8CF` | darken 30% at point of use |
+| `--pkg-unthrown` | `#3FB0A5` | darken 30% at point of use |
 
 **The multi-accent rule (the studied signature).** The canvas and chrome are
 near-neutral; color belongs to the *products*. Package names, category dots
@@ -150,9 +148,7 @@ The canonical export lives at `packages/theme/src/tokens.css` (published as
   --color-accent:  #E0589A;            /* org */
   --pkg-amqp:      #FF6600;
   --pkg-temporal:  #6B76F2;
-  --pkg-unthrown:  #46B86C;
-  --pkg-demesne:   #B45CE0;
-  --pkg-start:     #22B8CF;
+  --pkg-unthrown:  #3FB0A5;
   --font-display:  "Geist", sans-serif; /* 800 for display */
   --font-body:     "Geist", sans-serif;
   --font-mono:     "JetBrains Mono", monospace;

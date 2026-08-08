@@ -14,7 +14,7 @@
  * glows in ITS OWN accent — the org reads as a colorful stack of distinct
  * tools, not a monochrome brand. The beetroot pink is the ORG accent
  * (wordmark, links, org CTAs); the per-package accents (amqp orange,
- * temporal indigo, unthrown green, demesne violet) carry the packages.
+ * temporal indigo, unthrown teal) carry the packages.
  * Elevation through lightness, weight-contrast typography, real numbers.
  *
  * DARK is the canonical default. The light scheme overrides the semantic
@@ -40,11 +40,9 @@
 
   /* The stack — official per-package accents (docs sites set these as
      their own --accent; the landing shows them side by side). */
-  --pkg-amqp:     #FF6600;
-  --pkg-temporal: #6B76F2;
-  --pkg-unthrown: #46B86C;
-  --pkg-demesne:  #B45CE0;
-  --pkg-start:    #22B8CF;
+  --pkg-amqp:     #FF6600;   /* RabbitMQ's orange */
+  --pkg-temporal: #6B76F2;   /* Temporal's indigo */
+  --pkg-unthrown: #3FB0A5;   /* outside the signal register: not a signal, a value */
 
   /* ── Surfaces (DARK scheme — canonical: near-neutral black) ──── */
   --bg:        oklch(13% 0.006 310);   /* ≈ #080709 — the canvas */
