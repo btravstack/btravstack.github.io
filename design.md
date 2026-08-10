@@ -1,7 +1,7 @@
 # Design — btravstack · "Beetroot Stack" (studied DNA)
 
 A locked design system for the btravstack org (landing + `@btravstack/theme` +
-the four docs sites). Every page redesign reads this file before emitting code.
+the five docs sites). Every page redesign reads this file before emitting code.
 Do not regenerate per page — extend or amend this file when the system needs to
 grow.
 
@@ -9,9 +9,9 @@ grow.
 *colorful stack of distinct tools* on a near-neutral black canvas: the
 beetroot pink is the ORG accent (wordmark, links, CTAs, mascot), while each
 package glows in **its own accent** — amqp orange, temporal indigo, unthrown
-teal, entity amber. Weight-contrast typography (one grotesque at 400 vs
-800), elevation through surface lightness, real numbers in the hero, and the
-gradient beetroot mascot as the one character moment.
+teal, entity amber, di blue. Weight-contrast typography (one grotesque at
+400 vs 800), elevation through surface lightness, real numbers in the hero,
+and the gradient beetroot mascot as the one character moment.
 
 ## Provenance
 
@@ -37,7 +37,7 @@ atmospheric (studied register — dark, quiet, confident; no blooms).
   tokens — floating hero mark with a subtle halo, elevated feature cards,
   the site's own package accent everywhere via the one-knob override.
 - Nav: **N1b three-section** — wordmark · centered links · toggle + GitHub.
-- Footer: **Ft3 index** — justified: the landing is a genuine hub for four
+- Footer: **Ft3 index** — justified: the landing is a genuine hub for five
   docs sites. Brand column + Docs column + GitHub column + MIT line. No
   social row, no Legal filler.
 
@@ -56,6 +56,7 @@ atmospheric (studied register — dark, quiet, confident; no blooms).
 | `--pkg-temporal` | `#6B76F2` | darken 30% at point of use |
 | `--pkg-unthrown` | `#3FB0A5` | darken 30% at point of use |
 | `--pkg-entity` | `#C8871F` | darken 30% at point of use |
+| `--pkg-di` | `#3E7FD4` | darken 30% at point of use |
 
 **The multi-accent rule (the studied signature).** The canvas and chrome are
 near-neutral; color belongs to the *products*. Package names, category dots
@@ -106,8 +107,9 @@ color glow on package-panel hover only.
 ## Logos
 
 The original soft gradient marks stay — mascot, rabbit, hourglass, no-throw,
-shield, and the start liftoff beet. They read perfectly on the near-black
-canvas and each sits inside its package-colored panel context. A package's
+shield, the di syringe, and the start liftoff beet. They read perfectly on
+the near-black canvas and each sits inside its package-colored panel context.
+A package's
 product mark is not a "character moment" — it's the logo of that panel, the
 same way each docs site carries its own.
 
@@ -151,6 +153,7 @@ The canonical export lives at `packages/theme/src/tokens.css` (published as
   --pkg-temporal:  #6B76F2;
   --pkg-unthrown:  #3FB0A5;
   --pkg-entity:    #C8871F;
+  --pkg-di:        #3E7FD4;
   --font-display:  "Geist", sans-serif; /* 800 for display */
   --font-body:     "Geist", sans-serif;
   --font-mono:     "JetBrains Mono", monospace;
