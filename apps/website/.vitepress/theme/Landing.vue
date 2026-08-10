@@ -44,8 +44,9 @@ interface Project {
   docs: string;
 }
 
-// Ordered as the stack reads — errors, the domain built on them, then the
-// transports that carry it. unthrown leads: the other three build on it.
+// Ordered as the stack reads — errors, the domain built on them, the wiring
+// that assembles it, then the transports that carry it. unthrown leads: the
+// other four build on it.
 const projects: Project[] = [
   {
     key: "unthrown", tag: "Errors", name: "unthrown", pkg: "unthrown", npm: "unthrown",
@@ -62,6 +63,14 @@ const projects: Project[] = [
     points: ["Branded fields and immutable data", "Sealed construction, enforced invariants", "Result instead of throws"],
     install: "pnpm add @btravstack/entity",
     repo: "https://github.com/btravstack/entity", docs: "https://btravstack.github.io/entity/",
+  },
+  {
+    key: "di", tag: "Wiring", name: "di", pkg: "@btravstack/di", npm: "@btravstack/di",
+    logo: "/logos/di", repoFull: "btravstack/di", stars0: 1,
+    blurb: "A module-based container. Ports are the vocabulary your application defines, providers bind them at one edge, and modules declare what they import and export — so internals stay private in a graph that is one flat map at runtime.",
+    points: ["Ports named by the domain, not the adapter", "Unmet dependencies are compile errors", "Scoped resources release themselves"],
+    install: "pnpm add @btravstack/di unthrown",
+    repo: "https://github.com/btravstack/di", docs: "https://btravstack.github.io/di/",
   },
   {
     key: "amqp", tag: "Messaging", name: "amqp-contract", pkg: "@amqp-contract/contract", npm: "@amqp-contract/contract",
@@ -186,8 +195,8 @@ onMounted(() => {
 
     <!-- The stack — each package in its own color -->
     <section id="packages" class="btv-section">
-      <h2 class="btv-h2">Four libraries, one stack.</h2>
-      <p class="btv-section-lead">Errors, domain, messaging and workflows — four focused packages that compose into one coherent backend.</p>
+      <h2 class="btv-h2">Five libraries, one stack.</h2>
+      <p class="btv-section-lead">Errors, domain, wiring, messaging and workflows — five focused packages that compose into one coherent backend.</p>
       <div class="btv-panels">
         <article v-for="p in projects" :key="p.name" class="btv-panel" :style="{ '--pkg': `var(--pkg-${p.key})` }">
           <div class="btv-panel-top">
@@ -263,7 +272,7 @@ onMounted(() => {
       <a href="https://github.com/btravstack" target="_blank" rel="noopener" class="btv-cta btv-cta--big">View on GitHub <span aria-hidden="true">↗</span></a>
     </section>
 
-    <!-- Ft3 · index footer (genuine hub for the four docs sites) -->
+    <!-- Ft3 · index footer (genuine hub for the five docs sites) -->
     <footer class="btv-foot">
       <div class="btv-foot-grid">
         <div class="btv-foot-brandcol">
@@ -298,7 +307,7 @@ onMounted(() => {
 /* Hallmark · genre: atmospheric (studied) · macrostructure: Ecosystem Index · design-system: design.md · designed-as-app
  * theme: studied-DNA (source: https://tanstack.com/) · studied: yes · DNA-source: url + screenshot
  * observed-DNA: neutral-black canvas · per-library accents · heavy grotesque display · real-stats hero · elevated panels
- * nav: N1b three-section · footer: Ft3 index (genuine hub for 4 docs sites) · hero: wordmark-led + T4 stat strip (real numbers only)
+ * nav: N1b three-section · footer: Ft3 index (genuine hub for 5 docs sites) · hero: wordmark-led + T4 stat strip (real numbers only)
  * enrichment: H9 original gradient mascot (Tier-B, kept) — the one character moment
  * contrast: pass (40–41) · honest: pass (46 — stars live from GitHub, downloads live from npm or "—") · chrome: pass (47)
  * tokens: pass (48) · responsive: pass (49)

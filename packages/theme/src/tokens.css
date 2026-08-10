@@ -44,6 +44,7 @@
   --pkg-temporal: #6B76F2;   /* Temporal's indigo */
   --pkg-unthrown: #3FB0A5;   /* outside the signal register: not a signal, a value */
   --pkg-entity:   #C8871F;   /* amber encases and preserves: sealed, immutable */
+  --pkg-di:       #3E7FD4;   /* blue is plumbing: the connections behind the wall */
 
   /* ── Surfaces (DARK scheme — canonical: near-neutral black) ──── */
   --bg:        oklch(13% 0.006 310);   /* ≈ #080709 — the canvas */
