@@ -1,5 +1,47 @@
 # @btravstack/theme
 
+## 2.0.0
+
+### Major Changes
+
+- fb6f43d: Repoint `--pkg-unthrown` to teal `#3FB0A5`, and remove the retired
+  `--pkg-demesne` and `--pkg-start` tokens.
+
+  Red is stop and green is all-clear; a modeled error is neither, so unthrown's
+  accent now sits outside the signal register — not a signal, a value. The old
+  `#46B86C` was also byte-identical to `--bt-green`, the org's checkmark ink, so
+  unthrown was the one package whose accent was org chrome.
+
+  **Breaking:** `./tokens.css` is a published export, so its custom properties are
+  public API and removing two of them is a breaking change — even though the
+  projects they named no longer exist and no repo in the org referenced them. They
+  are removed rather than kept as deprecated aliases because an alias would point
+  at a package that is gone.
+
+  `--bt-green` / `--green` / `--text-green` are unchanged.
+
+### Minor Changes
+
+- 0b3e7c5: Add `--pkg-di`, blue `#3E7FD4`, for `@btravstack/di`.
+
+  Blue is plumbing — the connections behind the wall that everything visible runs
+  on, which is what a wiring container is. The hex is the logo's own lighter blue
+  (the barrel rim, the plunger, the needle hub), so chrome and artwork stay one
+  color.
+
+  di's docs site currently sets `--accent: #2A62B8`, the logo's _deep_ blue. That
+  hex scores 3.22 against `--card` on the dark scheme, below the 5.00–7.25 band
+  the other four package accents occupy, so the landing takes the lighter blue
+  instead: 4.72 on the dark card, 7.10 as darkened text on white (AA). Repointing
+  di's docs to match is btravstack/di's half.
+
+- 9a3d60a: Add `--pkg-entity`, amber `#C8871F`, for `@btravstack/entity`.
+
+  Amber encases and preserves — a thing suspended intact, permanently — which is
+  sealed construction and immutable data. entity's docs previously used
+  `--bt-pink-soft`, the org accent, which the multi-accent rule reserves for org
+  chrome.
+
 ## 1.7.0
 
 ### Minor Changes
