@@ -1,0 +1,21 @@
+# yaml-language-server: $schema=https://storage.googleapis.com/coderabbit_public_assets/schema.v2.json
+
+reviews:
+  path_filters:
+    - "!**/.vitepress/dist/**"
+    - "!**/.vitepress/cache/**"
+    - "!pnpm-lock.yaml"
+  path_instructions:
+    - path: "packages/theme/**"
+      instructions: |
+        `@btravstack/theme` is published to npm and used by every docs site in
+        the org, so a token renamed or a slot removed here changes six sites
+        that are not in this diff. Treat a change to the exported surface — the
+        design tokens, the theme's slots, the CSS custom properties — as
+        breaking unless the diff says why it is not.
+
+    - path: "apps/website/**"
+      instructions: |
+        The landing site. Prefer the theme's own tokens over a local override:
+        a colour or spacing value hardcoded here is the drift the shared theme
+        exists to prevent.
