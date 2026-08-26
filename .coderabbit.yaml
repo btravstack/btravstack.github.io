@@ -2,8 +2,6 @@
 
 reviews:
   path_filters:
-    - "!**/.vitepress/dist/**"
-    - "!**/.vitepress/cache/**"
     - "!pnpm-lock.yaml"
   path_instructions:
     - path: "packages/theme/**"
