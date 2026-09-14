@@ -1,0 +1,28 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "extends": ["config:recommended", "schedule:weekly"],
+  "semanticCommits": "enabled",
+  "minimumReleaseAge": "7 days",
+  "prConcurrentLimit": 10,
+  "packageRules": [
+    {
+      "description": "Peer ranges and engines are compatibility promises to consumers, not versions to bump.",
+      "matchDepTypes": ["peerDependencies", "engines"],
+      "enabled": false
+    },
+    {
+      "description": "@types/node tracks the Node.js major the site runs on; a major bump is a deliberate decision.",
+      "matchPackageNames": ["@types/node"],
+      "matchUpdateTypes": ["major"],
+      "enabled": false
+    },
+    {
+      "groupName": "vitepress",
+      "matchPackageNames": ["vitepress", "vue"]
+    },
+    {
+      "groupName": "github-actions",
+      "matchManagers": ["github-actions"]
+    }
+  ]
+}
