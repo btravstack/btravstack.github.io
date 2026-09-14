@@ -5,7 +5,7 @@
   "description": "btravstack website + shared VitePress theme (turborepo)",
   "license": "MIT",
   "author": "Benoit TRAVERS",
-  "packageManager": "pnpm@11.7.0",
+  "packageManager": "pnpm@12.4.1",
   "engines": {
     "node": ">=22.19"
   },
