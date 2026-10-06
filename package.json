@@ -15,7 +15,8 @@
     "preview": "turbo run preview",
     "changeset": "changeset",
     "version": "changeset version",
-    "release": "turbo run build --filter=@btravstack/theme && changeset publish"
+    "release": "turbo run build --filter=@btravstack/theme && changeset publish",
+    "brand": "node scripts/generate-brand.mjs"
   },
   "devDependencies": {
     "@changesets/cli": "2.31.0",
