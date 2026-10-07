@@ -106,18 +106,24 @@ color glow on package-panel hover only.
 
 ## Logos
 
-The logo family uses a compact beetroot silhouette, a paired leaf crown and
-one bold project symbol. All marks share a `128 × 128` viewBox and stroke
-weight; detail stays legible in navigation and at favicon sizes. The umbrella
-mark carries stacked layers, the framework composed blocks, unthrown a caught
-arrow, entity a validated diamond, di a junction, AMQP a routing graph,
-Temporal an hourglass, tools a wrench, and the theme a palette.
+The logo family preserves the illustrated beetroot mascot: rounded pink body,
+three green leaves, bright eyes, rosy cheeks, and soft gradient shading. The
+framework's approved PNG — the smiling beet resting on three teal layers — is
+the art reference. Its original raster stays available alongside the vector
+redrawing; vector shading is intentionally smooth rather than textured.
+
+Every project keeps its original motif: unthrown's no-throw sign, entity's
+identity card, di's syringe, AMQP's envelope, and Temporal's hourglass. Tools
+carries a wrench and the shared theme carries a palette. The umbrella mascot
+is the same beet without a project prop. Do not replace the characters with
+abstract glyphs or recolor their bodies to the project's accent.
 
 The editable source is `scripts/generate-brand.mjs`; run `pnpm brand` to
-regenerate the website assets and the shared theme attribution mark together.
-Light variants use deeper product colors with white symbols; dark variants
-use brighter colors with dark symbols. `*-mono.svg` is the black-on-white
-print variant. `*-favicon.svg` thickens the stroke for small sizes.
+regenerate the website assets and shared theme attribution mark together.
+All illustrations are native SVG paths and gradients on a transparent
+`512 × 512` canvas, with no embedded raster images. Light and dark files keep
+the same character colors, which work on either background. `*-mono.svg` is
+the grayscale print variant; `*-favicon.svg` supplies a standalone browser icon.
 Assets copied into project repositories stay local, so a theme release or
 website deployment is not a prerequisite for their logos to work.
 

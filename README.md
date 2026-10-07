@@ -41,6 +41,10 @@ libraries keep their own documentation URLs.
 
 ## Brand assets
 
+The illustrated family keeps the approved smiling beetroot, soft shading, and
+each project’s original motif. The exact approved framework PNG is retained at
+`apps/website/public/logos/framework.png` alongside its native SVG redrawing.
+
 Run `pnpm brand` to regenerate the SVG family in `apps/website/public/logos`
 and the shared theme's attribution mark. The source and palette live in
 `scripts/generate-brand.mjs`; usage is documented in [design.md](design.md).
