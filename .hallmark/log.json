@@ -1,5 +1,14 @@
 [
   {
+    "date": "2026-10-07",
+    "scope": "app",
+    "macrostructure": "Ecosystem Index (framework first)",
+    "theme": "Beetroot Stack",
+    "brief": "Framework-first homepage, corrected DI links, illustrated SVG mascots preserving the approved beetroot artwork and project motifs, refreshed social previews",
+    "nav": "N1b",
+    "footer": "Ft3 index"
+  },
+  {
     "date": "2026-07-16",
     "macrostructure": "Ecosystem Index (extended)",
     "theme": "studied-DNA (Beetroot Stack)",

@@ -1,17 +1,17 @@
 # Design — btravstack · "Beetroot Stack" (studied DNA)
 
 A locked design system for the btravstack org (landing + `@btravstack/theme` +
-the five docs sites). Every page redesign reads this file before emitting code.
+the project docs sites). Every page redesign reads this file before emitting code.
 Do not regenerate per page — extend or amend this file when the system needs to
 grow.
 
 **The idea.** Studied from the user's stated inspiration. The org is a
 *colorful stack of distinct tools* on a near-neutral black canvas: the
-beetroot pink is the ORG accent (wordmark, links, CTAs, mascot), while each
+beetroot pink is the ORG accent (wordmark, links, CTAs, umbrella mark), while each
 package glows in **its own accent** — amqp orange, temporal indigo, unthrown
 teal, entity amber, di blue. Weight-contrast typography (one grotesque at
-400 vs 800), elevation through surface lightness, real numbers in the hero,
-and the gradient beetroot mascot as the one character moment.
+400 vs 800), elevation through surface lightness, a framework-first hero,
+and a coordinated beetroot mark family.
 
 ## Provenance
 
@@ -28,16 +28,16 @@ atmospheric (studied register — dark, quiet, confident; no blooms).
 
 ## Macrostructure family
 
-- Marketing pages (landing): **Ecosystem Index** — wordmark-led hero with the
-  mascot beside and a **real-stats strip** beneath (live GitHub stars, live
-  npm downloads, package count — never invented numbers), then the stack as
+- Marketing pages (landing): **Ecosystem Index** — framework-led hero with the
+  umbrella mark beside and a capability strip beneath, then the framework
+  overview and independent libraries as
   per-package-colored elevated panels, philosophy panels, "why now" cluster,
   inspirations, closing CTA.
 - Docs sites (VitePress content): default VitePress layout wearing the theme
   tokens — floating hero mark with a subtle halo, elevated feature cards,
   the site's own package accent everywhere via the one-knob override.
 - Nav: **N1b three-section** — wordmark · centered links · toggle + GitHub.
-- Footer: **Ft3 index** — justified: the landing is a genuine hub for five
+- Footer: **Ft3 index** — justified: the landing is a genuine hub for the project
   docs sites. Brand column + Docs column + GitHub column + MIT line. No
   social row, no Legal filler.
 
@@ -90,9 +90,9 @@ color glow on package-panel hover only.
 ## Motion
 
 - Easings: `--ease: cubic-bezier(0.16, 1, 0.3, 1)`; durations ≤ 0.2s.
-- Three primitives: mascot bob (character moment), panel hover lift (+ the
+- Three primitives: panel hover lift (+ the
   package-colored shadow), copy toast. No blooms, no scroll reveals, no
-  marquees. Reduced-motion: bob stops, transitions collapse.
+  marquees. Reduced-motion: transitions collapse.
 
 ## Microinteractions stance
 
@@ -106,12 +106,42 @@ color glow on package-panel hover only.
 
 ## Logos
 
-The original soft gradient marks stay — mascot, rabbit, hourglass, no-throw,
-shield, the di syringe, and the start liftoff beet. They read perfectly on
-the near-black canvas and each sits inside its package-colored panel context.
-A package's
-product mark is not a "character moment" — it's the logo of that panel, the
-same way each docs site carries its own.
+The logo family preserves the illustrated beetroot mascot: rounded pink body,
+three green leaves, bright eyes, rosy cheeks, and soft gradient shading. The
+framework's approved PNG — the smiling beet resting on three teal layers — is
+the art reference. Its original raster stays available alongside the vector
+redrawing; vector shading is intentionally smooth rather than textured.
+
+Every project keeps its original motif: unthrown's no-throw sign, entity's
+identity card, di's syringe, AMQP's envelope, and Temporal's hourglass. Entity
+peeks over the bottom of its photo, with both paws resting on the frame.
+Temporal's beet has no leaves: the pink liquid flows through the hourglass and
+forms a small rounded dome at the bottom, with eyes and a smile. DI keeps
+the same small dome at the needle end, with a small separate drop below it.
+AMQP keeps a simple light envelope fold without extra diagonal seams.
+
+Tools carries a straight open-end wrench with a clearly defined jaw and grip.
+Tools and the shared theme have floating hands with no arms. The theme holds
+a brush in one hand and the palette by its thumb hole in the other, with the
+paint arranged on the outer rim. The brush has separate bristles, a metal
+ferrule, and a wooden handle. The umbrella
+mascot is the same beet without a project prop. Do not replace the characters with
+abstract glyphs or recolor their bodies to the project's accent.
+
+The editable source is `scripts/generate-brand.mjs`; run `pnpm brand` to
+regenerate the website assets and shared theme attribution mark together.
+All illustrations are native SVG paths and gradients on a transparent
+`512 × 512` canvas, with no embedded raster images. Light and dark files keep
+the same character colors, which work on either background. `*-mono.svg` is
+the grayscale print variant; `*-favicon.svg` supplies a standalone browser icon.
+Assets copied into project repositories stay local, so a theme release or
+website deployment is not a prerequisite for their logos to work.
+
+The homepage leads with the framework and its getting-started guide. The root
+URL remains the ecosystem entrance; framework documentation keeps its
+`/btravstack/` URLs. Independent libraries remain first-class destinations.
+The capability strip describes shipped behavior; the page does not fetch
+popularity counters. `di` and `entity` link into the framework repository and their documentation.
 
 **Status badge.** The worker beet (hard hat + shovel) is a small
 complementary *marker*, never a project logo: it appears only inside a
@@ -127,9 +157,8 @@ mark everywhere a logo belongs.
   exception:** an incubating/WIP surface may carry a 1.5px *dashed* accent
   border — a deliberate "not finished" signal, distinct from the banned
   hairline card border. Solid card borders remain banned.
-- Exactly one decorative character moment (the floating mascot) per page.
-  Product logos and the small status badge don't count against this — they're
-  functional marks, not decoration.
+- Product marks are functional identities, not decoration. Keep their
+  silhouettes and symbols intact; use the supplied variants on each surface.
 
 ## What pages MAY differ on
 
