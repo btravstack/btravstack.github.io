@@ -29,7 +29,7 @@ export const projects = [
     blurb: "Declare ports, bind providers, compose modules. Check the wiring before the process starts and keep implementation details private. Part of the framework; usable on its own.",
     points: ["Ports named by the domain, not the adapter", "Unmet dependencies are compile errors", "Scoped resources release themselves"],
     install: "pnpm add @btravstack/di unthrown",
-    repo: "https://github.com/btravstack/btravstack/tree/main/packages/di", docs: "https://btravstack.github.io/btravstack/reference/di/",
+    repo: "https://github.com/btravstack/btravstack/tree/main/packages/di", docs: "https://btravstack.github.io/btravstack/di/",
   },
   {
     key: "amqp", tag: "Messaging", name: "amqp-contract", pkg: "@amqp-contract/contract",
