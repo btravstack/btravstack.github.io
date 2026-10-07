@@ -55,3 +55,7 @@ small sizes. The editable [social card](branding/social-card.html) accepts
 `temporal-contract`, `tools`, `theme`). Render at 1200 × 630 with device scale
 factor 1 after its fonts and images load. Exports live under
 `apps/website/public/og-*.png`; project repositories carry local copies.
+
+The default website card uses the approved framework PNG at a larger scale,
+with the homepage headline and shared wordmark. Keep that composition distinct
+from the individual project cards, and check it at thumbnail size when editing.
