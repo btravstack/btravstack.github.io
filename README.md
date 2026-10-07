@@ -51,11 +51,13 @@ and the shared theme's attribution mark. The source and palette live in
 
 [The logo proof sheet](branding/logo-family.png) shows light/dark variants and
 small sizes. The editable [social card](branding/social-card.html) accepts
-`?project=btravstack` (or `framework`, `unthrown`, `entity`, `amqp-contract`,
+`?project=btravstack` (or `framework`, `unthrown`, `entity`, `di`, `amqp-contract`,
 `temporal-contract`, `tools`, `theme`). Render at 1200 × 630 with device scale
 factor 1 after its fonts and images load. Exports live under
 `apps/website/public/og-*.png`; project repositories carry local copies.
 
-The default website card uses the approved framework PNG at a larger scale,
-with the homepage headline and shared wordmark. Keep that composition distinct
-from the individual project cards, and check it at thumbnail size when editing.
+All cards pair a prominent project name and short headline with the approved
+mascot at a larger scale. The website and framework use the original framework
+PNG; the other projects use their SVG illustrations and accent colors. Check
+each composition at thumbnail size when editing. Entity and DI display their
+integrated framework documentation addresses.
