@@ -1,14 +1,15 @@
 import { defineConfig } from "vitepress";
+import { documentedProjects } from "./projects";
 
 const SITE_TITLE = "BtravStack";
 const SITE_DESCRIPTION =
-  "Type-safe building blocks for the TypeScript backend: contracts for AMQP & Temporal, typed dependency injection, and errors as values.";
+  "A TypeScript backend framework and focused libraries for typed errors, domain entities, dependency injection, AMQP and Temporal.";
 const SITE_URL = "https://btravstack.github.io";
 
 // https://vitepress.dev/reference/site-config
 export default defineConfig({
   title: SITE_TITLE,
-  titleTemplate: "An expressive, robust TypeScript backend",
+  titleTemplate: "A backend that fits together",
   description: SITE_DESCRIPTION,
   lang: "en-US",
   // user/org site (btravstack.github.io) is served from the domain root
@@ -35,13 +36,13 @@ export default defineConfig({
     ["meta", { property: "og:type", content: "website" }],
     ["meta", { property: "og:site_name", content: SITE_TITLE }],
     ["meta", { property: "og:locale", content: "en_US" }],
-    ["meta", { property: "og:title", content: `${SITE_TITLE} — an expressive, robust TypeScript backend` }],
+    ["meta", { property: "og:title", content: `${SITE_TITLE} — a backend that fits together` }],
     ["meta", { property: "og:description", content: SITE_DESCRIPTION }],
     ["meta", { property: "og:url", content: `${SITE_URL}/` }],
     ["meta", { property: "og:image", content: `${SITE_URL}/og-btravstack.png` }],
     ["meta", { property: "og:image:type", content: "image/png" }],
-    ["meta", { property: "og:image:width", content: "1280" }],
-    ["meta", { property: "og:image:height", content: "640" }],
+    ["meta", { property: "og:image:width", content: "1200" }],
+    ["meta", { property: "og:image:height", content: "630" }],
     [
       "meta",
       {
@@ -52,7 +53,7 @@ export default defineConfig({
 
     // Twitter Card
     ["meta", { name: "twitter:card", content: "summary_large_image" }],
-    ["meta", { name: "twitter:title", content: `${SITE_TITLE} — an expressive, robust TypeScript backend` }],
+    ["meta", { name: "twitter:title", content: `${SITE_TITLE} — a backend that fits together` }],
     ["meta", { name: "twitter:description", content: SITE_DESCRIPTION }],
     ["meta", { name: "twitter:image", content: `${SITE_URL}/og-btravstack.png` }],
     [
@@ -63,7 +64,7 @@ export default defineConfig({
       },
     ],
 
-    // JSON-LD: the org, the site, and the three packages it publishes
+    // Organization and project metadata share the visible project index.
     [
       "script",
       { type: "application/ld+json" },
@@ -95,44 +96,18 @@ export default defineConfig({
         "@context": "https://schema.org",
         "@type": "ItemList",
         name: "BtravStack packages",
-        itemListElement: [
-          {
-            "@type": "ListItem",
-            position: 1,
-            item: {
-              "@type": "SoftwareApplication",
-              name: "amqp-contract",
-              applicationCategory: "DeveloperApplication",
-              operatingSystem: "Cross-platform",
-              url: "https://btravstack.github.io/amqp-contract/",
-              description: "Type-safe contracts for AMQP & RabbitMQ.",
-            },
+        itemListElement: documentedProjects.map((project, index) => ({
+          "@type": "ListItem",
+          position: index + 1,
+          item: {
+            "@type": "SoftwareApplication",
+            name: project.name,
+            applicationCategory: "DeveloperApplication",
+            operatingSystem: "Cross-platform",
+            url: project.docs,
+            description: project.blurb,
           },
-          {
-            "@type": "ListItem",
-            position: 2,
-            item: {
-              "@type": "SoftwareApplication",
-              name: "temporal-contract",
-              applicationCategory: "DeveloperApplication",
-              operatingSystem: "Cross-platform",
-              url: "https://btravstack.github.io/temporal-contract/",
-              description: "Type-safe contracts for Temporal.io.",
-            },
-          },
-          {
-            "@type": "ListItem",
-            position: 3,
-            item: {
-              "@type": "SoftwareApplication",
-              name: "unthrown",
-              applicationCategory: "DeveloperApplication",
-              operatingSystem: "Cross-platform",
-              url: "https://btravstack.github.io/unthrown/",
-              description: "Explicit errors as values, for TypeScript.",
-            },
-          },
-        ],
+        })),
       }),
     ],
   ],
@@ -140,16 +115,11 @@ export default defineConfig({
   themeConfig: {
     logo: { light: "/logos/btravstack-light.svg", dark: "/logos/btravstack-dark.svg" },
     nav: [
-      { text: "Packages", link: "/#packages" },
+      { text: "Framework", link: "/#framework" },
+      { text: "Libraries", link: "/#packages" },
       {
         text: "Docs",
-        items: [
-          { text: "amqp-contract", link: "https://btravstack.github.io/amqp-contract/" },
-          { text: "temporal-contract", link: "https://btravstack.github.io/temporal-contract/" },
-          { text: "unthrown", link: "https://btravstack.github.io/unthrown/" },
-          { text: "entity", link: "https://btravstack.github.io/btravstack/entity/" },
-          { text: "di", link: "https://btravstack.github.io/btravstack/di/" },
-        ],
+        items: documentedProjects.map((project) => ({ text: project.name, link: project.docs })),
       },
     ],
     socialLinks: [{ icon: "github", link: "https://github.com/btravstack" }],

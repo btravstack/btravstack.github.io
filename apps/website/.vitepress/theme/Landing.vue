@@ -1,9 +1,8 @@
 <script setup lang="ts">
-import { computed, onMounted, reactive, ref } from "vue";
+import { onUnmounted, ref } from "vue";
 import { useData } from "vitepress";
+import { documentedProjects, framework, projects, tooling } from "../projects";
 
-// Appearance follows the OS by default (VitePress `appearance: true`); this
-// toggle lets visitors pick light or dark explicitly (persisted by VitePress).
 const { isDark } = useData();
 function toggleAppearance() {
   isDark.value = !isDark.value;
@@ -17,8 +16,8 @@ const principles = [
 
 const aiCards = [
   { title: "The tightest feedback loop", body: "An agent is only as good as the signal it gets back. Fail-fast code turns a wrong guess into a precise error in seconds — and fast errors are what make iteration converge." },
-  { title: "A deterministic metric", body: "Typechecking has no opinions. The contract holds or it doesn't — a reproducible, binary measure of generated code, before a single test runs." },
-  { title: "Review at the contract level", body: "Expressive contracts carry the intent. You review interfaces while the AI churns through implementations — the types guarantee the whole still fits together." },
+  { title: "One clear signal", body: "Typechecking gives generated code a reproducible check against your declared contracts. It catches mismatches early; it does not prove the program is correct." },
+  { title: "Review at the contract level", body: "Expressive contracts carry the intent. You review interfaces while the AI churns through implementations — the compiler checks the connections. Tests and human review still check the behavior." },
 ];
 
 const inspirations = [
@@ -28,122 +27,43 @@ const inspirations = [
   { name: "oRPC", href: "https://orpc.unnoq.com", body: "Contract-first RPC — the contract is an artifact you define, share and implement against." },
 ];
 
-interface Project {
-  key: string;
-  tag: string;
-  name: string;
-  pkg: string;
-  npm: string;
-  logo: string;
-  repoFull: string;
-  stars0: number;
-  blurb: string;
-  points: string[];
-  install: string;
-  repo: string;
-  docs: string;
-}
-
-// Ordered as the stack reads — errors, the domain built on them, the wiring
-// that assembles it, then the transports that carry it. unthrown leads: the
-// other four build on it.
-const projects: Project[] = [
-  {
-    key: "unthrown", tag: "Errors", name: "unthrown", pkg: "unthrown", npm: "unthrown",
-    logo: "/logos/unthrown", repoFull: "btravstack/unthrown", stars0: 1,
-    blurb: "Explicit errors as values — with a separate defect channel for the unexpected. Only a true defect ever throws, and only at unwrap.",
-    points: ["Errors as values, typed in E", "A separate defect channel", "Zero runtime dependencies"],
-    install: "pnpm add unthrown",
-    repo: "https://github.com/btravstack/unthrown", docs: "https://btravstack.github.io/unthrown/",
-  },
-  {
-    key: "entity", tag: "Domain", name: "entity", pkg: "@btravstack/entity", npm: "@btravstack/entity",
-    logo: "/logos/entity", repoFull: "btravstack/btravstack", stars0: 1,
-    blurb: "Domain entities declared once. One field map gives you a type, four request/response schemas, behaviour, and a class that is itself a zod schema — so entities nest inside each other without losing what makes them entities.",
-    points: ["Branded fields and immutable data", "Sealed construction, enforced invariants", "Result instead of throws"],
-    install: "pnpm add @btravstack/entity",
-    repo: "https://github.com/btravstack/btravstack", docs: "https://btravstack.github.io/btravstack/entity/",
-  },
-  {
-    key: "di", tag: "Wiring", name: "di", pkg: "@btravstack/di", npm: "@btravstack/di",
-    logo: "/logos/di", repoFull: "btravstack/btravstack", stars0: 1,
-    blurb: "A module-based container. Ports are the vocabulary your application defines, providers bind them at one edge, and modules declare what they import and export — so internals stay private in a graph that is one flat map at runtime.",
-    points: ["Ports named by the domain, not the adapter", "Unmet dependencies are compile errors", "Scoped resources release themselves"],
-    install: "pnpm add @btravstack/di unthrown",
-    repo: "https://github.com/btravstack/btravstack", docs: "https://btravstack.github.io/btravstack/di/",
-  },
-  {
-    key: "amqp", tag: "Messaging", name: "amqp-contract", pkg: "@amqp-contract/contract", npm: "@amqp-contract/contract",
-    logo: "/logos/amqp-contract", repoFull: "btravstack/amqp-contract", stars0: 18,
-    blurb: "Type-safe contracts for AMQP & RabbitMQ. Define your exchanges, queues and messages once — get types and runtime validation on both ends.",
-    points: ["End-to-end type safety", "Reliable retry with Dead Letter Queues", "AsyncAPI 3.0 generation"],
-    install: "pnpm add @amqp-contract/contract",
-    repo: "https://github.com/btravstack/amqp-contract", docs: "https://btravstack.github.io/amqp-contract/",
-  },
-  {
-    key: "temporal", tag: "Workflows", name: "temporal-contract", pkg: "@temporal-contract/contract", npm: "@temporal-contract/contract",
-    logo: "/logos/temporal-contract", repoFull: "btravstack/temporal-contract", stars0: 7,
-    blurb: "Type-safe contracts for Temporal.io. End-to-end types and automatic validation across workflows, activities and clients.",
-    points: ["Zod validation at every boundary", "Compile-time implementation checks", "Result / Future error handling"],
-    install: "pnpm add @temporal-contract/contract",
-    repo: "https://github.com/btravstack/temporal-contract", docs: "https://btravstack.github.io/temporal-contract/",
-  },
-];
-
-/** Each repository shown by the package cards, counted once. */
-const allRepos = [...new Map(projects.map((project) => [project.repoFull, project])).values()];
-
-const stars = reactive<Record<string, number>>(
-  Object.fromEntries(allRepos.map((p) => [p.repoFull, p.stars0])),
-);
-const totalStars = computed(() => Object.values(stars).reduce((a, b) => a + b, 0));
-// npm downloads (last month, all packages) — real numbers only: shows "—" until fetched.
-const npmDownloads = ref<number | null>(null);
-
-const copied = ref<string | null>(null);
+const feedback = ref("");
 let timer: ReturnType<typeof setTimeout> | undefined;
+let copyAttempt = 0;
 
-function copy(text: string) {
-  if (navigator.clipboard?.writeText) navigator.clipboard.writeText(text).catch(() => {});
-  copied.value = text;
+async function copy(text: string) {
+  const attempt = ++copyAttempt;
   clearTimeout(timer);
-  timer = setTimeout(() => (copied.value = null), 1600);
-}
-
-function formatCount(n: number) {
-  return n >= 1000 ? `${(n / 1000).toFixed(n >= 10000 ? 0 : 1).replace(/\.0$/, "")}k` : String(n);
-}
-
-onMounted(() => {
-  for (const p of allRepos) {
-    fetch(`https://api.github.com/repos/${p.repoFull}`, { headers: { Accept: "application/vnd.github+json" } })
-      .then((r) => (r.ok ? r.json() : Promise.reject(r.status)))
-      .then((d) => { if (typeof d.stargazers_count === "number") stars[p.repoFull] = d.stargazers_count; })
-      .catch(() => {});
+  feedback.value = "";
+  try {
+    await navigator.clipboard.writeText(text);
+    if (attempt !== copyAttempt) return;
+    feedback.value = `Copied: ${text}`;
+  } catch {
+    if (attempt !== copyAttempt) return;
+    feedback.value = "Could not copy. Select the install command and copy it manually.";
   }
-  Promise.all(projects.map((p) =>
-    fetch(`https://api.npmjs.org/downloads/point/last-month/${encodeURIComponent(p.npm)}`)
-      .then((r) => (r.ok ? r.json() : Promise.reject(r.status)))
-      .then((d) => (typeof d.downloads === "number" ? d.downloads : 0))
-      .catch(() => 0),
-  )).then((counts) => {
-    const sum = counts.reduce((a, b) => a + b, 0);
-    if (sum > 0) npmDownloads.value = sum;
-  }).catch(() => {});
+  timer = setTimeout(() => (feedback.value = ""), 4000);
+}
+
+onUnmounted(() => {
+  copyAttempt++;
+  clearTimeout(timer);
 });
 </script>
 
 <template>
   <div class="btv">
-    <!-- N1b · three-section bar -->
+    <a href="#main" class="btv-skip">Skip to content</a>
     <header class="btv-head">
       <div class="btv-head-inner">
         <a href="#top" class="btv-brand">
-          <svg viewBox="-2 -12 104 148" width="21" height="30" fill="none" aria-hidden="true" focusable="false"><g transform="rotate(-6 50 68)"><path d="M46,34 C44,26 44,18 47,10" stroke="#2C8B4E" stroke-width="3.6" stroke-linecap="round" fill="none"/><path d="M47,10 C40,7 37,-2 43,-6 C50,-10 56,-3 54,3 C53,7 51,9 47,10 Z" fill="#3DAE62"/><path d="M41,36 C34,31 26,30 21,34 C16,38 19,45 26,45 C32,45 38,41 41,36 Z" fill="#2C8B4E"/><path d="M57,34 C62,27 70,24 76,28 C81,32 78,39 71,40 C65,40 60,37 57,34 Z" fill="#3DAE62"/><g transform="rotate(-38 16 66)"><rect x="4" y="62" width="20" height="9" rx="4.5" fill="#CE3D80"/></g><g transform="rotate(24 84 78)"><rect x="76" y="74" width="18" height="9" rx="4.5" fill="#8E1A52"/></g><path d="M50,32 C28,31 14,45 14,62 C14,81 30,98 44,108 C47,111 48,114 50,116 C52,114 53,111 56,108 C70,98 86,81 86,62 C86,45 72,31 50,32 Z" fill="#CE3D80"/><path d="M63,35 C76,41 86,50 86,62 C86,79 73,94 58,106 C69,91 78,76 78,62 C78,51 72,42 63,35 Z" fill="#8E1A52" opacity="0.85"/><path d="M27,47 C23,53 22,61 24,68" stroke="#EE9CC4" stroke-width="3.4" stroke-linecap="round" fill="none" opacity="0.55"/><circle cx="38" cy="60" r="5.2" fill="#3A0D24"/><circle cx="39.7" cy="58.3" r="1.8" fill="#FFFFFF"/><circle cx="63" cy="60" r="5.2" fill="#3A0D24"/><circle cx="64.7" cy="58.3" r="1.8" fill="#FFFFFF"/><path d="M41,71 Q50.5,80 60,71" stroke="#3A0D24" stroke-width="3.4" stroke-linecap="round" fill="none"/><circle cx="29" cy="69" r="4.2" fill="#EE9CC4" opacity="0.75"/><circle cx="72" cy="69" r="4.2" fill="#EE9CC4" opacity="0.75"/><path d="M50,116 C49,121 52,124 49,129 C47,132 44,132 43,130" stroke="#8E1A52" stroke-width="2.8" stroke-linecap="round" fill="none"/></g></svg>
+          <img :src="`/logos/btravstack-${isDark ? 'dark' : 'light'}.svg`" width="32" height="32" alt="" class="btv-brand-mark" />
           <span class="btv-word"><span class="btv-pink">Btrav</span><span>Stack</span></span>
         </a>
-        <nav class="btv-links nav-hide" aria-label="Primary">
-          <a class="navlink" href="#packages">The stack</a>
+        <nav class="btv-links" aria-label="Primary">
+          <a class="navlink" href="#framework">Framework</a>
+          <a class="navlink" href="#packages">Libraries</a>
           <a class="navlink" href="#philosophy">Philosophy</a>
           <a class="navlink" href="#ai">Why&nbsp;now</a>
         </nav>
@@ -159,136 +79,156 @@ onMounted(() => {
       </div>
     </header>
 
-    <!-- Hero — wordmark-led, mascot beside, real stats beneath -->
-    <section id="top" class="btv-hero">
-      <div class="btv-hero-grid">
-        <div class="btv-hero-copy">
-          <h1 class="btv-title"><span class="btv-pink">Btrav</span>Stack</h1>
-          <p class="btv-tagline">An expressive, robust <span class="btv-tagline-mark">TypeScript</span> backend.</p>
-          <p class="btv-sub">A small stack of type-safe building blocks for Node, built on two convictions: a signature should be enough to understand a system, and the fastest error is the best one. Declare the contract once — types, validation and feedback flow everywhere.</p>
-          <div class="btv-cta-row">
-            <a href="#packages" class="btv-cta">Browse the stack</a>
-            <a href="https://github.com/btravstack" target="_blank" rel="noopener" class="btv-cta btv-cta--ghost">View on GitHub <span aria-hidden="true">↗</span></a>
+    <main id="main" tabindex="-1">
+      <section id="top" class="btv-hero">
+        <div class="btv-hero-grid">
+          <div class="btv-hero-copy">
+            <p class="btv-eyebrow">TypeScript. Node.js. Built to compose.</p>
+            <h1 class="btv-title">A backend that<br /><span class="btv-pink">fits together.</span></h1>
+
+            <p class="btv-sub">One framework for the process. Focused libraries for the pieces. Build with explicit contracts, typed errors and wiring the compiler can check.</p>
+            <div class="btv-cta-row">
+              <a :href="framework.tutorial" class="btv-cta">Build your first service <span aria-hidden="true">→</span></a>
+              <a href="#packages" class="btv-link">Explore the libraries <span aria-hidden="true">↓</span></a>
+            </div>
+          </div>
+          <div class="btv-float" aria-hidden="true">
+            <img :src="`/logos/btravstack-${isDark ? 'dark' : 'light'}.svg`" width="240" height="240" alt="" class="btv-hero-mark" />
           </div>
         </div>
-        <div class="btv-float">
-          <svg viewBox="-2 -12 104 148" width="131" height="186" fill="none" aria-hidden="true" focusable="false"><g transform="rotate(-6 50 68)"><path d="M46,34 C44,26 44,18 47,10" stroke="#2C8B4E" stroke-width="3.6" stroke-linecap="round" fill="none"/><path d="M47,10 C40,7 37,-2 43,-6 C50,-10 56,-3 54,3 C53,7 51,9 47,10 Z" fill="#3DAE62"/><path d="M41,36 C34,31 26,30 21,34 C16,38 19,45 26,45 C32,45 38,41 41,36 Z" fill="#2C8B4E"/><path d="M57,34 C62,27 70,24 76,28 C81,32 78,39 71,40 C65,40 60,37 57,34 Z" fill="#3DAE62"/><g transform="rotate(-38 16 66)"><rect x="4" y="62" width="20" height="9" rx="4.5" fill="#CE3D80"/></g><g transform="rotate(24 84 78)"><rect x="76" y="74" width="18" height="9" rx="4.5" fill="#8E1A52"/></g><path d="M50,32 C28,31 14,45 14,62 C14,81 30,98 44,108 C47,111 48,114 50,116 C52,114 53,111 56,108 C70,98 86,81 86,62 C86,45 72,31 50,32 Z" fill="#CE3D80"/><path d="M63,35 C76,41 86,50 86,62 C86,79 73,94 58,106 C69,91 78,76 78,62 C78,51 72,42 63,35 Z" fill="#8E1A52" opacity="0.85"/><path d="M27,47 C23,53 22,61 24,68" stroke="#EE9CC4" stroke-width="3.4" stroke-linecap="round" fill="none" opacity="0.55"/><circle cx="38" cy="60" r="5.2" fill="#3A0D24"/><circle cx="39.7" cy="58.3" r="1.8" fill="#FFFFFF"/><circle cx="63" cy="60" r="5.2" fill="#3A0D24"/><circle cx="64.7" cy="58.3" r="1.8" fill="#FFFFFF"/><path d="M41,71 Q50.5,80 60,71" stroke="#3A0D24" stroke-width="3.4" stroke-linecap="round" fill="none"/><circle cx="29" cy="69" r="4.2" fill="#EE9CC4" opacity="0.75"/><circle cx="72" cy="69" r="4.2" fill="#EE9CC4" opacity="0.75"/><path d="M50,116 C49,121 52,124 49,129 C47,132 44,132 43,130" stroke="#8E1A52" stroke-width="2.8" stroke-linecap="round" fill="none"/></g></svg>
+        <div class="btv-capabilities" aria-label="Stack principles">
+          <p><strong>Explicit contracts</strong><span>Types and validation at the boundary</span></p>
+          <p><strong>Typed failures</strong><span>Expected errors in the return value</span></p>
+          <p><strong>Open source</strong><span>MIT-licensed, built in the open</span></p>
         </div>
-      </div>
-      <ClientOnly>
-        <div class="btv-stats" role="list" aria-label="Live project numbers">
-          <div class="btv-stat" role="listitem">
-            <span class="btv-stat-n">{{ formatCount(totalStars) }}</span>
-            <span class="btv-stat-l">GitHub stars</span>
+      </section>
+
+      <section id="framework" class="btv-section btv-framework-section" aria-labelledby="framework-title">
+        <div class="btv-framework">
+          <div>
+            <p class="btv-eyebrow">Start with the framework</p>
+            <div class="btv-framework-heading">
+              <img :src="`/logos/framework-${isDark ? 'dark' : 'light'}.svg`" width="72" height="72" alt="" />
+              <h2 id="framework-title" class="btv-h2">btravstack</h2>
+            </div>
+            <p class="btv-section-lead">From a proven dependency graph to a running service. The kernel owns startup, units of work and graceful shutdown. Your application owns the business logic.</p>
+            <div class="btv-panel-links">
+              <a :href="framework.docs" class="btv-link">Read the framework docs <span aria-hidden="true">↗</span></a>
+              <a :href="framework.repo" class="btv-link btv-link--quiet">Source <span aria-hidden="true">↗</span></a>
+            </div>
           </div>
-          <div class="btv-stat" role="listitem">
-            <span class="btv-stat-n">{{ npmDownloads === null ? "—" : formatCount(npmDownloads) }}</span>
-            <span class="btv-stat-l">npm downloads / month</span>
-          </div>
-          <div class="btv-stat" role="listitem">
-            <span class="btv-stat-n">{{ projects.length }}</span>
-            <span class="btv-stat-l">packages, MIT-licensed</span>
+          <div class="btv-runtime-map">
+            <p class="btv-map-label">Your application module</p>
+            <div class="btv-runtime-row"><span>HTTP</span><span>Answer requests</span></div>
+            <div class="btv-runtime-row"><span>Temporal</span><span>Orchestrate work</span></div>
+            <div class="btv-runtime-row"><span>AMQP</span><span>Broadcast events</span></div>
+            <p class="btv-map-note">One runtime per process. The same application underneath.</p>
           </div>
         </div>
-      </ClientOnly>
-    </section>
+      </section>
 
-    <!-- The stack — each package in its own color -->
-    <section id="packages" class="btv-section">
-      <h2 class="btv-h2">Five libraries, one stack.</h2>
-      <p class="btv-section-lead">Errors, domain, wiring, messaging and workflows — five focused packages that compose into one coherent backend.</p>
-      <div class="btv-panels">
-        <article v-for="p in projects" :key="p.name" class="btv-panel" :style="{ '--pkg': `var(--pkg-${p.key})` }">
-          <div class="btv-panel-top">
-            <img :src="`${p.logo}-${isDark ? 'dark' : 'light'}.svg`" width="52" height="52" :alt="`${p.name} logo`" class="btv-logo" />
-            <span class="btv-stars" :title="`${stars[p.repoFull]} GitHub stars`">
-              <svg width="13" height="13" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M8 1.3l2.06 4.17 4.6.67-3.33 3.24.78 4.58L8 11.8l-4.11 2.16.78-4.58L1.34 6.14l4.6-.67L8 1.3z"/></svg>
-              {{ formatCount(stars[p.repoFull]) }}
-            </span>
-          </div>
-          <p class="btv-tag"><span class="btv-dot" aria-hidden="true"></span>{{ p.tag }}</p>
-          <h3 class="btv-pname">{{ p.name }}</h3>
-          <code class="btv-pkg">{{ p.pkg }}</code>
-          <p class="btv-blurb">{{ p.blurb }}</p>
-          <ul class="btv-points">
-            <li v-for="pt in p.points" :key="pt">
-              <svg width="15" height="15" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M2.5 8.5l3 3 8-8" stroke="var(--text-green)" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-              <span>{{ pt }}</span>
-            </li>
-          </ul>
-          <button type="button" class="btv-codeblk" :title="`Copy: ${p.install}`" @click="copy(p.install)">
-            <span class="btv-cmd"><span class="btv-dollar">$ </span>{{ p.install }}</span>
-            <svg width="15" height="15" viewBox="0 0 16 16" fill="none" aria-hidden="true"><rect x="5.5" y="5.5" width="8" height="8" rx="1.5" stroke="currentColor" stroke-width="1.4"/><path d="M3.5 10.5h-1A1.5 1.5 0 0 1 1 9V2.5A1.5 1.5 0 0 1 2.5 1H9a1.5 1.5 0 0 1 1.5 1.5v1" stroke="currentColor" stroke-width="1.4"/></svg>
-          </button>
-          <div class="btv-panel-links">
-            <a :href="p.docs" target="_blank" rel="noopener" class="btv-link">Docs <span aria-hidden="true">↗</span></a>
-            <a :href="p.repo" target="_blank" rel="noopener" class="btv-link btv-link--quiet">Repo <span aria-hidden="true">↗</span></a>
-          </div>
-        </article>
-      </div>
-    </section>
-
-    <!-- Philosophy -->
-    <section id="philosophy" class="btv-section">
-      <h2 class="btv-h2">Expressive to read. Robust to run.</h2>
-      <p class="btv-section-lead">Each package is small, focused and does one thing well — but they share a worldview: expressive code you can understand from its signature alone, and robust code that fails fast enough to learn from.</p>
-      <div class="btv-cols">
-        <div v-for="pr in principles" :key="pr.num" class="btv-col">
-          <p class="btv-num" aria-hidden="true">{{ pr.num }}</p>
-          <h3>{{ pr.title }}</h3>
-          <p>{{ pr.body }}</p>
+      <!-- The stack — each package in its own color -->
+      <section id="packages" class="btv-section">
+        <h2 class="btv-h2">Take the pieces you need.</h2>
+        <p class="btv-section-lead">Use a library on its own, or compose them with the framework. Each has a clear job and its own documentation.</p>
+        <div class="btv-panels">
+          <article v-for="p in projects" :key="p.name" class="btv-panel" :style="{ '--pkg': `var(--pkg-${p.key})` }">
+            <div class="btv-panel-top">
+              <img :src="`${p.logo}-${isDark ? 'dark' : 'light'}.svg`" width="52" height="52" :alt="`${p.name} logo`" class="btv-logo" />
+            </div>
+            <p class="btv-tag"><span class="btv-dot" aria-hidden="true"></span>{{ p.tag }}</p>
+            <h3 class="btv-pname">{{ p.name }}</h3>
+            <code class="btv-pkg">{{ p.pkg }}</code>
+            <p class="btv-blurb">{{ p.blurb }}</p>
+            <ul class="btv-points">
+              <li v-for="pt in p.points" :key="pt">
+                <svg width="15" height="15" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M2.5 8.5l3 3 8-8" stroke="var(--text-green)" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                <span>{{ pt }}</span>
+              </li>
+            </ul>
+            <button type="button" class="btv-codeblk" :aria-label="`Copy install command for ${p.name}`" :title="`Copy: ${p.install}`" @click="copy(p.install)">
+              <span class="btv-cmd"><span class="btv-dollar">$ </span>{{ p.install }}</span>
+              <svg width="15" height="15" viewBox="0 0 16 16" fill="none" aria-hidden="true"><rect x="5.5" y="5.5" width="8" height="8" rx="1.5" stroke="currentColor" stroke-width="1.4"/><path d="M3.5 10.5h-1A1.5 1.5 0 0 1 1 9V2.5A1.5 1.5 0 0 1 2.5 1H9a1.5 1.5 0 0 1 1.5 1.5v1" stroke="currentColor" stroke-width="1.4"/></svg>
+            </button>
+            <div class="btv-panel-links">
+              <a :href="p.docs" target="_blank" rel="noopener" class="btv-link">Docs <span aria-hidden="true">↗</span></a>
+              <a :href="p.repo" target="_blank" rel="noopener" class="btv-link btv-link--quiet">Repo <span aria-hidden="true">↗</span></a>
+            </div>
+          </article>
         </div>
-      </div>
-    </section>
+      </section>
 
-    <!-- Why now -->
-    <section id="ai" class="btv-section">
-      <h2 class="btv-h2">Written with AI. Judged by the compiler.</h2>
-      <p class="btv-section-lead">None of this was invented for AI — AI just raised the stakes. When an agent writes the code, expressiveness and fail-fast stop being a matter of taste and become infrastructure.</p>
-      <div class="btv-ai-grid">
-        <div v-for="c in aiCards" :key="c.title" class="btv-ai-card">
-          <h3>{{ c.title }}</h3>
-          <p>{{ c.body }}</p>
+      <section class="btv-section" aria-labelledby="tooling-title">
+        <h2 id="tooling-title" class="btv-tooling-title">The tools behind the stack</h2>
+        <div class="btv-tooling">
+          <a v-for="tool in tooling" :key="tool.name" :href="tool.repo" class="btv-tool">
+            <img :src="`${tool.logo}-${isDark ? 'dark' : 'light'}.svg`" width="44" height="44" alt="" />
+            <span><strong>{{ tool.name }} <span aria-hidden="true">↗</span></strong><span>{{ tool.description }}</span></span>
+          </a>
         </div>
-      </div>
-    </section>
+      </section>
 
-    <!-- Inspirations -->
-    <section class="btv-section">
-      <h2 class="btv-h2">Standing on good shoulders.</h2>
-      <p class="btv-section-lead">BtravStack borrows its instincts from the libraries that made TypeScript feel this way in the first place.</p>
-      <div class="btv-insp">
-        <a v-for="z in inspirations" :key="z.name" :href="z.href" target="_blank" rel="noopener" class="btv-insp-row">
-          <span class="btv-insp-name">{{ z.name }} <span aria-hidden="true">↗</span></span>
-          <span class="btv-insp-body">{{ z.body }}</span>
-        </a>
-      </div>
-    </section>
+      <!-- Philosophy -->
+      <section id="philosophy" class="btv-section">
+        <h2 class="btv-h2">Expressive to read. Robust to run.</h2>
+        <p class="btv-section-lead">Each package is small, focused and does one thing well — but they share a worldview: expressive code you can understand from its signature alone, and robust code that fails fast enough to learn from.</p>
+        <div class="btv-cols">
+          <div v-for="pr in principles" :key="pr.num" class="btv-col">
+            <p class="btv-num" aria-hidden="true">{{ pr.num }}</p>
+            <h3>{{ pr.title }}</h3>
+            <p>{{ pr.body }}</p>
+          </div>
+        </div>
+      </section>
 
-    <!-- Closing CTA -->
-    <section class="btv-section btv-close">
-      <h2 class="btv-h2">Build backends you can trust the types of.</h2>
-      <p class="btv-section-lead btv-close-p">Star the projects, open an issue, or just read the docs. Everything is MIT-licensed and built in the open.</p>
-      <a href="https://github.com/btravstack" target="_blank" rel="noopener" class="btv-cta btv-cta--big">View on GitHub <span aria-hidden="true">↗</span></a>
-    </section>
+      <!-- Why now -->
+      <section id="ai" class="btv-section">
+        <h2 class="btv-h2">Better feedback for humans and agents.</h2>
+        <p class="btv-section-lead">Clear contracts make both human and AI-assisted work easier to check. The compiler is one feedback loop, alongside tests, runtime validation and review.</p>
+        <div class="btv-ai-grid">
+          <div v-for="c in aiCards" :key="c.title" class="btv-ai-card">
+            <h3>{{ c.title }}</h3>
+            <p>{{ c.body }}</p>
+          </div>
+        </div>
+      </section>
 
-    <!-- Ft3 · index footer (genuine hub for the five docs sites) -->
+      <!-- Inspirations -->
+      <section class="btv-section">
+        <h2 class="btv-h2">Standing on good shoulders.</h2>
+        <p class="btv-section-lead">BtravStack borrows its instincts from the libraries that made TypeScript feel this way in the first place.</p>
+        <div class="btv-insp">
+          <a v-for="z in inspirations" :key="z.name" :href="z.href" target="_blank" rel="noopener" class="btv-insp-row">
+            <span class="btv-insp-name">{{ z.name }} <span aria-hidden="true">↗</span></span>
+            <span class="btv-insp-body">{{ z.body }}</span>
+          </a>
+        </div>
+      </section>
+
+      <!-- Closing CTA -->
+      <section class="btv-section btv-close">
+        <h2 class="btv-h2">Build backends you can trust the types of.</h2>
+        <p class="btv-section-lead btv-close-p">Star the projects, open an issue, or just read the docs. Everything is MIT-licensed and built in the open.</p>
+        <a href="https://github.com/btravstack" target="_blank" rel="noopener" class="btv-cta btv-cta--big">View on GitHub <span aria-hidden="true">↗</span></a>
+      </section>
+
+    </main>
     <footer class="btv-foot">
       <div class="btv-foot-grid">
         <div class="btv-foot-brandcol">
           <div class="btv-foot-brand">
-            <svg viewBox="-2 -12 104 148" width="18" height="25" fill="none" aria-hidden="true" focusable="false"><g transform="rotate(-6 50 68)"><path d="M46,34 C44,26 44,18 47,10" stroke="#2C8B4E" stroke-width="3.6" stroke-linecap="round" fill="none"/><path d="M47,10 C40,7 37,-2 43,-6 C50,-10 56,-3 54,3 C53,7 51,9 47,10 Z" fill="#3DAE62"/><path d="M41,36 C34,31 26,30 21,34 C16,38 19,45 26,45 C32,45 38,41 41,36 Z" fill="#2C8B4E"/><path d="M57,34 C62,27 70,24 76,28 C81,32 78,39 71,40 C65,40 60,37 57,34 Z" fill="#3DAE62"/><g transform="rotate(-38 16 66)"><rect x="4" y="62" width="20" height="9" rx="4.5" fill="#CE3D80"/></g><g transform="rotate(24 84 78)"><rect x="76" y="74" width="18" height="9" rx="4.5" fill="#8E1A52"/></g><path d="M50,32 C28,31 14,45 14,62 C14,81 30,98 44,108 C47,111 48,114 50,116 C52,114 53,111 56,108 C70,98 86,81 86,62 C86,45 72,31 50,32 Z" fill="#CE3D80"/><path d="M63,35 C76,41 86,50 86,62 C86,79 73,94 58,106 C69,91 78,76 78,62 C78,51 72,42 63,35 Z" fill="#8E1A52" opacity="0.85"/><path d="M27,47 C23,53 22,61 24,68" stroke="#EE9CC4" stroke-width="3.4" stroke-linecap="round" fill="none" opacity="0.55"/><circle cx="38" cy="60" r="5.2" fill="#3A0D24"/><circle cx="39.7" cy="58.3" r="1.8" fill="#FFFFFF"/><circle cx="63" cy="60" r="5.2" fill="#3A0D24"/><circle cx="64.7" cy="58.3" r="1.8" fill="#FFFFFF"/><path d="M41,71 Q50.5,80 60,71" stroke="#3A0D24" stroke-width="3.4" stroke-linecap="round" fill="none"/><circle cx="29" cy="69" r="4.2" fill="#EE9CC4" opacity="0.75"/><circle cx="72" cy="69" r="4.2" fill="#EE9CC4" opacity="0.75"/><path d="M50,116 C49,121 52,124 49,129 C47,132 44,132 43,130" stroke="#8E1A52" stroke-width="2.8" stroke-linecap="round" fill="none"/></g></svg>
+            <img :src="`/logos/btravstack-${isDark ? 'dark' : 'light'}.svg`" width="32" height="32" alt="" class="btv-brand-mark" />
             <span class="btv-word btv-foot-word"><span class="btv-pink">Btrav</span><span>Stack</span></span>
           </div>
           <p class="btv-foot-tag">Type-safe building blocks for the TypeScript backend. Open source, MIT.</p>
         </div>
         <nav class="btv-foot-col" aria-label="Documentation">
           <p class="btv-foot-h">Docs</p>
-          <a v-for="p in allRepos" :key="p.name" :href="p.docs" target="_blank" rel="noopener" class="btv-link btv-link--quiet">{{ p.name }}</a>
+          <a v-for="p in documentedProjects" :key="p.name" :href="p.docs" target="_blank" rel="noopener" class="btv-link btv-link--quiet">{{ p.name }}</a>
         </nav>
         <nav class="btv-foot-col" aria-label="Source code">
           <p class="btv-foot-h">GitHub</p>
-          <a v-for="p in allRepos" :key="p.name" :href="p.repo" target="_blank" rel="noopener" class="btv-link btv-link--quiet">{{ p.name }}</a>
+          <a v-for="p in documentedProjects" :key="p.name" :href="p.repo" target="_blank" rel="noopener" class="btv-link btv-link--quiet">{{ p.name }}</a>
           <a href="https://github.com/btravstack" target="_blank" rel="noopener" class="btv-link btv-link--quiet">Organization</a>
         </nav>
       </div>
@@ -297,22 +237,14 @@ onMounted(() => {
       </div>
     </footer>
 
-    <Transition name="btv-toast">
-      <div v-if="copied" class="btv-toast" role="status" aria-live="polite">Copied&nbsp; <span class="btv-toast-cmd">{{ copied }}</span></div>
-    </Transition>
+    <div role="status" aria-live="polite" aria-atomic="true">
+      <Transition name="btv-toast"><div v-if="feedback" class="btv-toast">{{ feedback }}</div></Transition>
+    </div>
   </div>
 </template>
 
 <style scoped>
-/* Hallmark · genre: atmospheric (studied) · macrostructure: Ecosystem Index · design-system: design.md · designed-as-app
- * theme: studied-DNA (source: https://tanstack.com/) · studied: yes · DNA-source: url + screenshot
- * observed-DNA: neutral-black canvas · per-library accents · heavy grotesque display · real-stats hero · elevated panels
- * nav: N1b three-section · footer: Ft3 index (genuine hub for 5 docs sites) · hero: wordmark-led + T4 stat strip (real numbers only)
- * enrichment: H9 original gradient mascot (Tier-B, kept) — the one character moment
- * contrast: pass (40–41) · honest: pass (46 — stars live from GitHub, downloads live from npm or "—") · chrome: pass (47)
- * tokens: pass (48) · responsive: pass (49)
- * pre-emit critique: P5 H4 E4 S5 R4 V4
- */
+/* Hallmark · Ecosystem Index · Beetroot Stack · design.md · P4 H4 E4 S5 R4 V3 */
 .btv {
   min-height: 100vh;
   background: var(--bg);
@@ -323,6 +255,7 @@ onMounted(() => {
 }
 
 .btv-pink { color: var(--display-accent); }
+.btv-word .btv-pink { color: var(--text-accent); }
 
 /* ── N1b · three-section bar ──────────────────────────────────── */
 .btv-head {
@@ -373,35 +306,25 @@ onMounted(() => {
 .btv-cta--nav { padding: 8px 15px; font-size: 14px; }
 .btv-cta--big { font-size: 16px; padding: 13px 26px; }
 
-/* ── Hero — wordmark-led + stats ──────────────────────────────── */
+/* ── Hero ───────────────────────────────────────────────────── */
 .btv-hero { max-width: var(--container); margin: 0 auto; padding: 64px 24px 84px; }
 .btv-hero-grid {
   display: grid; grid-template-columns: minmax(0, 8fr) minmax(0, 4fr);
   gap: 40px; align-items: center;
 }
 .btv-title {
+  text-wrap: balance;
   margin: 0;
   font-family: var(--display); font-weight: 800;
-  font-size: var(--fs-hero); line-height: var(--lh-tight); letter-spacing: var(--tracking-hero);
+  font-size: clamp(48px, 6.3vw, 80px); line-height: var(--lh-tight); letter-spacing: var(--tracking-hero);
   overflow-wrap: anywhere; min-width: 0;
 }
-.btv-tagline { margin: 14px 0 0; font-family: var(--display); font-weight: 600; font-size: var(--fs-lead); line-height: var(--lh-snug); color: var(--text); }
-.btv-tagline-mark { color: var(--text-accent); }
 .btv-sub { margin: 16px 0 0; max-width: 58ch; font-size: var(--fs-body-lg); line-height: var(--lh-body); color: var(--muted); }
-.btv-cta-row { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 30px; }
+.btv-cta-row { display: flex; align-items: center; flex-wrap: wrap; gap: 12px; margin-top: 30px; }
 .btv-float {
   display: inline-flex; justify-self: center;
-  animation: btv-bob 6s var(--ease) infinite;
   filter: drop-shadow(0 18px 40px color-mix(in srgb, var(--accent-deep) 45%, transparent));
 }
-.btv-stats {
-  display: flex; flex-wrap: wrap; gap: 14px 56px;
-  margin-top: 52px; padding-top: 26px;
-  border-top: 1px solid var(--border);
-}
-.btv-stat { display: flex; flex-direction: column; gap: 2px; }
-.btv-stat-n { font-family: var(--display); font-weight: 800; font-size: 30px; letter-spacing: var(--tracking-tight); font-variant-numeric: tabular-nums; color: var(--text); }
-.btv-stat-l { font-size: 13px; color: var(--faint); }
 
 /* ── Sections ─────────────────────────────────────────────────── */
 .btv-section { max-width: var(--container); margin: 0 auto; padding: 64px 24px 8px; scroll-margin-top: 76px; }
@@ -414,8 +337,9 @@ onMounted(() => {
 .btv-section-lead { margin: 12px 0 0; max-width: 60ch; font-size: 16px; line-height: 1.65; color: var(--muted); }
 
 /* ── The stack — per-package accent panels ────────────────────── */
-.btv-panels { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 20px; margin-top: 34px; }
+.btv-panels { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 20px; margin-top: 34px; }
 .btv-panel {
+  grid-column: span 2;
   display: flex; flex-direction: column;
   background: var(--card); border-radius: var(--radius-lg); padding: 26px;
   min-width: 0;
@@ -427,7 +351,6 @@ onMounted(() => {
 }
 .btv-panel-top { display: flex; align-items: flex-start; justify-content: space-between; gap: 12px; }
 .btv-logo { display: block; flex: none; width: 52px; height: 52px; object-fit: contain; }
-.btv-stars { display: inline-flex; align-items: center; gap: 5px; font-family: var(--mono); font-size: 13px; font-variant-numeric: tabular-nums; color: var(--faint); }
 .btv-tag {
   margin: 16px 0 0; display: flex; align-items: center; gap: 7px;
   font-family: var(--mono); font-size: 11.5px; font-weight: 500;
@@ -444,11 +367,11 @@ onMounted(() => {
 :global(html:not(.dark)) .btv-pname { color: color-mix(in srgb, var(--pkg), #000 30%); }
 .btv-pkg { display: inline-block; margin: 5px 0 0; font-family: var(--mono); font-size: 13px; color: var(--muted); background: none; padding: 0; }
 .btv-blurb { margin: 13px 0 0; font-size: 14.5px; line-height: 1.6; color: var(--muted); }
-.btv-points { list-style: none; margin: 15px 0 0; padding: 0; display: flex; flex-direction: column; gap: 8px; }
+.btv-points { list-style: none; margin: 15px 0 24px; padding: 0; display: flex; flex-direction: column; gap: 8px; }
 .btv-points li { display: flex; align-items: flex-start; gap: 9px; font-size: 14px; line-height: 1.4; color: var(--text); }
 .btv-points svg { margin-top: 2px; flex: none; }
 .btv-codeblk {
-  margin-top: 20px; width: 100%;
+  margin-top: auto; width: 100%;
   display: flex; align-items: center; justify-content: space-between; gap: 10px;
   font-family: var(--mono); font-size: 12.5px;
   background: var(--code-bg); color: var(--text);
@@ -458,7 +381,7 @@ onMounted(() => {
 }
 .btv-codeblk:hover { background: color-mix(in srgb, var(--code-bg) 78%, var(--pkg)); }
 .btv-codeblk:active { background: color-mix(in srgb, var(--code-bg) 65%, var(--pkg)); }
-.btv-cmd { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.btv-cmd { min-width: 0; overflow-wrap: anywhere; user-select: text; }
 .btv-dollar { color: var(--text-accent); user-select: none; }
 .btv-panel-links { display: flex; align-items: center; gap: 20px; margin-top: 18px; }
 .btv-link {
@@ -519,7 +442,7 @@ onMounted(() => {
   font-size: 13px; color: var(--faint);
 }
 
-/* ── Toast (silent success) ───────────────────────────────────── */
+/* ── Clipboard feedback ──────────────────────────────────────── */
 .btv-toast {
   position: fixed; bottom: 26px; left: 50%; transform: translateX(-50%); z-index: 80;
   background: var(--card-soft); color: var(--text);
@@ -527,7 +450,6 @@ onMounted(() => {
   font-family: var(--mono); font-size: 13px; padding: 11px 16px;
   box-shadow: var(--shadow-toast);
 }
-.btv-toast-cmd { color: var(--text-accent); }
 .btv-toast-enter-active, .btv-toast-leave-active { transition: opacity var(--speed) var(--ease), transform var(--speed) var(--ease); }
 .btv-toast-enter-from, .btv-toast-leave-to { opacity: 0; transform: translate(-50%, 8px); }
 
@@ -535,10 +457,8 @@ onMounted(() => {
 
 /* ── Responsive ───────────────────────────────────────────────── */
 @media (max-width: 960px) {
-  .btv-hero-grid { grid-template-columns: minmax(0, 1fr); gap: 28px; }
-  .btv-float { order: -1; justify-self: start; }
-  .btv-float svg { width: 110px; height: 136px; }
   .btv-panels { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .btv-panel { grid-column: auto; }
   .btv-cols, .btv-ai-grid { grid-template-columns: minmax(0, 1fr); }
   .btv-foot-grid { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); }
 }
@@ -546,19 +466,70 @@ onMounted(() => {
   .btv-hero { padding: 44px 18px 64px; }
   .btv-section { padding-left: 18px; padding-right: 18px; }
   .btv-head-inner { grid-template-columns: auto 1fr; padding: 0 16px; }
-  .btv-actions { justify-self: end; }
-  .btv-stats { gap: 12px 36px; margin-top: 40px; }
   .btv-panels { grid-template-columns: minmax(0, 1fr); }
   .btv-insp { grid-template-columns: minmax(0, 1fr); }
   .btv-foot-grid { grid-template-columns: minmax(0, 1fr); }
 }
-@media (max-width: 560px) {
-  .nav-hide { display: none !important; }
-}
+
 @media (prefers-reduced-motion: reduce) {
   .btv-float { animation: none; }
   .btv-cta, .btv-toggle, .btv-panel, .btv-insp-row, .btv-codeblk { transition: none; }
   .btv-toast-enter-active, .btv-toast-leave-active { transition: opacity 0.12s var(--ease); }
   .btv-toast-enter-from, .btv-toast-leave-to { transform: translateX(-50%); }
+}
+
+.btv-skip { position: fixed; top: 8px; left: 16px; z-index: 100; padding: 10px 16px; background: var(--text); color: var(--bg); border-radius: 8px; transform: translateY(-150%); }
+.btv-skip:focus { transform: translateY(0); }
+.btv :is(a, button):focus-visible { outline: 2px solid var(--text-accent); outline-offset: 5px; }
+.btv main:focus { outline: none; }
+.btv-eyebrow { margin: 0 0 18px; color: var(--muted); font-family: var(--mono); font-size: 12px; letter-spacing: .06em; text-transform: uppercase; }
+.btv-brand-mark { flex: none; }
+.btv-hero-mark { width: 240px; height: 240px; }
+.btv-capabilities { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; margin-top: 56px; padding-top: 24px; border-top: 1px solid var(--border); }
+.btv-capabilities p { margin: 0; display: grid; gap: 5px; }
+.btv-capabilities strong { font-weight: 600; font-size: 15px; }
+.btv-capabilities span { font-size: 13px; color: var(--muted); }
+.btv-framework-section { padding-top: 0; }
+.btv-framework { display: grid; grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr); gap: 48px; padding: 36px; background: var(--card); border-radius: var(--radius-lg); }
+.btv-framework-heading { display: flex; gap: 16px; align-items: center; }
+.btv-framework-heading .btv-h2 { font-size: clamp(32px, 4vw, 46px); }
+.btv-runtime-map { align-self: center; padding: 22px; background: var(--bg); border-radius: var(--radius); }
+.btv-map-label { margin: 0 0 20px; font-family: var(--mono); font-size: 13px; color: var(--text-accent); }
+.btv-runtime-row { display: flex; justify-content: space-between; gap: 12px; margin-top: 8px; padding: 12px; background: var(--card-soft); border-radius: 6px; font-size: 13px; }
+.btv-runtime-row span:first-child { font-family: var(--mono); font-weight: 600; }
+.btv-runtime-row span:last-child { color: var(--muted); }
+.btv-map-note { margin: 16px 0 0; font-size: 12px; line-height: 1.6; color: var(--muted); }
+.btv-tooling-title { margin: 0; font-size: 18px; font-weight: 600; }
+.btv-tooling { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 24px; margin-top: 20px; }
+.btv-tool { display: flex; align-items: center; gap: 16px; text-decoration: none; padding: 20px 0; border-top: 1px solid var(--border); }
+.btv-tool img { flex: none; }
+.btv-tool > span { display: grid; gap: 5px; }
+.btv-tool strong { font-family: var(--mono); font-size: 14px; }
+.btv-tool > span > span { color: var(--muted); font-size: 13px; line-height: 1.6; }
+.btv-tool:hover strong { color: var(--text-accent); }
+.btv-panel:nth-last-child(-n+2) { grid-column: span 3; }
+.btv-toast { max-width: calc(100vw - 32px); overflow-wrap: anywhere; }
+@media (max-width: 960px) {
+  .btv-hero-grid { grid-template-columns: minmax(0, 1fr) auto; }
+  .btv-float { order: 0; }
+  .btv-hero-mark { width: 160px; height: 160px; }
+  .btv-framework { grid-template-columns: 1fr; gap: 28px; }
+  .btv-panel:nth-last-child(-n+2) { grid-column: auto; }
+  .btv-panel:last-child { grid-column: 1 / -1; }
+}
+@media (max-width: 760px) {
+  .btv-head-inner { grid-template-columns: 1fr auto; height: auto; padding-top: 10px; gap: 6px; }
+  .btv-links { grid-row: 2; grid-column: 1 / -1; justify-self: stretch; justify-content: space-between; gap: 0; padding-bottom: 6px; }
+  .btv-actions { grid-column: 2; grid-row: 1; }
+  .navlink { padding: 10px 4px; font-size: 12px; }
+  .btv-section { scroll-margin-top: 124px; }
+  .btv-hero-grid { grid-template-columns: 1fr; position: relative; }
+  .btv-float { position: absolute; right: 0; top: -8px; }
+  .btv-hero-mark { width: 64px; height: 64px; }
+  .btv-hero-copy > .btv-eyebrow { max-width: 24ch; min-height: 48px; }
+  .btv-framework { padding: 24px; }
+  .btv-capabilities { grid-template-columns: 1fr; gap: 18px; }
+  .btv-tooling { grid-template-columns: 1fr; gap: 0; }
+  .btv-panel-links { flex-wrap: wrap; }
 }
 </style>
