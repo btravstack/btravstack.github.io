@@ -147,6 +147,8 @@ export default defineConfig({
           { text: "amqp-contract", link: "https://btravstack.github.io/amqp-contract/" },
           { text: "temporal-contract", link: "https://btravstack.github.io/temporal-contract/" },
           { text: "unthrown", link: "https://btravstack.github.io/unthrown/" },
+          { text: "entity", link: "https://btravstack.github.io/btravstack/entity/" },
+          { text: "di", link: "https://btravstack.github.io/btravstack/di/" },
         ],
       },
     ],

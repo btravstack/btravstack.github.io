@@ -58,19 +58,19 @@ const projects: Project[] = [
   },
   {
     key: "entity", tag: "Domain", name: "entity", pkg: "@btravstack/entity", npm: "@btravstack/entity",
-    logo: "/logos/entity", repoFull: "btravstack/entity", stars0: 3,
+    logo: "/logos/entity", repoFull: "btravstack/btravstack", stars0: 1,
     blurb: "Domain entities declared once. One field map gives you a type, four request/response schemas, behaviour, and a class that is itself a zod schema — so entities nest inside each other without losing what makes them entities.",
     points: ["Branded fields and immutable data", "Sealed construction, enforced invariants", "Result instead of throws"],
     install: "pnpm add @btravstack/entity",
-    repo: "https://github.com/btravstack/entity", docs: "https://btravstack.github.io/entity/",
+    repo: "https://github.com/btravstack/btravstack", docs: "https://btravstack.github.io/btravstack/entity/",
   },
   {
     key: "di", tag: "Wiring", name: "di", pkg: "@btravstack/di", npm: "@btravstack/di",
-    logo: "/logos/di", repoFull: "btravstack/di", stars0: 1,
+    logo: "/logos/di", repoFull: "btravstack/btravstack", stars0: 1,
     blurb: "A module-based container. Ports are the vocabulary your application defines, providers bind them at one edge, and modules declare what they import and export — so internals stay private in a graph that is one flat map at runtime.",
     points: ["Ports named by the domain, not the adapter", "Unmet dependencies are compile errors", "Scoped resources release themselves"],
     install: "pnpm add @btravstack/di unthrown",
-    repo: "https://github.com/btravstack/di", docs: "https://btravstack.github.io/di/",
+    repo: "https://github.com/btravstack/btravstack", docs: "https://btravstack.github.io/btravstack/di/",
   },
   {
     key: "amqp", tag: "Messaging", name: "amqp-contract", pkg: "@amqp-contract/contract", npm: "@amqp-contract/contract",
@@ -90,8 +90,8 @@ const projects: Project[] = [
   },
 ];
 
-/** Every repo shown on the page — the published packages. */
-const allRepos = projects;
+/** Each repository shown by the package cards, counted once. */
+const allRepos = [...new Map(projects.map((project) => [project.repoFull, project])).values()];
 
 const stars = reactive<Record<string, number>>(
   Object.fromEntries(allRepos.map((p) => [p.repoFull, p.stars0])),
