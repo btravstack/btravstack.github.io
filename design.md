@@ -131,7 +131,7 @@ The homepage leads with the framework and its getting-started guide. The root
 URL remains the ecosystem entrance; framework documentation keeps its
 `/btravstack/` URLs. Independent libraries remain first-class destinations.
 The capability strip describes shipped behavior; the page does not fetch
-popularity counters. `di` links into the framework repository and reference.
+popularity counters. `di` and `entity` link into the framework repository and their documentation.
 
 **Status badge.** The worker beet (hard hat + shovel) is a small
 complementary *marker*, never a project logo: it appears only inside a

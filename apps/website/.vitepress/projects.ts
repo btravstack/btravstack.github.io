@@ -21,7 +21,7 @@ export const projects = [
     blurb: "Declare your domain once. Derive types and request/response schemas from a field map, with sealed construction and behavior that stays with the entity.",
     points: ["Branded fields and immutable data", "Sealed construction, enforced invariants", "Result instead of throws"],
     install: "pnpm add @btravstack/entity",
-    repo: "https://github.com/btravstack/entity", docs: "https://btravstack.github.io/entity/",
+    repo: "https://github.com/btravstack/btravstack/tree/main/packages/entity", docs: "https://btravstack.github.io/btravstack/entity/",
   },
   {
     key: "di", tag: "Wiring", name: "di", pkg: "@btravstack/di",
