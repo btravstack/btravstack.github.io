@@ -116,13 +116,15 @@ Every project keeps its original motif: unthrown's no-throw sign, entity's
 identity card, di's syringe, AMQP's envelope, and Temporal's hourglass. Entity
 peeks over the bottom of its photo, with both paws resting on the frame.
 Temporal's beet has no leaves: the pink liquid flows through the hourglass and
-forms its body below. DI likewise holds a leafless beet melting into the
-syringe's liquid, with a small separate drop below the needle. AMQP keeps a
-simple light envelope fold without extra diagonal seams.
+forms a small rounded dome at the bottom, with eyes and a smile. DI keeps
+the same small dome at the needle end, with a small separate drop below it.
+AMQP keeps a simple light envelope fold without extra diagonal seams.
 
 Tools carries a straight open-end wrench with a clearly defined jaw and grip.
-The shared theme holds a brush in one hand and a palette in the other; the
-brush has separate bristles, a metal ferrule, and a wooden handle. The umbrella
+Tools and the shared theme have floating hands with no arms. The theme holds
+a brush in one hand and the palette by its thumb hole in the other, with the
+paint arranged on the outer rim. The brush has separate bristles, a metal
+ferrule, and a wooden handle. The umbrella
 mascot is the same beet without a project prop. Do not replace the characters with
 abstract glyphs or recolor their bodies to the project's accent.
 
