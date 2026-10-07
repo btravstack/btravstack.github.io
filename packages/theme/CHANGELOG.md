@@ -1,5 +1,11 @@
 # @btravstack/theme
 
+## 2.0.1
+
+### Patch Changes
+
+- 6841563: Refresh the shared ecosystem attribution mark to match the coordinated beetroot logo family.
+
 ## 2.0.0
 
 ### Major Changes
