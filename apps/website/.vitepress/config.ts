@@ -47,7 +47,7 @@ export default defineConfig({
       "meta",
       {
         property: "og:image:alt",
-        content: "BtravStack — type-safe building blocks for the TypeScript backend",
+        content: "BtravStack — A backend that fits together. A smiling beetroot sits on three teal layers.",
       },
     ],
 
@@ -60,7 +60,7 @@ export default defineConfig({
       "meta",
       {
         name: "twitter:image:alt",
-        content: "BtravStack — type-safe building blocks for the TypeScript backend",
+        content: "BtravStack — A backend that fits together. A smiling beetroot sits on three teal layers.",
       },
     ],
 
